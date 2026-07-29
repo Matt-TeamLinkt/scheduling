@@ -1,0 +1,178 @@
+{
+  "plugins": [
+    "react",
+    "import"
+  ],
+  "rules": {
+    "react/forbid-elements": [
+      "warn",
+      {
+        "forbid": []
+      }
+    ],
+    "no-restricted-imports": [
+      "warn",
+      {
+        "patterns": [
+          {
+            "group": [
+              "ui_kits/admin/**",
+              "ui_kits/team-app/**"
+            ],
+            "message": "Import design-system components from 'index.js', not component internals."
+          }
+        ]
+      }
+    ],
+    "no-restricted-syntax": [
+      "warn",
+      {
+        "selector": "Literal[value=/#[0-9a-fA-F]{3,8}\\b/]",
+        "message": "Raw hex color — use a design-system color token via var()."
+      },
+      {
+        "selector": "Literal[value=/\\b\\d+px\\b/]",
+        "message": "Raw px value — use a design-system spacing token via var()."
+      },
+      {
+        "selector": "Literal[value=/font-family\\s*:\\s*(?!['\\\"]?(?:Be Vietnam Pro|Material Symbols Rounded))/i]",
+        "message": "Font not provided by the design system. Available: Be Vietnam Pro, Material Symbols Rounded."
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/index.js"
+      ],
+      "rules": {
+        "no-restricted-imports": "off"
+      }
+    }
+  ],
+  "x-omelette": {
+    "components": {},
+    "tokens": [
+      "--tl-bg",
+      "--tl-bg-alt",
+      "--tl-bg-alt-2",
+      "--tl-blue",
+      "--tl-blue-deep",
+      "--tl-blue-pressed",
+      "--tl-blue-soft",
+      "--tl-blue-tint",
+      "--tl-blue-tint-2",
+      "--tl-blue-tint-3",
+      "--tl-border",
+      "--tl-divider",
+      "--tl-error",
+      "--tl-fg",
+      "--tl-fg-1",
+      "--tl-fg-2",
+      "--tl-fg-3",
+      "--tl-fg-4",
+      "--tl-fg-dark",
+      "--tl-fg-inverse",
+      "--tl-fg-muted",
+      "--tl-font-icon",
+      "--tl-font-sans",
+      "--tl-fs-2xl",
+      "--tl-fs-3xl",
+      "--tl-fs-lg",
+      "--tl-fs-md",
+      "--tl-fs-sm",
+      "--tl-fs-xl",
+      "--tl-fs-xs",
+      "--tl-lh-2xl",
+      "--tl-lh-3xl",
+      "--tl-lh-lg",
+      "--tl-lh-md",
+      "--tl-lh-sm",
+      "--tl-lh-xl",
+      "--tl-lh-xs",
+      "--tl-radius-lg",
+      "--tl-radius-md",
+      "--tl-radius-pill",
+      "--tl-radius-sm",
+      "--tl-radius-xl",
+      "--tl-s-1",
+      "--tl-s-2",
+      "--tl-s-3",
+      "--tl-s-4",
+      "--tl-s-5",
+      "--tl-s-6",
+      "--tl-s-7",
+      "--tl-s-8",
+      "--tl-shadow-1",
+      "--tl-shadow-2",
+      "--tl-shadow-3",
+      "--tl-success",
+      "--tl-surface-dark",
+      "--tl-tracking",
+      "--tl-warning"
+    ],
+    "tokenKinds": {
+      "--tl-blue": "color",
+      "--tl-blue-pressed": "color",
+      "--tl-blue-deep": "color",
+      "--tl-blue-soft": "color",
+      "--tl-blue-tint": "color",
+      "--tl-blue-tint-2": "color",
+      "--tl-blue-tint-3": "color",
+      "--tl-bg": "color",
+      "--tl-bg-alt": "color",
+      "--tl-bg-alt-2": "color",
+      "--tl-fg": "color",
+      "--tl-fg-1": "color",
+      "--tl-fg-2": "color",
+      "--tl-fg-3": "color",
+      "--tl-fg-4": "color",
+      "--tl-fg-muted": "color",
+      "--tl-divider": "color",
+      "--tl-border": "color",
+      "--tl-fg-inverse": "color",
+      "--tl-fg-dark": "color",
+      "--tl-surface-dark": "color",
+      "--tl-error": "color",
+      "--tl-success": "color",
+      "--tl-warning": "color",
+      "--tl-font-sans": "font",
+      "--tl-font-icon": "font",
+      "--tl-tracking": "font",
+      "--tl-fs-xs": "spacing",
+      "--tl-lh-xs": "spacing",
+      "--tl-fs-sm": "spacing",
+      "--tl-lh-sm": "spacing",
+      "--tl-fs-md": "spacing",
+      "--tl-lh-md": "spacing",
+      "--tl-fs-lg": "spacing",
+      "--tl-lh-lg": "spacing",
+      "--tl-fs-xl": "spacing",
+      "--tl-lh-xl": "spacing",
+      "--tl-fs-2xl": "spacing",
+      "--tl-lh-2xl": "spacing",
+      "--tl-fs-3xl": "spacing",
+      "--tl-lh-3xl": "spacing",
+      "--tl-radius-sm": "radius",
+      "--tl-radius-md": "radius",
+      "--tl-radius-lg": "radius",
+      "--tl-radius-xl": "radius",
+      "--tl-radius-pill": "radius",
+      "--tl-shadow-1": "shadow",
+      "--tl-shadow-2": "shadow",
+      "--tl-shadow-3": "shadow",
+      "--tl-s-1": "spacing",
+      "--tl-s-2": "spacing",
+      "--tl-s-3": "spacing",
+      "--tl-s-4": "spacing",
+      "--tl-s-5": "spacing",
+      "--tl-s-6": "spacing",
+      "--tl-s-7": "spacing",
+      "--tl-s-8": "spacing"
+    },
+    "fontFamilies": [
+      "Be Vietnam Pro",
+      "Material Symbols Rounded"
+    ]
+  }
+}

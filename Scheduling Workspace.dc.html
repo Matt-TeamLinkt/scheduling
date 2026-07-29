@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/teamlinkt-design-system-019dd02c-0677-72b6-8f0c-56e2cc2c1ac8/colors_and_type.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..700,0..1,-50..200&display=block">
+<script src="_ds/teamlinkt-design-system-019dd02c-0677-72b6-8f0c-56e2cc2c1ac8/_ds_bundle.js"></script>
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:var(--tl-font-sans);letter-spacing:var(--tl-tracking);color:var(--tl-fg-2);background:var(--tl-bg-alt)}
+  a{color:var(--tl-blue);text-decoration:none} a:hover{color:var(--tl-blue-pressed)}
+  ::-webkit-scrollbar{width:10px;height:10px}
+  ::-webkit-scrollbar-thumb{background:var(--tl-border);border-radius:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+  @keyframes tlFade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+<div style="display:flex;flex-direction:column;height:100vh;overflow:hidden">
+
+  <div style="height:56px;flex:0 0 auto;background:#fff;border-bottom:1px solid var(--tl-divider);display:flex;align-items:center;padding:0 16px;gap:16px">
+    <div style="display:flex;align-items:center;gap:8px">
+      <div style="width:26px;height:26px;border-radius:7px;background:var(--tl-blue);display:flex;align-items:center;justify-content:center">
+        <span class="tl-icon" style="color:#fff;font-size:18px;font-variation-settings:'FILL' 1,'wght' 600">check</span>
+      </div>
+      <div style="font-weight:600;font-size:16px;color:var(--tl-fg)">TeamLinkt</div>
+      <div style="width:1px;height:20px;background:var(--tl-divider);margin:0 4px"></div>
+      <div style="font-size:14px;color:var(--tl-fg-3)">Matchup &amp; scheduling</div>
+    </div>
+    <div style="display:flex;gap:4px;background:var(--tl-bg-alt);padding:4px;border-radius:10px;margin-left:8px">
+      <button onClick="{{ goBoard }}" style="{{ navBoardStyle }}"><span class="tl-icon" style="font-size:16px;color:inherit">grid_view</span>Board</button>
+      <button onClick="{{ goSetup }}" style="{{ navSetupStyle }}"><span class="tl-icon" style="font-size:16px;color:inherit">tune</span>Setup</button>
+    </div>
+    <div style="flex:1"></div>
+    <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--tl-fg-muted)">
+      <span class="tl-icon" style="font-size:16px;color:var(--tl-success)">cloud_done</span>Auto-saved
+    </div>
+    <button onClick="{{ resetAll }}" style="border:1px solid var(--tl-divider);background:#fff;color:var(--tl-fg-3);font-size:13px;padding:7px 12px;border-radius:10px;cursor:pointer">Reset data</button>
+  </div>
+
+  <sc-if value="{{ isBoard }}" hint-placeholder-val="{{ true }}">
+  <div style="{{ boardGridStyle }}">
+
+    <!-- POOL -->
+    <div style="border-right:1px solid var(--tl-divider);background:#fff;display:flex;flex-direction:column;min-height:0">
+      <div style="padding:14px 16px;border-bottom:1px solid var(--tl-divider)">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+          <div style="font-weight:600;font-size:15px;color:var(--tl-fg)">Matchup pool</div>
+          <div style="font-size:12px;color:var(--tl-fg-muted);background:var(--tl-bg-alt);padding:3px 8px;border-radius:100px">{{ poolCount }} waiting</div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <button onClick="{{ generate }}" style="flex:1;background:var(--tl-blue);color:#fff;border:0;font-weight:500;font-size:13px;padding:9px 12px;border-radius:100px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px"><span class="tl-icon" style="font-size:16px;color:#fff">auto_awesome</span>Generate</button>
+          <button onClick="{{ clearPool }}" style="border:1px solid var(--tl-divider);background:#fff;color:var(--tl-fg-3);font-size:13px;padding:9px 12px;border-radius:100px;cursor:pointer">Clear</button>
+        </div>
+        <div style="font-size:11px;color:var(--tl-fg-muted);margin-top:8px;line-height:15px">Generates balanced candidate matchups toward your games-per-team target. Drag a card onto an open slot.</div>
+      </div>
+
+      <div style="flex:1;overflow-y:auto;padding:12px 14px;display:flex;flex-direction:column;gap:8px">
+        <sc-if value="{{ poolEmpty }}" hint-placeholder-val="{{ false }}">
+          <div style="text-align:center;color:var(--tl-fg-muted);font-size:13px;padding:32px 8px;border:1px dashed var(--tl-divider);border-radius:12px">No candidate matchups yet.<br>Click Generate, or add one below.</div>
+        </sc-if>
+        <sc-for list="{{ pool }}" as="card" hint-placeholder-count="5">
+          <div draggable="true" onDragStart="{{ card.onDragStart }}" onDragEnd="{{ onDragEnd }}" style="border:1px solid var(--tl-divider);border-radius:10px;padding:9px 11px;background:#fff;box-shadow:var(--tl-shadow-1);cursor:grab;display:flex;align-items:center;gap:9px">
+            <span class="tl-icon" style="font-size:16px;color:var(--tl-border)">drag_indicator</span>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:13px;font-weight:500;color:var(--tl-fg);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ card.label }}</div>
+              <div style="display:flex;align-items:center;gap:6px;margin-top:3px">
+                <span style="{{ card.divStyle }}">{{ card.divName }}</span>
+                <sc-if value="{{ card.hasTier }}" hint-placeholder-val="{{ true }}"><span style="{{ card.tierStyle }}">{{ card.tierName }}</span></sc-if>
+                <sc-if value="{{ card.crossZone }}" hint-placeholder-val="{{ false }}"><span class="tl-icon" title="{{ card.zoneTitle }}" style="font-size:14px;color:var(--tl-warning)">swap_horiz</span></sc-if>
+                <span style="font-size:11px;color:var(--tl-fg-muted)">{{ card.durLabel }}</span>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="border-top:1px solid var(--tl-divider);padding:12px 14px;background:var(--tl-bg-alt)">
+        <div style="font-size:12px;font-weight:600;color:var(--tl-fg-3);margin-bottom:8px">Add a one-off matchup</div>
+        <div style="display:flex;flex-direction:column;gap:7px">
+          <select name="mmDivision" value="{{ draft.mmDivision }}" onChange="{{ onDraftChange }}" style="width:100%;padding:7px 9px;border:1px solid var(--tl-border);border-radius:9px;font-size:13px;background:#fff;color:var(--tl-fg-2)">
+            <option value="">Division…</option>
+            <sc-for list="{{ divisionOptions }}" as="o" hint-placeholder-count="2"><option value="{{ o.value }}">{{ o.label }}</option></sc-for>
+          </select>
+          <div style="display:flex;gap:7px">
+            <select name="mmTeamA" value="{{ draft.mmTeamA }}" onChange="{{ onDraftChange }}" style="flex:1;min-width:0;padding:7px 9px;border:1px solid var(--tl-border);border-radius:9px;font-size:13px;background:#fff;color:var(--tl-fg-2)">
+              <option value="">Team A…</option>
+              <sc-for list="{{ mmTeamOptions }}" as="o" hint-placeholder-count="3"><option value="{{ o.value }}">{{ o.label }}</option></sc-for>
+            </select>
+            <select name="mmTeamB" value="{{ draft.mmTeamB }}" onChange="{{ onDraftChange }}" style="flex:1;min-width:0;padding:7px 9px;border:1px solid var(--tl-border);border-radius:9px;font-size:13px;background:#fff;color:var(--tl-fg-2)">
+              <option value="">Team B…</option>
+              <sc-for list="{{ mmTeamOptions }}" as="o" hint-placeholder-count="3"><option value="{{ o.value }}">{{ o.label }}</option></sc-for>
+            </select>
+          </div>
+          <button onClick="{{ addManual }}" style="background:var(--tl-blue-soft);color:var(--tl-blue);border:0;font-weight:500;font-size:13px;padding:8px;border-radius:9px;cursor:pointer">Add to pool</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- GRID -->
+    <div style="display:flex;flex-direction:column;min-height:0;min-width:0">
+      <div style="flex:0 0 auto;background:#fff;border-bottom:1px solid var(--tl-divider);padding:10px 16px;display:flex;align-items:center;gap:12px">
+        <button onClick="{{ prevDate }}" style="width:30px;height:30px;border:1px solid var(--tl-divider);background:#fff;border-radius:9px;cursor:pointer;display:flex;align-items:center;justify-content:center"><span class="tl-icon" style="font-size:18px">chevron_left</span></button>
+        <div style="min-width:170px;text-align:center">
+          <div style="font-weight:600;font-size:15px;color:var(--tl-fg)">{{ selectedDateLabel }}</div>
+          <sc-if value="{{ selectedIsBlackout }}" hint-placeholder-val="{{ false }}"><div style="font-size:11px;color:var(--tl-error);display:flex;align-items:center;justify-content:center;gap:3px;margin-top:1px"><span class="tl-icon" style="font-size:13px;color:var(--tl-error)">block</span>Blackout date</div></sc-if>
+        </div>
+        <button onClick="{{ nextDate }}" style="width:30px;height:30px;border:1px solid var(--tl-divider);background:#fff;border-radius:9px;cursor:pointer;display:flex;align-items:center;justify-content:center"><span class="tl-icon" style="font-size:18px">chevron_right</span></button>
+        <div style="flex:1"></div>
+        <div style="font-size:12px;color:var(--tl-fg-muted);white-space:nowrap">{{ placedCount }} placed</div>
+        <button onClick="{{ toggleReports }}" style="border:1px solid var(--tl-divider);background:#fff;color:var(--tl-fg-3);font-size:13px;padding:7px 11px;border-radius:10px;cursor:pointer;display:flex;align-items:center;gap:5px;white-space:nowrap"><span class="tl-icon" style="font-size:16px">bar_chart</span>Reports</button>
+      </div>
+      <div style="flex:0 0 auto;background:#fff;border-bottom:1px solid var(--tl-divider);padding:8px 16px;display:flex;gap:6px;overflow-x:auto;align-items:center">
+        <span style="font-size:11px;color:var(--tl-fg-muted);white-space:nowrap;margin-right:2px">Jump to</span>
+        <sc-for list="{{ dateChips }}" as="d" hint-placeholder-count="3">
+          <button onClick="{{ d.onClick }}" style="{{ d.style }}">{{ d.label }}</button>
+        </sc-for>
+      </div>
+
+      <div style="flex:1;overflow:auto;background:var(--tl-bg-alt);min-height:0">
+        <sc-if value="{{ noSlots }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:48px;text-align:center;color:var(--tl-fg-muted);font-size:14px">No time slots for this date. Add availability under <a href="#" onClick="{{ goSetup }}">Setup → Facilities &amp; time slots</a>.</div>
+        </sc-if>
+        <div style="display:flex;padding:16px;gap:0;min-width:min-content">
+          <!-- time gutter -->
+          <div style="{{ gutterStyle }}">
+            <sc-for list="{{ hourMarks }}" as="h" hint-placeholder-count="12">
+              <div style="{{ h.style }}">{{ h.label }}</div>
+            </sc-for>
+          </div>
+          <sc-for list="{{ facilityColumns }}" as="col" hint-placeholder-count="2">
+            <div style="width:220px;flex:0 0 auto;margin-left:10px">
+              <div style="height:34px;display:flex;align-items:center;gap:6px;padding:0 4px;font-weight:600;font-size:13px;color:var(--tl-fg)"><span class="tl-icon" style="font-size:16px;color:var(--tl-fg-muted)">stadium</span>{{ col.name }}</div>
+              <div style="{{ col.bodyStyle }}">
+                <sc-for list="{{ col.slots }}" as="slot" hint-placeholder-count="3">
+                  <div style="{{ slot.wrapStyle }}" onDragOver="{{ slot.onDragOver }}" onDragEnter="{{ slot.onDragEnter }}" onDragLeave="{{ slot.onDragLeave }}" onDrop="{{ slot.onDrop }}">
+                    <sc-if value="{{ slot.empty }}" hint-placeholder-val="{{ true }}">
+                      <div style="{{ slot.emptyStyle }}"><span style="font-size:11px;color:var(--tl-fg-muted)">{{ slot.timeLabel }}</span><span style="font-size:10px;color:var(--tl-border)">open</span></div>
+                    </sc-if>
+                    <sc-if value="{{ slot.filled }}" hint-placeholder-val="{{ false }}">
+                      <div draggable="true" onDragStart="{{ slot.mu.onDragStart }}" onDragEnd="{{ onDragEnd }}" style="{{ slot.mu.style }}">
+                        <div style="display:flex;align-items:center;justify-content:space-between;gap:4px">
+                          <div style="display:flex;align-items:center;gap:4px;min-width:0">
+                            <span style="{{ slot.mu.divStyle }}">{{ slot.mu.divName }}</span>
+                            <sc-if value="{{ slot.mu.hasTier }}" hint-placeholder-val="{{ true }}"><span style="{{ slot.mu.tierStyle }}">{{ slot.mu.tierName }}</span></sc-if>
+                            <sc-if value="{{ slot.mu.crossZone }}" hint-placeholder-val="{{ false }}"><span class="tl-icon" title="{{ slot.mu.zoneTitle }}" style="font-size:14px;color:var(--tl-warning)">swap_horiz</span></sc-if>
+                          </div>
+                          <div style="display:flex;align-items:center;gap:3px">
+                            <sc-if value="{{ slot.mu.warn }}" hint-placeholder-val="{{ false }}"><span class="tl-icon" style="font-size:15px;color:var(--tl-warning)" title="{{ slot.mu.warnText }}">warning</span></sc-if>
+                            <button onClick="{{ slot.mu.onRemove }}" style="border:0;background:transparent;cursor:pointer;padding:0;display:flex"><span class="tl-icon" style="font-size:16px;color:var(--tl-fg-muted)">close</span></button>
+                          </div>
+                        </div>
+                        <div style="font-size:12px;font-weight:600;color:var(--tl-fg);line-height:15px;margin-top:3px">{{ slot.mu.label }}</div>
+                        <div style="font-size:10px;color:var(--tl-fg-muted);margin-top:2px">{{ slot.timeLabel }} · {{ slot.mu.durLabel }}</div>
+                      </div>
+                    </sc-if>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+
+    <!-- REPORTS -->
+    <sc-if value="{{ reportsOpen }}" hint-placeholder-val="{{ true }}">
+    <div style="border-left:1px solid var(--tl-divider);background:#fff;display:flex;flex-direction:column;min-height:0">
+      <div style="padding:12px 16px;border-bottom:1px solid var(--tl-divider);display:flex;align-items:center;justify-content:space-between">
+        <div style="font-weight:600;font-size:15px;color:var(--tl-fg)">Reports</div>
+        <button onClick="{{ toggleReports }}" style="border:0;background:transparent;cursor:pointer;display:flex"><span class="tl-icon" style="font-size:18px;color:var(--tl-fg-muted)">right_panel_close</span></button>
+      </div>
+      <div style="flex:1;overflow-y:auto;padding:14px 16px;display:flex;flex-direction:column;gap:20px">
+
+        <div>
+          <div style="font-size:12px;font-weight:600;color:var(--tl-fg-3);text-transform:uppercase;letter-spacing:0.02em;margin-bottom:8px">Games per team</div>
+          <sc-for list="{{ reportDivisions }}" as="rd" hint-placeholder-count="2">
+            <div style="margin-bottom:12px">
+              <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px"><span style="{{ rd.dotStyle }}"></span><span style="font-size:12px;font-weight:600;color:var(--tl-fg)">{{ rd.name }}</span><span style="font-size:11px;color:var(--tl-fg-muted)">target {{ rd.target }}</span></div>
+              <sc-for list="{{ rd.tierGroups }}" as="tg" hint-placeholder-count="2">
+                <div style="margin:0 0 8px 2px;border-left:1px solid var(--tl-divider);padding-left:9px">
+                  <div style="font-size:11px;font-weight:600;color:var(--tl-fg-muted);letter-spacing:-.02em;padding:2px 0">{{ tg.label }}</div>
+                  <sc-for list="{{ tg.teamRows }}" as="tr" hint-placeholder-count="3">
+                    <div style="display:flex;align-items:center;gap:8px;padding:3px 0">
+                      <div style="flex:1;font-size:13px;color:var(--tl-fg-2)">{{ tr.name }}</div>
+                      <div style="flex:0 0 90px;height:6px;background:var(--tl-bg-alt);border-radius:100px;overflow:hidden"><div style="{{ tr.barStyle }}"></div></div>
+                      <div style="{{ tr.countStyle }}">{{ tr.countLabel }}</div>
+                    </div>
+                  </sc-for>
+                </div>
+              </sc-for>
+            </div>
+          </sc-for>
+        </div>
+
+        <div>
+          <div style="font-size:12px;font-weight:600;color:var(--tl-fg-3);text-transform:uppercase;letter-spacing:0.02em;margin-bottom:8px">Zone split</div>
+          <sc-if value="{{ zoneReport.empty }}" hint-placeholder-val="{{ false }}"><div style="font-size:12px;color:var(--tl-fg-muted)">No games placed yet.</div></sc-if>
+          <div style="display:flex;flex-direction:column;gap:7px">
+            <div style="display:flex;align-items:center;gap:8px">
+              <div style="flex:1;font-size:13px;color:var(--tl-fg-2)">{{ zoneReport.inLabel }}</div>
+              <div style="flex:0 0 80px;height:6px;background:var(--tl-bg-alt);border-radius:100px;overflow:hidden"><div style="{{ zoneReport.inBarStyle }}"></div></div>
+              <div style="flex:0 0 34px;text-align:right;font-size:12px;font-weight:600;color:var(--tl-success)">{{ zoneReport.inPctLabel }}</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px">
+              <div style="flex:1;font-size:13px;color:var(--tl-fg-2)">{{ zoneReport.crossLabel }}</div>
+              <div style="flex:0 0 80px;height:6px;background:var(--tl-bg-alt);border-radius:100px;overflow:hidden"><div style="{{ zoneReport.crossBarStyle }}"></div></div>
+              <div style="flex:0 0 34px;text-align:right;font-size:12px;font-weight:600;color:var(--tl-warning)">{{ zoneReport.crossPctLabel }}</div>
+            </div>
+            <sc-if value="{{ zoneReport.hasUnset }}" hint-placeholder-val="{{ false }}"><div style="font-size:11px;color:var(--tl-fg-muted);display:flex;gap:5px;align-items:center"><span class="tl-icon" style="font-size:14px">info</span>{{ zoneReport.unsetLabel }}</div></sc-if>
+          </div>
+          <div style="margin-top:10px;border:1px solid var(--tl-divider);border-radius:10px;padding:9px 11px">
+            <div style="font-size:11px;font-weight:600;color:var(--tl-fg-muted);margin-bottom:4px">In-zone games by zone</div>
+            <sc-for list="{{ zoneReport.rows }}" as="zr" hint-placeholder-count="3">
+              <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--tl-fg-2);padding:1px 0"><span>{{ zr.name }}</span><span style="font-weight:600">{{ zr.count }}</span></div>
+            </sc-for>
+            <sc-if value="{{ zoneReport.hasCross }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:11px;font-weight:600;color:var(--tl-fg-muted);margin:8px 0 4px;padding-top:8px;border-top:1px solid var(--tl-divider)">Cross-zone pairings</div>
+              <sc-for list="{{ zoneReport.crossRows }}" as="cr" hint-placeholder-count="2">
+                <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--tl-fg-2);padding:1px 0"><span>{{ cr.name }}</span><span style="font-weight:600;color:var(--tl-warning)">{{ cr.count }}</span></div>
+              </sc-for>
+            </sc-if>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size:12px;font-weight:600;color:var(--tl-fg-3);text-transform:uppercase;letter-spacing:0.02em;margin-bottom:8px">Team vs team</div>
+          <sc-for list="{{ matrices }}" as="mx" hint-placeholder-count="1">
+            <div style="margin-bottom:14px">
+              <div style="font-size:12px;font-weight:600;color:var(--tl-fg);margin-bottom:6px">{{ mx.name }}</div>
+              <div style="overflow-x:auto">
+                <table style="border-collapse:collapse;font-size:11px">
+                  <thead><tr><th style="padding:3px 5px"></th><sc-for list="{{ mx.heads }}" as="h" hint-placeholder-count="4"><th style="padding:3px 5px;color:var(--tl-fg-muted);font-weight:500;text-align:center">{{ h }}</th></sc-for></tr></thead>
+                  <tbody>
+                    <sc-for list="{{ mx.rows }}" as="row" hint-placeholder-count="4">
+                      <tr><td style="padding:3px 6px;color:var(--tl-fg-2);white-space:nowrap;font-weight:500">{{ row.name }}</td>
+                        <sc-for list="{{ row.cells }}" as="c" hint-placeholder-count="4"><td style="{{ c.style }}">{{ c.val }}</td></sc-for>
+                      </tr>
+                    </sc-for>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+
+        <div>
+          <div style="font-size:12px;font-weight:600;color:var(--tl-fg-3);text-transform:uppercase;letter-spacing:0.02em;margin-bottom:8px">Games per location</div>
+          <sc-for list="{{ locationStats }}" as="loc" hint-placeholder-count="2">
+            <div style="border:1px solid var(--tl-divider);border-radius:10px;padding:9px 11px;margin-bottom:8px">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px"><span style="font-size:13px;font-weight:600;color:var(--tl-fg)">{{ loc.name }}</span><span style="font-size:12px;color:var(--tl-blue);font-weight:600">{{ loc.total }} games</span></div>
+              <sc-for list="{{ loc.teams }}" as="t" hint-placeholder-count="3"><div style="display:flex;justify-content:space-between;font-size:12px;color:var(--tl-fg-muted);padding:1px 0"><span>{{ t.name }}</span><span>{{ t.count }}</span></div></sc-for>
+            </div>
+          </sc-for>
+        </div>
+
+        <div>
+          <div style="font-size:12px;font-weight:600;color:var(--tl-fg-3);text-transform:uppercase;letter-spacing:0.02em;margin-bottom:8px">Conflict log <span style="color:var(--tl-fg-muted);font-weight:400">({{ conflictCount }} overridden)</span></div>
+          <sc-if value="{{ noConflicts }}" hint-placeholder-val="{{ true }}"><div style="font-size:12px;color:var(--tl-fg-muted)">No overrides yet.</div></sc-if>
+          <sc-for list="{{ conflictLog }}" as="cl" hint-placeholder-count="0">
+            <div style="border-left:3px solid var(--tl-warning);background:var(--tl-bg-alt);border-radius:0 8px 8px 0;padding:7px 10px;margin-bottom:6px">
+              <div style="font-size:12px;font-weight:600;color:var(--tl-fg);text-transform:capitalize">{{ cl.type }} · {{ cl.match }}</div>
+              <div style="font-size:11px;color:var(--tl-fg-3);margin-top:2px;line-height:15px">{{ cl.detail }}</div>
+              <div style="font-size:10px;color:var(--tl-fg-muted);margin-top:2px">{{ cl.where }} · {{ cl.when }}</div>
+            </div>
+          </sc-for>
+        </div>
+
+      </div>
+    </div>
+    </sc-if>
+
+  </div>
+  </sc-if>
+
+  <!-- SETUP -->
+  <sc-if value="{{ isSetup }}" hint-placeholder-val="{{ false }}">
+  <div style="flex:1;overflow-y:auto;background:var(--tl-bg-alt)">
+    <div style="max-width:960px;margin:0 auto;padding:28px 24px 80px;display:flex;flex-direction:column;gap:20px">
+
+      <div style="{{ sectionStyle }}">
+        <div style="font-weight:600;font-size:16px;color:var(--tl-fg);margin-bottom:4px">Season &amp; rules</div>
+        <div style="font-size:13px;color:var(--tl-fg-muted);margin-bottom:16px">Bounds and constraints the generator and conflict checks respect.</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px">
+          <div><label style="{{ lblStyle }}">Season start</label><input type="date" name="seasonStart" value="{{ season.start }}" onChange="{{ onSeason }}" style="{{ inStyle }}"></div>
+          <div><label style="{{ lblStyle }}">Season end</label><input type="date" name="seasonEnd" value="{{ season.end }}" onChange="{{ onSeason }}" style="{{ inStyle }}"></div>
+          <div><label style="{{ lblStyle }}">Games per team (target)</label><input type="number" min="1" name="gamesPerTeam" value="{{ settings.gamesPerTeam }}" onChange="{{ onSetting }}" style="{{ inStyle }}"></div>
+          <div><label style="{{ lblStyle }}">Default game duration (min)</label><input type="number" min="10" step="5" name="defaultDuration" value="{{ settings.defaultDuration }}" onChange="{{ onSetting }}" style="{{ inStyle }}"></div>
+          <div style="grid-column:span 2;display:flex;align-items:flex-end">
+            <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--tl-fg-2);cursor:pointer"><input type="checkbox" name="divisionOnly" checked="{{ settings.divisionOnly }}" onChange="{{ onSetting }}" style="width:16px;height:16px;accent-color:var(--tl-blue)">Divisions only play within themselves</label>
+          </div>
+        </div>
+      </div>
+
+      <div style="{{ sectionStyle }}">
+        <div style="font-weight:600;font-size:16px;color:var(--tl-fg);margin-bottom:12px">Divisions</div>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px">
+          <sc-for list="{{ divisionList }}" as="d" hint-placeholder-count="2">
+            <div style="{{ rowStyle }}"><span style="{{ d.dotStyle }}"></span><div style="flex:1;font-size:14px;color:var(--tl-fg);font-weight:500">{{ d.name }}</div><div style="font-size:12px;color:var(--tl-fg-muted)">{{ d.meta }}</div><button onClick="{{ d.onDelete }}" style="{{ delBtnStyle }}"><span class="tl-icon" style="font-size:16px;color:var(--tl-fg-muted)">delete</span></button></div>
+          </sc-for>
+        </div>
+        <div style="display:flex;gap:8px;align-items:flex-end">
+          <div style="flex:1"><label style="{{ lblStyle }}">Division name</label><input name="divisionName" value="{{ draft.divisionName }}" onChange="{{ onDraftChange }}" placeholder="e.g. U11 A" style="{{ inStyle }}"></div>
+          <div style="width:150px"><label style="{{ lblStyle }}">Duration (min, optional)</label><input type="number" name="divisionDuration" value="{{ draft.divisionDuration }}" onChange="{{ onDraftChange }}" placeholder="default" style="{{ inStyle }}"></div>
+          <button onClick="{{ addDivision }}" style="{{ addBtnStyle }}">Add</button>
+        </div>
+      </div>
+
+      <div style="{{ sectionStyle }}">
+        <div style="font-weight:600;font-size:16px;color:var(--tl-fg);margin-bottom:4px">Tiers</div>
+        <div style="font-size:13px;color:var(--tl-fg-muted);margin-bottom:12px">Competitive levels inside every division. Generated matchups stay within the same division and tier.</div>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px">
+          <sc-for list="{{ tierList }}" as="t" hint-placeholder-count="3">
+            <div style="{{ rowStyle }}"><span style="display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:7px;background:var(--tl-blue-soft);color:var(--tl-blue);font-size:11px;font-weight:600">{{ t.indexLabel }}</span><div style="flex:1;font-size:14px;color:var(--tl-fg);font-weight:500">{{ t.name }}</div><div style="font-size:12px;color:var(--tl-fg-muted)">{{ t.meta }}</div><button onClick="{{ t.onDelete }}" style="{{ delBtnStyle }}"><span class="tl-icon" style="font-size:16px;color:var(--tl-fg-muted)">delete</span></button></div>
+          </sc-for>
+        </div>
+        <div style="display:flex;gap:8px;align-items:flex-end">
+          <div style="flex:1"><label style="{{ lblStyle }}">Tier name</label><input name="tierName" value="{{ draft.tierName }}" onChange="{{ onDraftChange }}" placeholder="e.g. Tier 4" style="{{ inStyle }}"></div>
+          <button onClick="{{ addTier }}" style="{{ addBtnStyle }}">Add</button>
+        </div>
+      </div>
+
+      <div style="{{ sectionStyle }}">
+        <div style="font-weight:600;font-size:16px;color:var(--tl-fg);margin-bottom:4px">Zones</div>
+        <div style="font-size:13px;color:var(--tl-fg-muted);margin-bottom:12px">Each team belongs to a zone. Two teams from the same zone play an in-zone game; anything else is cross-zone and gets flagged on drop.</div>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px">
+          <sc-for list="{{ zoneList }}" as="z" hint-placeholder-count="3">
+            <div style="{{ rowStyle }}"><span class="tl-icon" style="font-size:17px;color:var(--tl-fg-muted)">location_on</span><div style="flex:1;font-size:14px;color:var(--tl-fg);font-weight:500">{{ z.name }}</div><div style="font-size:12px;color:var(--tl-fg-muted)">{{ z.meta }}</div><button onClick="{{ z.onDelete }}" style="{{ delBtnStyle }}"><span class="tl-icon" style="font-size:16px;color:var(--tl-fg-muted)">delete</span></button></div>
+          </sc-for>
+        </div>
+        <div style="display:flex;gap:8px;align-items:flex-end">
+          <div style="flex:1"><label style="{{ lblStyle }}">Zone name</label><input name="zoneName" value="{{ draft.zoneName }}" onChange="{{ onDraftChange }}" placeholder="e.g. Northeast" style="{{ inStyle }}"></div>
+          <button onClick="{{ addZone }}" style="{{ addBtnStyle }}">Add</button>
+        </div>
+      </div>
+
+      <div style="{{ sectionStyle }}">
+        <div style="font-weight:600;font-size:16px;color:var(--tl-fg);margin-bottom:12px">Teams</div>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px">
+          <sc-if value="{{ noTeams }}" hint-placeholder-val="{{ false }}"><div style="font-size:13px;color:var(--tl-fg-muted)">Add a division first, then teams.</div></sc-if>
+          <sc-for list="{{ teamList }}" as="t" hint-placeholder-count="4">
+            <div style="{{ rowStyle }}"><span style="{{ t.dotStyle }}"></span><div style="flex:1;font-size:14px;color:var(--tl-fg);font-weight:500">{{ t.name }}</div><div style="display:flex;align-items:center;gap:5px"><span style="{{ t.divStyle }}">{{ t.divName }}</span><sc-if value="{{ t.hasTier }}" hint-placeholder-val="{{ true }}"><span style="{{ t.tierStyle }}">{{ t.tierName }}</span></sc-if><sc-if value="{{ t.hasZone }}" hint-placeholder-val="{{ true }}"><span style="{{ t.zoneStyle }}"><span class="tl-icon" style="font-size:11px">location_on</span>{{ t.zoneName }}</span></sc-if></div><div style="font-size:12px;color:var(--tl-fg-muted);min-width:110px;text-align:right">{{ t.homeLabel }}</div><button onClick="{{ t.onDelete }}" style="{{ delBtnStyle }}"><span class="tl-icon" style="font-size:16px;color:var(--tl-fg-muted)">delete</span></button></div>
+          </sc-for>
+        </div>
+        <div style="display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap">
+          <div style="flex:1;min-width:150px"><label style="{{ lblStyle }}">Team name</label><input name="teamName" value="{{ draft.teamName }}" onChange="{{ onDraftChange }}" placeholder="e.g. Falcons" style="{{ inStyle }}"></div>
+          <div style="width:140px"><label style="{{ lblStyle }}">Division</label><select name="teamDivision" value="{{ draft.teamDivision }}" onChange="{{ onDraftChange }}" style="{{ inStyle }}"><option value="">Select…</option><sc-for list="{{ divisionOptions }}" as="o" hint-placeholder-count="2"><option value="{{ o.value }}">{{ o.label }}</option></sc-for></select></div>
+          <div style="width:110px"><label style="{{ lblStyle }}">Tier</label><select name="teamTier" value="{{ draft.teamTier }}" onChange="{{ onDraftChange }}" style="{{ inStyle }}"><option value="">None</option><sc-for list="{{ tierOptions }}" as="o" hint-placeholder-count="3"><option value="{{ o.value }}">{{ o.label }}</option></sc-for></select></div>
+          <div style="width:120px"><label style="{{ lblStyle }}">Zone</label><select name="teamZone" value="{{ draft.teamZone }}" onChange="{{ onDraftChange }}" style="{{ inStyle }}"><option value="">None</option><sc-for list="{{ zoneOptions }}" as="o" hint-placeholder-count="3"><option value="{{ o.value }}">{{ o.label }}</option></sc-for></select></div>
+          <div style="width:150px"><label style="{{ lblStyle }}">Home facility</label><select name="teamHome" value="{{ draft.teamHome }}" onChange="{{ onDraftChange }}" style="{{ inStyle }}"><option value="">None</option><sc-for list="{{ facilityOptions }}" as="o" hint-placeholder-count="2"><option value="{{ o.value }}">{{ o.label }}</option></sc-for></select></div>
+          <button onClick="{{ addTeam }}" style="{{ addBtnStyle }}">Add</button>
+        </div>
+      </div>
+
+      <div style="{{ sectionStyle }}">
+        <div style="font-weight:600;font-size:16px;color:var(--tl-fg);margin-bottom:4px">Coaches</div>
+        <div style="font-size:13px;color:var(--tl-fg-muted);margin-bottom:12px">A coach on two teams creates a hard conflict if both are scheduled at overlapping times.</div>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px">
+          <sc-for list="{{ coachRows }}" as="c" hint-placeholder-count="3">
+            <div style="border:1px solid var(--tl-divider);border-radius:10px;padding:10px 12px">
+              <div style="display:flex;align-items:center;gap:8px">
+                <span class="tl-icon" style="font-size:18px;color:var(--tl-fg-muted)">sports</span>
+                <div style="flex:1;font-size:14px;color:var(--tl-fg);font-weight:500">{{ c.name }}</div>
+                <button onClick="{{ c.onDelete }}" style="{{ delBtnStyle }}"><span class="tl-icon" style="font-size:16px;color:var(--tl-fg-muted)">delete</span></button>
+              </div>
+              <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;align-items:center">
+                <sc-for list="{{ c.teams }}" as="tm" hint-placeholder-count="1"><span style="display:inline-flex;align-items:center;gap:4px;background:var(--tl-bg-alt);border:1px solid var(--tl-divider);border-radius:100px;padding:2px 4px 2px 10px;font-size:12px;color:var(--tl-fg-2)">{{ tm.name }}<button onClick="{{ tm.onRemove }}" style="border:0;background:transparent;cursor:pointer;padding:0;display:flex"><span class="tl-icon" style="font-size:14px;color:var(--tl-fg-muted)">close</span></button></span></sc-for>
+                <select onChange="{{ c.onAdd }}" style="padding:5px 8px;border:1px dashed var(--tl-border);border-radius:100px;font-size:12px;background:#fff;color:var(--tl-fg-muted)"><option value="">+ Assign team…</option><sc-for list="{{ c.addOptions }}" as="o" hint-placeholder-count="2"><option value="{{ o.value }}">{{ o.label }}</option></sc-for></select>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display:flex;gap:8px;align-items:flex-end">
+          <div style="flex:1"><label style="{{ lblStyle }}">Coach name</label><input name="coachName" value="{{ draft.coachName }}" onChange="{{ onDraftChange }}" placeholder="e.g. Alex Ramsey" style="{{ inStyle }}"></div>
+          <button onClick="{{ addCoach }}" style="{{ addBtnStyle }}">Add</button>
+        </div>
+      </div>
+
+      <div style="{{ sectionStyle }}">
+        <div style="font-weight:600;font-size:16px;color:var(--tl-fg);margin-bottom:12px">Facilities</div>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px">
+          <sc-for list="{{ facilityList }}" as="f" hint-placeholder-count="2">
+            <div style="{{ rowStyle }}"><span class="tl-icon" style="font-size:18px;color:var(--tl-fg-muted)">stadium</span><div style="flex:1;font-size:14px;color:var(--tl-fg);font-weight:500">{{ f.name }}</div><div style="font-size:12px;color:var(--tl-fg-muted)">{{ f.meta }}</div><button onClick="{{ f.onDelete }}" style="{{ delBtnStyle }}"><span class="tl-icon" style="font-size:16px;color:var(--tl-fg-muted)">delete</span></button></div>
+          </sc-for>
+        </div>
+        <div style="display:flex;gap:8px;align-items:flex-end">
+          <div style="flex:1"><label style="{{ lblStyle }}">Facility name</label><input name="facilityName" value="{{ draft.facilityName }}" onChange="{{ onDraftChange }}" placeholder="e.g. North Complex" style="{{ inStyle }}"></div>
+          <button onClick="{{ addFacility }}" style="{{ addBtnStyle }}">Add</button>
+        </div>
+      </div>
+
+      <div style="{{ sectionStyle }}">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px">
+          <div style="font-weight:600;font-size:16px;color:var(--tl-fg)">Availability</div>
+          <div style="font-size:12px;color:var(--tl-fg-muted)">{{ avTotalLabel }}</div>
+        </div>
+        <div style="font-size:12px;color:var(--tl-fg-muted);line-height:16px;margin:4px 0 14px">Describe when each facility is free and the slots get laid out for you. Games are dragged into these slots on the board.</div>
+
+        <div style="{{ capStyle }}"><span class="tl-icon" style="{{ capIconStyle }}">{{ capIcon }}</span><div style="font-size:13px;line-height:18px;color:var(--tl-fg-2)">{{ capText }}</div></div>
+
+        <div style="border:1px solid var(--tl-divider);background:var(--tl-blue-soft);border-radius:12px;padding:14px;margin-bottom:18px;display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap">
+            <div style="flex:1;min-width:180px"><label style="{{ lblStyle }}">Facility</label><select name="avFacility" value="{{ av.facility }}" onChange="{{ onDraftChange }}" style="{{ inStyle }}"><option value="">Select a facility…</option><sc-for list="{{ facilityOptions }}" as="o" hint-placeholder-count="2"><option value="{{ o.value }}">{{ o.label }}</option></sc-for></select></div>
+            <div><label style="{{ lblStyle }}">Pattern</label><div style="display:flex;gap:0;border:1px solid var(--tl-border);border-radius:10px;overflow:hidden;background:#fff">
+              <button onClick="{{ av.setWeekly }}" style="{{ av.weeklyStyle }}">Every week</button>
+              <button onClick="{{ av.setSingle }}" style="{{ av.singleStyle }}">One date</button>
+            </div></div>
+          </div>
+
+          <sc-if value="{{ av.weekly }}" hint-placeholder-val="{{ true }}">
+            <div>
+              <label style="{{ lblStyle }}">On these days</label>
+              <div style="display:flex;gap:6px;flex-wrap:wrap">
+                <sc-for list="{{ av.dayChips }}" as="d" hint-placeholder-count="7">
+                  <button onClick="{{ d.onClick }}" style="{{ d.style }}">{{ d.label }}</button>
+                </sc-for>
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap">
+              <div style="width:150px"><label style="{{ lblStyle }}">Starting</label><input type="date" name="avStart" value="{{ av.start }}" onChange="{{ onDraftChange }}" style="{{ inStyle }}"></div>
+              <div style="width:150px"><label style="{{ lblStyle }}">Through</label><input type="date" name="avEnd" value="{{ av.end }}" onChange="{{ onDraftChange }}" style="{{ inStyle }}"></div>
+              <div style="font-size:12px;color:var(--tl-fg-muted);padding-bottom:10px">{{ av.rangeNote }}</div>
+            </div>
+          </sc-if>
+          <sc-if value="{{ av.single }}" hint-placeholder-val="{{ false }}">
+            <div style="width:170px"><label style="{{ lblStyle }}">Date</label><input type="date" name="avDate" value="{{ av.date }}" onChange="{{ onDraftChange }}" style="{{ inStyle }}"></div>
+          </sc-if>
+
+          <div style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap">
+            <div style="width:118px"><label style="{{ lblStyle }}">Open from</label><input type="time" name="avFrom" value="{{ av.from }}" onChange="{{ onDraftChange }}" style="{{ inStyle }}"></div>
+            <div style="width:118px"><label style="{{ lblStyle }}">Until</label><input type="time" name="avTo" value="{{ av.to }}" onChange="{{ onDraftChange }}" style="{{ inStyle }}"></div>
+            <div style="width:130px"><label style="{{ lblStyle }}">Slot length</label><select name="avLen" value="{{ av.len }}" onChange="{{ onDraftChange }}" style="{{ inStyle }}"><sc-for list="{{ av.lenOptions }}" as="o" hint-placeholder-count="4"><option value="{{ o.value }}">{{ o.label }}</option></sc-for></select></div>
+            <div style="width:140px"><label style="{{ lblStyle }}">Gap between</label><select name="avGap" value="{{ av.gap }}" onChange="{{ onDraftChange }}" style="{{ inStyle }}"><sc-for list="{{ av.gapOptions }}" as="o" hint-placeholder-count="4"><option value="{{ o.value }}">{{ o.label }}</option></sc-for></select></div>
+          </div>
+
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border-top:1px solid var(--tl-divider);padding-top:12px">
+            <div style="display:flex;align-items:center;gap:7px;min-width:0">
+              <span class="tl-icon" style="{{ av.previewIconStyle }}">{{ av.previewIcon }}</span>
+              <div style="font-size:13px;color:var(--tl-fg-2);line-height:17px">{{ av.previewText }}</div>
+            </div>
+            <button onClick="{{ addAvailability }}" disabled="{{ av.disabled }}" style="{{ av.addStyle }}">{{ av.addLabel }}</button>
+          </div>
+        </div>
+
+        <sc-if value="{{ noSlotsSetup }}" hint-placeholder-val="{{ false }}"><div style="font-size:13px;color:var(--tl-fg-muted);padding:4px 0 4px">No slots yet — set a window above and they'll show up here.</div></sc-if>
+        <div style="display:flex;flex-direction:column;gap:10px;max-height:340px;overflow-y:auto">
+          <sc-for list="{{ slotGroups }}" as="g" hint-placeholder-count="3">
+            <div style="flex:none;border:1px solid var(--tl-divider);border-radius:12px;overflow:hidden">
+              <div style="display:flex;align-items:center;gap:10px;padding:9px 12px;background:var(--tl-bg-alt);border-bottom:1px solid var(--tl-divider)">
+                <div style="font-size:13px;font-weight:600;color:var(--tl-fg)">{{ g.dateLabel }}</div>
+                <div style="font-size:12px;color:var(--tl-fg-muted)">{{ g.countLabel }}</div>
+                <sc-if value="{{ g.blackout }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;gap:4px;background:rgba(243,0,13,.08);color:var(--tl-error);font-size:11px;font-weight:500;border-radius:100px;padding:2px 9px"><span class="tl-icon" style="font-size:13px">block</span>{{ g.blackoutLabel }}</span></sc-if>
+                <div style="flex:1"></div>
+                <button onClick="{{ g.onClear }}" title="{{ g.clearTitle }}" style="{{ g.clearStyle }}">{{ g.clearLabel }}</button>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:8px;padding:10px 12px">
+                <sc-for list="{{ g.rows }}" as="r" hint-placeholder-count="2">
+                  <div style="display:flex;gap:10px;align-items:flex-start">
+                    <div style="width:132px;flex:none;display:flex;align-items:center;gap:5px;font-size:12px;color:var(--tl-fg-3);font-weight:500;padding-top:4px"><span class="tl-icon" style="font-size:15px;color:var(--tl-fg-muted)">stadium</span>{{ r.facName }}</div>
+                    <div style="display:flex;flex-wrap:wrap;gap:6px;flex:1">
+                      <sc-for list="{{ r.chips }}" as="c" hint-placeholder-count="5">
+                        <span style="{{ c.style }}" title="{{ c.title }}">{{ c.label }}<button onClick="{{ c.onDelete }}" style="{{ c.btnStyle }}"><span class="tl-icon" style="font-size:14px">{{ c.icon }}</span></button></span>
+                      </sc-for>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="{{ sectionStyle }}">
+        <div style="font-weight:600;font-size:16px;color:var(--tl-fg);margin-bottom:12px">Blackout dates</div>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px">
+          <sc-if value="{{ noBlackouts }}" hint-placeholder-val="{{ false }}"><div style="font-size:13px;color:var(--tl-fg-muted)">No blackout dates.</div></sc-if>
+          <sc-for list="{{ blackoutList }}" as="b" hint-placeholder-count="1">
+            <div style="{{ rowStyle }}"><span class="tl-icon" style="font-size:16px;color:var(--tl-error)">block</span><div style="width:150px;font-size:13px;color:var(--tl-fg);font-weight:500">{{ b.dateLabel }}</div><span style="{{ b.scopeStyle }}">{{ b.scopeLabel }}</span><div style="flex:1;font-size:13px;color:var(--tl-fg-muted)">{{ b.note }}</div><button onClick="{{ b.onDelete }}" style="{{ delBtnStyle }}"><span class="tl-icon" style="font-size:16px;color:var(--tl-fg-muted)">delete</span></button></div>
+          </sc-for>
+        </div>
+        <div style="display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap">
+          <div style="width:150px"><label style="{{ lblStyle }}">Date</label><input type="date" name="blackoutDate" value="{{ draft.blackoutDate }}" onChange="{{ onDraftChange }}" style="{{ inStyle }}"></div>
+          <div style="width:220px"><label style="{{ lblStyle }}">Scope</label><select name="blackoutScope" value="{{ draft.blackoutScope }}" onChange="{{ onDraftChange }}" style="{{ inStyle }}"><sc-for list="{{ blackoutScopeOptions }}" as="o" hint-placeholder-count="2"><option value="{{ o.value }}">{{ o.label }}</option></sc-for></select></div>
+          <div style="flex:1"><label style="{{ lblStyle }}">Note (optional)</label><input name="blackoutNote" value="{{ draft.blackoutNote }}" onChange="{{ onDraftChange }}" placeholder="e.g. Holiday weekend" style="{{ inStyle }}"></div>
+          <button onClick="{{ addBlackout }}" style="{{ addBtnStyle }}">Add</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- PENDING DROP MODAL -->
+  <sc-if value="{{ hasPending }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;inset:0;background:rgba(14,18,22,.32);display:flex;align-items:center;justify-content:center;z-index:50;padding:24px">
+    <div style="background:#fff;border-radius:14px;box-shadow:var(--tl-shadow-3);max-width:440px;width:100%;overflow:hidden;animation:tlFade .15s ease-out">
+      <div style="padding:18px 20px 12px;display:flex;gap:10px;align-items:flex-start;border-bottom:1px solid var(--tl-divider)">
+        <span class="tl-icon" style="font-size:22px;color:var(--tl-warning)">warning</span>
+        <div><div style="font-weight:600;font-size:16px;color:var(--tl-fg)">Conflicts on this placement</div><div style="font-size:13px;color:var(--tl-fg-muted);margin-top:2px">{{ pendingMatch }} → {{ pendingWhere }}</div></div>
+      </div>
+      <div style="padding:14px 20px;display:flex;flex-direction:column;gap:8px">
+        <sc-for list="{{ pendingIssues }}" as="i" hint-placeholder-count="1">
+          <div style="display:flex;gap:8px;align-items:flex-start"><span class="tl-icon" style="{{ i.iconStyle }}">{{ i.icon }}</span><div style="font-size:13px;color:var(--tl-fg-2);line-height:18px">{{ i.msg }}</div></div>
+        </sc-for>
+      </div>
+      <div style="padding:12px 20px 18px;display:flex;gap:10px;justify-content:flex-end">
+        <button onClick="{{ cancelDrop }}" style="border:1px solid var(--tl-divider);background:#fff;color:var(--tl-fg-3);font-weight:500;font-size:14px;padding:9px 16px;border-radius:100px;cursor:pointer">Cancel</button>
+        <button onClick="{{ confirmDrop }}" style="border:0;background:var(--tl-warning);color:#fff;font-weight:500;font-size:14px;padding:9px 16px;border-radius:100px;cursor:pointer">Place anyway</button>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  KEY = 'tl_sched_v1';
+  PALETTE = ['rgb(36,84,255)','rgb(48,164,108)','rgb(229,159,41)','rgb(147,51,234)','rgb(6,182,212)','rgb(219,39,119)'];
+  state = {
+    loaded:false, view:'board', reportsOpen:true, draft:{}, pendingDrop:null, dragOverSlot:null,
+    season:{start:'',end:''}, settings:{divisionOnly:true, defaultDuration:60, gamesPerTeam:6},
+    divisions:[], tiers:[], zones:[], zv2:false, teams:[], coaches:[], facilities:[], slots:[], blackouts:[], pool:[], placements:[], conflictLog:[],
+    selectedDate:''
+  };
+
+  componentDidMount(){
+    let data=null;
+    try{ const raw=localStorage.getItem(this.KEY); if(raw){ data=JSON.parse(raw); this._saved=raw; } }catch(e){}
+    if(data){ this.migrate(data); const next=Object.assign({loaded:true, pendingDrop:null, dragOverSlot:null, draft:{}}, data); this.setState(next); this.writeSnap(next, {}); }
+    else { const seeded=Object.assign(this.seed(), {loaded:true}); this.setState(seeded); this.writeSnap(seeded, {}); }
+  }
+  // brings pre-tier/zone saved data up to date
+  migrate(d){
+    if(!d.tiers || !d.tiers.length) d.tiers=[{id:'tr1',name:'Tier 1'},{id:'tr2',name:'Tier 2'},{id:'tr3',name:'Tier 3'}];
+    if(!d.zones || !d.zones.length) d.zones=[{id:'z1',name:'North'},{id:'z2',name:'Central'},{id:'z3',name:'South'},{id:'z4',name:'West'},{id:'z5',name:'East'}];
+    (d.teams||[]).forEach((t,i)=>{
+      if(!t.tierId || !d.tiers.some(x=>x.id===t.tierId)) t.tierId=d.tiers[Math.floor(i/2)%d.tiers.length].id;
+      if(!d.zv2 || !t.zoneId || !d.zones.some(x=>x.id===t.zoneId)) t.zoneId=d.zones[Math.floor(i/3)%d.zones.length].id;
+    });
+    d.zv2=true;
+    (d.pool||[]).forEach(m=>{ if(m.tierId===undefined){ const t=(d.teams||[]).find(x=>x.id===m.teamAId); m.tierId=t?(t.tierId||''):''; } });
+    (d.placements||[]).forEach(p=>{ if(p.tierId===undefined){ const t=(d.teams||[]).find(x=>x.id===p.teamAId); p.tierId=t?(t.tierId||''):''; } });
+  }
+  PKEYS=['view','reportsOpen','season','settings','divisions','tiers','zones','zv2','teams','coaches','facilities','slots','blackouts','pool','placements','conflictLog','selectedDate'];
+  writeSnap(next, prev){
+    try{
+      const o={}; this.PKEYS.forEach(k=>o[k]=(next && (k in next))?next[k]:prev[k]);
+      const snap=JSON.stringify(o);
+      if(snap!==this._saved){ this._saved=snap; localStorage.setItem(this.KEY, snap); }
+    }catch(e){}
+  }
+  // persists the exact state being committed — never a lagging snapshot
+  commit(u){ this.setState(s=>{ const next=(typeof u==='function')?u(s):u; this.writeSnap(next, s); return next; }); }
+  uid(p){ this._n=(this._n||0)+1; return (p||'id')+'_'+Date.now().toString(36)+'_'+this._n; }
+
+  // ── seed ──
+  seed(){
+    const divisions=[
+      {id:'d1',name:'U11 A',duration:50,color:this.PALETTE[0]},
+      {id:'d2',name:'U13 B',duration:60,color:this.PALETTE[1]}
+    ];
+    const tiers=[{id:'tr1',name:'Tier 1'},{id:'tr2',name:'Tier 2'},{id:'tr3',name:'Tier 3'}];
+    const zones=[{id:'z1',name:'North'},{id:'z2',name:'Central'},{id:'z3',name:'South'},{id:'z4',name:'West'},{id:'z5',name:'East'}];
+    const teams=[
+      {id:'t1',name:'Falcons',divisionId:'d1',tierId:'tr1',zoneId:'z1',homeFacilityId:'f1'},
+      {id:'t2',name:'Rovers',divisionId:'d1',tierId:'tr1',zoneId:'z1',homeFacilityId:'f1'},
+      {id:'t3',name:'Comets',divisionId:'d1',tierId:'tr2',zoneId:'z2',homeFacilityId:'f2'},
+      {id:'t4',name:'Strikers',divisionId:'d1',tierId:'tr2',zoneId:'z3',homeFacilityId:''},
+      {id:'t5',name:'Titans',divisionId:'d2',tierId:'tr1',zoneId:'z3',homeFacilityId:'f2'},
+      {id:'t6',name:'Wolves',divisionId:'d2',tierId:'tr1',zoneId:'z3',homeFacilityId:''},
+      {id:'t7',name:'Rangers',divisionId:'d2',tierId:'tr2',zoneId:'z4',homeFacilityId:'f1'},
+      {id:'t8',name:'Kings',divisionId:'d2',tierId:'tr2',zoneId:'z5',homeFacilityId:'f2'}
+    ];
+    const coaches=[
+      {id:'c1',name:'Alex Ramsey',teamIds:['t1','t5']},
+      {id:'c2',name:'Sam Diaz',teamIds:['t2']},
+      {id:'c3',name:'Jordan Lee',teamIds:['t6','t8']},
+      {id:'c4',name:'Priya Nair',teamIds:['t3','t7']}
+    ];
+    const facilities=[{id:'f1',name:'North Complex'},{id:'f2',name:'Riverside Arena'}];
+    const slots=[];
+    const S=(fid,date,s,e)=>slots.push({id:this.uid('sl'),facilityId:fid,date,start:s,end:e});
+    ['2026-09-12','2026-09-19'].forEach(dt=>{
+      S('f1',dt,'09:00','10:00'); S('f1',dt,'10:00','11:00'); S('f1',dt,'11:00','12:00'); S('f1',dt,'12:00','13:00');
+      S('f2',dt,'09:00','10:00'); S('f2',dt,'10:15','11:15'); S('f2',dt,'11:30','12:30');
+    });
+    const blackouts=[{id:this.uid('b'),date:'2026-10-11',scope:'global',note:'Holiday weekend'}];
+    const settings={divisionOnly:true, defaultDuration:60, gamesPerTeam:6};
+    const pool=this.genPool(divisions,teams,coaches,settings,[],tiers);
+    return { view:'board', reportsOpen:true, draft:{}, pendingDrop:null, dragOverSlot:null,
+      season:{start:'2026-09-05',end:'2026-11-15'}, settings, divisions, tiers, zones, zv2:true, teams, coaches, facilities, slots, blackouts,
+      pool, placements:[], conflictLog:[], selectedDate:'2026-09-12' };
+  }
+
+  // ── generator ──
+  genPool(divisions,teams,coaches,settings,placements,tiers){
+    const out=[];
+    const share=(a,b)=>coaches.some(c=>c.teamIds.indexOf(a)>=0 && c.teamIds.indexOf(b)>=0);
+    const zoneOf=(id)=>{ const t=teams.find(x=>x.id===id); return t?(t.zoneId||''):''; };
+    const target=Number(settings.gamesPerTeam)||6;
+    const key=(a,b)=>[a,b].sort().join('|');
+    let groups=[];
+    if(settings.divisionOnly){
+      const map={};
+      teams.forEach(t=>{ const k=t.divisionId+'|'+(t.tierId||''); (map[k]=map[k]||[]).push(t.id); });
+      Object.keys(map).forEach(k=>{
+        const parts=k.split('|'); const d=divisions.find(x=>x.id===parts[0]); if(!d) return;
+        groups.push({div:d, tierId:parts[1]||'', ids:map[k]});
+      });
+    } else groups=[{div:null, tierId:'', ids:teams.map(t=>t.id)}];
+    groups.forEach(g=>{
+      const ids=g.ids; if(ids.length<2) return;
+      const cnt={}, pair={};
+      ids.forEach(i=>cnt[i]=0);
+      (placements||[]).forEach(p=>{
+        if(ids.indexOf(p.teamAId)>=0 && ids.indexOf(p.teamBId)>=0){
+          cnt[p.teamAId]++; cnt[p.teamBId]++; pair[key(p.teamAId,p.teamBId)]=(pair[key(p.teamAId,p.teamBId)]||0)+1;
+        }
+      });
+      let guard=0;
+      while(guard++<8000){
+        const under=ids.filter(i=>cnt[i]<target);
+        if(under.length<2) break;
+        let best=null;
+        for(let i=0;i<under.length;i++) for(let j=i+1;j<under.length;j++){
+          const a=under[i],b=under[j]; if(share(a,b)) continue;
+          const cross=(zoneOf(a)&&zoneOf(b)&&zoneOf(a)!==zoneOf(b))?150:0;
+          const score=(pair[key(a,b)]||0)*1000 + cross + (cnt[a]+cnt[b]);
+          if(!best || score<best.score) best={a,b,score};
+        }
+        if(!best) break;
+        cnt[best.a]++; cnt[best.b]++; pair[key(best.a,best.b)]=(pair[key(best.a,best.b)]||0)+1;
+        const div = g.div || divisions.find(d=>d.id===teams.find(t=>t.id===best.a).divisionId);
+        const dur = (div && div.duration) || settings.defaultDuration;
+        out.push({mid:this.uid('m'), teamAId:best.a, teamBId:best.b, divisionId:div?div.id:'', tierId:g.tierId||'', duration:Number(dur)});
+      }
+    });
+    return out;
+  }
+
+  // ── lookups ──
+  teamById(id){ return this.state.teams.find(t=>t.id===id); }
+  teamName(id){ const t=this.teamById(id); return t?t.name:'?'; }
+  divById(id){ return this.state.divisions.find(d=>d.id===id); }
+  divName(id){ const d=this.divById(id); return d?d.name:'—'; }
+  divColor(id){ const d=this.divById(id); return d?d.color:'var(--tl-fg-muted)'; }
+  facById(id){ return this.state.facilities.find(f=>f.id===id); }
+  facName(id){ const f=this.facById(id); return f?f.name:'?'; }
+  slotById(id){ return this.state.slots.find(s=>s.id===id); }
+  tierName(id){ const t=this.state.tiers.find(x=>x.id===id); return t?t.name:''; }
+  zoneName(id){ const z=this.state.zones.find(x=>x.id===id); return z?z.name:''; }
+  zoneOfTeam(id){ const t=this.teamById(id); return t?(t.zoneId||''):''; }
+  isCrossZone(m){ const a=this.zoneOfTeam(m.teamAId), b=this.zoneOfTeam(m.teamBId); return !!(a&&b&&a!==b); }
+  coachById(id){ return this.state.coaches.find(c=>c.id===id); }
+  matchLabel(m){ return this.teamName(m.teamAId)+' vs '+this.teamName(m.teamBId); }
+  minutes(t){ const p=(t||'0:0').split(':'); return (+p[0])*60+(+p[1]); }
+  coachIdsFor(tids){ const out=[]; this.state.coaches.forEach(c=>{ if(tids.some(t=>c.teamIds.indexOf(t)>=0)) out.push(c.id); }); return out; }
+  fmtDate(d){ if(!d) return '—'; const dt=new Date(d+'T00:00'); return dt.toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'}); }
+  fmtHour(m){ const h=Math.floor(m/60); const ap=h<12?'AM':'PM'; const h12=((h+11)%12)+1; return h12+' '+ap; }
+  isBlackout(date){ return this.state.blackouts.find(b=>b.date===date); }
+
+  // ── placement checks ──
+  checkPlacement(mu, slot, excludePid){
+    const issues=[];
+    const occ=this.state.placements.find(p=>p.slotId===slot.id && p.pid!==excludePid);
+    if(occ) issues.push({type:'occupied', msg:'This slot already holds '+this.matchLabel(occ)+'. Placing here will bump it back to the pool.'});
+    const bl=this.state.blackouts.find(b=>b.date===slot.date && (b.scope==='global'||b.scope===slot.facilityId||b.scope===mu.divisionId));
+    if(bl) issues.push({type:'blackout', msg:'This date is a blackout'+(bl.note?' ('+bl.note+')':'')+' — no games should be scheduled.'});
+    const slotLen=this.minutes(slot.end)-this.minutes(slot.start);
+    if(this.isCrossZone(mu)){
+      const ta=this.teamById(mu.teamAId), tb=this.teamById(mu.teamBId);
+      issues.push({type:'zone', msg:'Cross-zone game: '+ta.name+' is '+this.zoneName(ta.zoneId)+', '+tb.name+' is '+this.zoneName(tb.zoneId)+'. Expect travel for one side.'});
+    }
+    if(mu.duration>slotLen) issues.push({type:'duration', msg:'Game runs '+mu.duration+' min but the slot is only '+slotLen+' min — it will overrun.'});
+    const start=this.minutes(slot.start), end=start+mu.duration;
+    const mine=this.coachIdsFor([mu.teamAId,mu.teamBId]);
+    this.state.placements.forEach(p=>{
+      if(p.pid===excludePid) return;
+      const ps=this.slotById(p.slotId); if(!ps || ps.date!==slot.date) return;
+      const s2=this.minutes(ps.start), e2=s2+p.duration;
+      if(start<e2 && s2<end){
+        const theirs=this.coachIdsFor([p.teamAId,p.teamBId]);
+        const shared=mine.filter(c=>theirs.indexOf(c)>=0);
+        if(shared.length){
+          const names=shared.map(id=>this.coachById(id).name).join(', ');
+          issues.push({type:'coach', msg:'Coach conflict — '+names+' also coaches in '+this.matchLabel(p)+' at '+this.facName(ps.facilityId)+' ('+ps.start+'), overlapping this time.'});
+        }
+      }
+    });
+    return issues;
+  }
+
+  resolve(payload){
+    if(payload.t==='pool'){ const m=this.state.pool.find(x=>x.mid===payload.id); return m?{mu:m,excludePid:null}:{}; }
+    const p=this.state.placements.find(x=>x.pid===payload.id);
+    return p?{mu:{mid:p.mid,teamAId:p.teamAId,teamBId:p.teamBId,divisionId:p.divisionId,duration:p.duration},excludePid:p.pid}:{};
+  }
+  handleDrop(payload, slotId){
+    const slot=this.slotById(slotId); if(!slot) return;
+    const r=this.resolve(payload); if(!r.mu) return;
+    const issues=this.checkPlacement(r.mu, slot, r.excludePid);
+    if(issues.length) this.setState({pendingDrop:{payload, slotId, issues}, dragOverSlot:null});
+    else this.applyPlacement(payload, slotId, []);
+  }
+  applyPlacement(payload, slotId, overrides){
+    this.commit(s=>{
+      let pool=s.pool.slice(), placements=s.placements.slice(), log=s.conflictLog.slice();
+      let mu;
+      if(payload.t==='pool'){ const i=pool.findIndex(m=>m.mid===payload.id); if(i<0) return {pendingDrop:null}; mu=pool[i]; pool.splice(i,1); }
+      else { const i=placements.findIndex(p=>p.pid===payload.id); if(i<0) return {pendingDrop:null}; const o=placements[i]; mu={mid:o.mid,teamAId:o.teamAId,teamBId:o.teamBId,divisionId:o.divisionId,duration:o.duration}; placements.splice(i,1); }
+      const occ=placements.findIndex(p=>p.slotId===slotId);
+      if(occ>=0){ const o=placements[occ]; placements.splice(occ,1); pool.push({mid:o.mid,teamAId:o.teamAId,teamBId:o.teamBId,divisionId:o.divisionId,duration:o.duration}); }
+      const pid=this.uid('p');
+      placements.push({pid, mid:mu.mid, teamAId:mu.teamAId, teamBId:mu.teamBId, divisionId:mu.divisionId, duration:mu.duration, slotId, overrides:overrides||[]});
+      if(overrides && overrides.length){
+        const slot=this.slotById(slotId);
+        overrides.forEach(o=> log.unshift({id:this.uid('lg'), when:new Date().toLocaleString(undefined,{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}), type:o.type, detail:o.msg, match:this.matchLabel(mu), where:this.facName(slot.facilityId)+' · '+this.fmtDate(slot.date)+' '+slot.start}));
+      }
+      return {pool, placements, conflictLog:log, pendingDrop:null, dragOverSlot:null};
+    });
+  }
+  confirmDrop=()=>{ const pd=this.state.pendingDrop; if(pd) this.applyPlacement(pd.payload, pd.slotId, pd.issues); };
+  cancelDrop=()=>{ this.setState({pendingDrop:null}); };
+  removePlacement(pid){
+    this.commit(s=>{ const pl=s.placements.slice(); const i=pl.findIndex(p=>p.pid===pid); if(i<0) return {}; const p=pl[i]; pl.splice(i,1); const pool=s.pool.concat([{mid:p.mid,teamAId:p.teamAId,teamBId:p.teamBId,divisionId:p.divisionId,duration:p.duration}]); return {placements:pl, pool}; });
+  }
+
+  onDragEnd=()=>{ if(this.state.dragOverSlot) this.setState({dragOverSlot:null}); };
+
+  // ── generate / manual ──
+  generate=()=>{ this.commit(s=>({pool: this.genPool(s.divisions,s.teams,s.coaches,s.settings,s.placements,s.tiers)})); };
+  clearPool=()=>{ this.commit({pool:[]}); };
+  addManual=()=>{
+    const d=this.state.draft; const a=d.mmTeamA, b=d.mmTeamB;
+    if(!a||!b||a===b) return;
+    const ta=this.teamById(a); const div=this.divById(ta.divisionId);
+    const dur=(div&&div.duration)||this.state.settings.defaultDuration;
+    this.commit(s=>({ pool:s.pool.concat([{mid:this.uid('m'),teamAId:a,teamBId:b,divisionId:ta.divisionId,duration:Number(dur)}]), draft:Object.assign({},s.draft,{mmTeamA:'',mmTeamB:''}) }));
+  };
+
+  // ── forms ──
+  onDraftChange=(e)=>{ const t=e.target; const v=t.type==='checkbox'?t.checked:t.value; const n=t.name; this.setState(s=>({draft:Object.assign({},s.draft,{[n]:v})})); };
+  onSeason=(e)=>{ const n=e.target.name==='seasonStart'?'start':'end'; const v=e.target.value; this.commit(s=>({season:Object.assign({},s.season,{[n]:v})})); };
+  onSetting=(e)=>{ const t=e.target; const n=t.name; const v=t.type==='checkbox'?t.checked:(t.type==='number'?Number(t.value):t.value); this.commit(s=>({settings:Object.assign({},s.settings,{[n]:v})})); };
+
+  mutate(fn){
+    this.commit(s=>{
+      const d=JSON.parse(JSON.stringify({season:s.season,settings:s.settings,divisions:s.divisions,tiers:s.tiers,zones:s.zones,teams:s.teams,coaches:s.coaches,facilities:s.facilities,slots:s.slots,blackouts:s.blackouts,pool:s.pool,placements:s.placements,conflictLog:s.conflictLog,selectedDate:s.selectedDate}));
+      fn(d); this.normalize(d); return d;
+    });
+  }
+  normalize(d){
+    const did=new Set(d.divisions.map(x=>x.id));
+    d.teams=d.teams.filter(t=>did.has(t.divisionId));
+    const fid=new Set(d.facilities.map(f=>f.id));
+    d.teams.forEach(t=>{ if(t.homeFacilityId && !fid.has(t.homeFacilityId)) t.homeFacilityId=''; });
+    const tid=new Set(d.teams.map(t=>t.id));
+    const trid=new Set((d.tiers||[]).map(t=>t.id));
+    const zid=new Set((d.zones||[]).map(z=>z.id));
+    d.teams.forEach(t=>{ if(t.tierId && !trid.has(t.tierId)) t.tierId=''; if(t.zoneId && !zid.has(t.zoneId)) t.zoneId=''; });
+    d.coaches.forEach(c=>c.teamIds=c.teamIds.filter(i=>tid.has(i)));
+    d.slots=d.slots.filter(s=>fid.has(s.facilityId));
+    const sid=new Set(d.slots.map(s=>s.id));
+    d.pool=d.pool.filter(m=>tid.has(m.teamAId)&&tid.has(m.teamBId));
+    d.placements=d.placements.filter(p=>tid.has(p.teamAId)&&tid.has(p.teamBId)&&sid.has(p.slotId));
+    if(d.slots.length && !d.slots.some(s=>s.date===d.selectedDate)){ d.selectedDate=[...new Set(d.slots.map(s=>s.date))].sort()[0]; }
+  }
+  clearDraft(keys){ this.setState(s=>{ const dr=Object.assign({},s.draft); keys.forEach(k=>dr[k]=''); return {draft:dr}; }); }
+
+  addDivision=()=>{ const d=this.state.draft; const name=(d.divisionName||'').trim(); if(!name) return; const dur=d.divisionDuration?Number(d.divisionDuration):null; const color=this.PALETTE[this.state.divisions.length%this.PALETTE.length]; this.mutate(x=>x.divisions.push({id:this.uid('d'),name,duration:dur,color})); this.clearDraft(['divisionName','divisionDuration']); };
+  addTeam=()=>{ const d=this.state.draft; const name=(d.teamName||'').trim(); if(!name||!d.teamDivision) return; this.mutate(x=>x.teams.push({id:this.uid('t'),name,divisionId:d.teamDivision,tierId:d.teamTier||'',zoneId:d.teamZone||'',homeFacilityId:d.teamHome||''})); this.clearDraft(['teamName']); };
+  addTier=()=>{ const d=this.state.draft; const name=(d.tierName||'').trim(); if(!name) return; this.mutate(x=>x.tiers.push({id:this.uid('tr'),name})); this.clearDraft(['tierName']); };
+  addZone=()=>{ const d=this.state.draft; const name=(d.zoneName||'').trim(); if(!name) return; this.mutate(x=>x.zones.push({id:this.uid('z'),name})); this.clearDraft(['zoneName']); };
+  addCoach=()=>{ const d=this.state.draft; const name=(d.coachName||'').trim(); if(!name) return; this.mutate(x=>x.coaches.push({id:this.uid('c'),name,teamIds:[]})); this.clearDraft(['coachName']); };
+  addFacility=()=>{ const d=this.state.draft; const name=(d.facilityName||'').trim(); if(!name) return; this.mutate(x=>x.facilities.push({id:this.uid('f'),name})); this.clearDraft(['facilityName']); };
+  DOW=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  isoDate(dt){ const m=String(dt.getMonth()+1).padStart(2,'0'), d=String(dt.getDate()).padStart(2,'0'); return dt.getFullYear()+'-'+m+'-'+d; }
+  hhmm(m){ return String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0'); }
+  avSpec(){
+    const s=this.state, d=s.draft;
+    return {
+      facility: d.avFacility!==undefined ? d.avFacility : ((s.facilities[0]&&s.facilities[0].id)||''),
+      mode: d.avMode||'weekly',
+      days: Array.isArray(d.avDays)?d.avDays:[6],
+      from: d.avFrom||'09:00', to: d.avTo||'17:00',
+      len: Number(d.avLen||60), gap: Number(d.avGap||0),
+      start: d.avStart||s.season.start||'', end: d.avEnd||s.season.end||'',
+      date: d.avDate||s.season.start||''
+    };
+  }
+  avDates(a){
+    if(a.mode==='single') return a.date?[a.date]:[];
+    const out=[]; if(!a.start||!a.end||!a.days.length) return out;
+    const cur=new Date(a.start+'T00:00'), end=new Date(a.end+'T00:00'); let guard=0;
+    while(cur<=end && guard++<800){ if(a.days.indexOf(cur.getDay())>=0) out.push(this.isoDate(cur)); cur.setDate(cur.getDate()+1); }
+    return out;
+  }
+  avBuild(){
+    const a=this.avSpec(), out=[]; let skipped=0, dupes=0; const usedDates={};
+    const span=this.minutes(a.to)-this.minutes(a.from);
+    if(!a.facility || !a.len || span<a.len) return {slots:out, skipped, dupes, dates:0, spec:a, badWindow:span<a.len};
+    this.avDates(a).forEach(dt=>{
+      const bl=this.state.blackouts.find(b=>b.date===dt && (b.scope==='global'||b.scope===a.facility));
+      if(bl){ skipped++; return; }
+      for(let t=this.minutes(a.from); t+a.len<=this.minutes(a.to); t+=(a.len+a.gap)){
+        const st=this.hhmm(t);
+        if(this.state.slots.some(x=>x.facilityId===a.facility && x.date===dt && x.start===st)){ dupes++; continue; }
+        out.push({facilityId:a.facility, date:dt, start:st, end:this.hhmm(t+a.len)}); usedDates[dt]=1;
+      }
+    });
+    return {slots:out, skipped, dupes, dates:Object.keys(usedDates).length, spec:a, badWindow:false};
+  }
+  addAvailability=()=>{ const b=this.avBuild(); if(!b.slots.length) return; this.mutate(x=>{ b.slots.forEach(o=>x.slots.push(Object.assign({id:this.uid('sl')},o))); }); };
+  toggleAvDay=(i)=>{ this.setState(s=>{ const days=(Array.isArray(s.draft.avDays)?s.draft.avDays:[6]).slice(); const k=days.indexOf(i); if(k>=0) days.splice(k,1); else days.push(i); return {draft:Object.assign({},s.draft,{avDays:days})}; }); };
+  setAvMode=(m)=>{ this.setState(s=>({draft:Object.assign({},s.draft,{avMode:m})})); };
+  delSlot(id){ this.mutate(x=>{ x.slots=x.slots.filter(z=>z.id!==id); }); }
+  addBlackout=()=>{ const d=this.state.draft; if(!d.blackoutDate) return; this.mutate(x=>x.blackouts.push({id:this.uid('b'),date:d.blackoutDate,scope:d.blackoutScope||'global',note:(d.blackoutNote||'').trim()})); this.clearDraft(['blackoutNote']); };
+
+  delById(coll,id){ this.mutate(x=>{ x[coll]=x[coll].filter(o=>o.id!==id); }); }
+
+  resetAll=()=>{ if(typeof window!=='undefined' && !window.confirm('Reset all data back to the sample league? This clears your entries.')) return; this.commit(Object.assign(this.seed(),{loaded:true})); };
+
+  goBoard=()=>this.commit({view:'board'});
+  goSetup=(e)=>{ if(e&&e.preventDefault)e.preventDefault(); this.commit({view:'setup'}); };
+  toggleReports=()=>this.commit(s=>({reportsOpen:!s.reportsOpen}));
+  navStyle(active){ return 'display:flex;align-items:center;gap:5px;border:0;cursor:pointer;font-size:13px;font-weight:500;padding:6px 12px;border-radius:8px;'+(active?'background:#fff;color:var(--tl-blue);box-shadow:var(--tl-shadow-1)':'background:transparent;color:var(--tl-fg-3)'); }
+  tierChip(){ return 'display:inline-flex;align-items:center;background:var(--tl-bg-alt);border:1px solid var(--tl-divider);color:var(--tl-fg-3);font-size:10px;font-weight:600;padding:1px 7px;border-radius:100px;letter-spacing:-.02em;white-space:nowrap'; }
+  zoneChip(){ return 'display:inline-flex;align-items:center;gap:3px;background:#fff;border:1px solid var(--tl-border);color:var(--tl-fg-3);font-size:10px;font-weight:500;padding:1px 7px;border-radius:100px;letter-spacing:-.02em;white-space:nowrap'; }
+  zoneTitle(m){ const a=this.zoneOfTeam(m.teamAId), b=this.zoneOfTeam(m.teamBId); return this.isCrossZone(m)?('Cross-zone: '+this.zoneName(a)+' vs '+this.zoneName(b)):(a?('In-zone: '+this.zoneName(a)):'No zone set'); }
+  divBadge(id,small){ return 'display:inline-flex;align-items:center;background:'+this.divColor(id)+'1f;color:'+this.divColor(id)+';font-size:'+(small?'10':'11')+'px;font-weight:600;padding:1px 7px;border-radius:100px;white-space:nowrap'; }
+
+  renderVals(){
+    const s=this.state;
+    const draftDefaults={facilityName:'',divisionName:'',divisionDuration:'',teamName:'',teamDivision:'',teamTier:'',teamZone:'',teamHome:'',coachName:'',tierName:'',zoneName:'',slotFacility:'',slotDate:'',slotStart:'',slotEnd:'',blackoutDate:'',blackoutScope:'global',blackoutNote:'',mmDivision:'',mmTeamA:'',mmTeamB:''};
+    const draft=Object.assign({}, draftDefaults, s.draft);
+
+    // shared style tokens
+    const inStyle='width:100%;padding:8px 10px;border:1px solid var(--tl-border);border-radius:10px;font-size:14px;color:var(--tl-fg-2);background:#fff';
+    const lblStyle='display:block;font-size:12px;font-weight:500;color:var(--tl-fg-muted);margin-bottom:4px';
+    const sectionStyle='background:#fff;border:1px solid var(--tl-divider);border-radius:12px;padding:20px;box-shadow:var(--tl-shadow-1)';
+    const rowStyle='display:flex;align-items:center;gap:10px;border:1px solid var(--tl-divider);border-radius:10px;padding:8px 12px';
+    const delBtnStyle='border:0;background:transparent;cursor:pointer;padding:2px;display:flex;border-radius:6px';
+    const addBtnStyle='background:var(--tl-blue);color:#fff;border:0;font-weight:500;font-size:14px;padding:9px 18px;border-radius:100px;cursor:pointer;white-space:nowrap';
+    const addBtnGhostStyle='background:var(--tl-blue-soft);color:var(--tl-blue);border:0;font-weight:500;font-size:13px;padding:9px 12px;border-radius:100px;cursor:pointer;white-space:nowrap';
+
+    // ── board: dates ──
+    const allDates=[...new Set(s.slots.map(x=>x.date))].sort();
+    const sd=s.selectedDate || allDates[0] || '';
+    const dateChips=allDates.map(d=>({
+      label:this.fmtDate(d),
+      onClick:()=>this.commit({selectedDate:d}),
+      style:'border:1px solid '+(d===sd?'var(--tl-blue)':'var(--tl-divider)')+';background:'+(d===sd?'var(--tl-blue-soft)':'#fff')+';color:'+(d===sd?'var(--tl-blue)':'var(--tl-fg-3)')+';font-size:12px;font-weight:500;padding:5px 10px;border-radius:100px;cursor:pointer;white-space:nowrap'+(this.isBlackout(d)?';text-decoration:line-through':'')
+    }));
+    const dateIdx=allDates.indexOf(sd);
+    const prevDate=()=>{ if(dateIdx>0) this.commit({selectedDate:allDates[dateIdx-1]}); };
+    const nextDate=()=>{ if(dateIdx>=0 && dateIdx<allDates.length-1) this.commit({selectedDate:allDates[dateIdx+1]}); };
+
+    // ── board: grid ──
+    const dateSlots=s.slots.filter(x=>x.date===sd);
+    let mn=8*60, mx=20*60;
+    if(dateSlots.length){ mn=Math.min.apply(null,dateSlots.map(x=>this.minutes(x.start))); mx=Math.max.apply(null,dateSlots.map(x=>this.minutes(x.end))); }
+    const dayStart=Math.floor(mn/60)*60, dayEnd=Math.max(Math.ceil(mx/60)*60, dayStart+120);
+    const ppm=1.15; const gridHeight=(dayEnd-dayStart)*ppm; const rowH=60*ppm;
+    const hourMarks=[];
+    for(let h=dayStart;h<=dayEnd;h+=60){ hourMarks.push({label:this.fmtHour(h), style:'position:absolute;top:'+((h-dayStart)*ppm-7)+'px;right:6px;font-size:11px;color:var(--tl-fg-muted)'}); }
+    const gutterStyle='position:relative;width:46px;flex:0 0 auto;height:'+(gridHeight+40)+'px;padding-top:40px';
+    const colBody='position:relative;height:'+gridHeight+'px;border:1px solid var(--tl-divider);border-radius:10px;background:#fff;background-image:repeating-linear-gradient(to bottom, transparent 0, transparent '+(rowH-1)+'px, var(--tl-divider) '+(rowH-1)+'px, var(--tl-divider) '+rowH+'px)';
+
+    const facilityColumns=s.facilities.map(f=>{
+      const fslots=dateSlots.filter(x=>x.facilityId===f.id).sort((a,b)=>this.minutes(a.start)-this.minutes(b.start));
+      return { name:f.name, bodyStyle:colBody, slots: fslots.map(slot=>{
+        const top=(this.minutes(slot.start)-dayStart)*ppm;
+        const slotLen=this.minutes(slot.end)-this.minutes(slot.start);
+        const h=Math.max(slotLen*ppm-5, 30);
+        const p=s.placements.find(pl=>pl.slotId===slot.id);
+        const active=s.dragOverSlot===slot.id;
+        const vm={
+          id:slot.id, timeLabel:slot.start+'–'+slot.end,
+          wrapStyle:'position:absolute;left:5px;right:5px;top:'+top+'px;height:'+h+'px',
+          empty:!p, filled:!!p,
+          onDragOver:(e)=>{ e.preventDefault(); e.dataTransfer.dropEffect='move'; },
+          onDragEnter:(e)=>{ e.preventDefault(); if(s.dragOverSlot!==slot.id) this.setState({dragOverSlot:slot.id}); },
+          onDragLeave:()=>{ if(s.dragOverSlot===slot.id) this.setState({dragOverSlot:null}); },
+          onDrop:(e)=>{ e.preventDefault(); let pl; try{pl=JSON.parse(e.dataTransfer.getData('text/plain'));}catch(_){return;} this.handleDrop(pl,slot.id); },
+          emptyStyle:'height:100%;border:1.5px dashed '+(active?'var(--tl-blue)':'var(--tl-border)')+';background:'+(active?'var(--tl-blue-soft)':'transparent')+';border-radius:8px;display:flex;flex-direction:column;justify-content:space-between;padding:4px 7px'
+        };
+        if(p){
+          const warn=p.overrides && p.overrides.length>0;
+          vm.mu={
+            label:this.matchLabel(p), divName:this.divName(p.divisionId), durLabel:p.duration+' min',
+            hasTier:!!this.tierName(p.tierId), tierName:this.tierName(p.tierId), tierStyle:this.tierChip(),
+            crossZone:this.isCrossZone(p), zoneTitle:this.zoneTitle(p),
+            divStyle:this.divBadge(p.divisionId,true), warn, warnText:(warn?p.overrides.map(o=>o.msg).join(' '):''),
+            onDragStart:(e)=>{ e.dataTransfer.setData('text/plain',JSON.stringify({t:'placement',id:p.pid})); e.dataTransfer.effectAllowed='move'; },
+            onRemove:()=>this.removePlacement(p.pid),
+            style:'height:100%;border:1px solid '+(warn?'var(--tl-warning)':'var(--tl-divider)')+';border-left:3px solid '+this.divColor(p.divisionId)+';background:#fff;box-shadow:var(--tl-shadow-1);border-radius:8px;padding:5px 7px;cursor:grab;overflow:hidden'
+          };
+        }
+        return vm;
+      })};
+    });
+
+    // ── pool ──
+    const pool=s.pool.slice().sort((a,b)=>String(a.divisionId+'|'+(a.tierId||'')).localeCompare(String(b.divisionId+'|'+(b.tierId||'')))).map(m=>({
+      label:this.matchLabel(m), divName:this.divName(m.divisionId), durLabel:m.duration+' min',
+      divStyle:this.divBadge(m.divisionId,false),
+      hasTier:!!this.tierName(m.tierId), tierName:this.tierName(m.tierId), tierStyle:this.tierChip(),
+      crossZone:this.isCrossZone(m), zoneTitle:this.zoneTitle(m),
+      onDragStart:(e)=>{ e.dataTransfer.setData('text/plain',JSON.stringify({t:'pool',id:m.mid})); e.dataTransfer.effectAllowed='move'; }
+    }));
+
+    // ── manual matchup team options ──
+    const mmTeams = draft.mmDivision ? s.teams.filter(t=>t.divisionId===draft.mmDivision) : s.teams;
+    const mmTeamOptions=mmTeams.map(t=>({value:t.id,label:t.name+' · '+this.divName(t.divisionId)+(this.tierName(t.tierId)?' · '+this.tierName(t.tierId):'')}));
+
+    // ── option lists ──
+    const divisionOptions=s.divisions.map(d=>({value:d.id,label:d.name}));
+    const facilityOptions=s.facilities.map(f=>({value:f.id,label:f.name}));
+    const tierOptions=(s.tiers||[]).map(t=>({value:t.id,label:t.name}));
+    const zoneOptions=(s.zones||[]).map(z=>({value:z.id,label:z.name}));
+    const tierList=(s.tiers||[]).map((t,i)=>({ name:t.name, meta:s.teams.filter(x=>x.tierId===t.id).length+' teams', indexLabel:String(i+1), onDelete:()=>this.delById('tiers',t.id) }));
+    const zoneList=(s.zones||[]).map(z=>({ name:z.name, meta:s.teams.filter(x=>x.zoneId===z.id).length+' teams', onDelete:()=>this.delById('zones',z.id) }));
+
+    // ── reports: games per team ──
+    const teamGames=(tid)=>s.placements.filter(p=>p.teamAId===tid||p.teamBId===tid).length;
+    const target=Number(s.settings.gamesPerTeam)||6;
+    const tierBuckets=(list)=>{
+      const groups=[];
+      (s.tiers||[]).forEach(tr=>{ const g=list.filter(t=>(t.tierId||'')===tr.id); if(g.length) groups.push({label:tr.name, teams:g}); });
+      const none=list.filter(t=>!t.tierId || !(s.tiers||[]).some(tr=>tr.id===t.tierId));
+      if(none.length) groups.push({label:'No tier', teams:none});
+      return groups;
+    };
+    const reportDivisions=s.divisions.map(d=>{
+      const dteams=s.teams.filter(t=>t.divisionId===d.id).sort((a,b)=>a.name.localeCompare(b.name));
+      return { name:d.name, target, dotStyle:'width:9px;height:9px;border-radius:3px;background:'+d.color,
+        tierGroups:tierBuckets(dteams).map(g=>({ label:g.label, teamRows:g.teams.map(t=>{
+          const c=teamGames(t.id); const pct=Math.min(100, Math.round(c/target*100));
+          const status=c<target?'under':(c>target?'over':'ok');
+          const col=status==='ok'?'var(--tl-success)':(status==='over'?'var(--tl-error)':'var(--tl-warning)');
+          return { name:t.name, countLabel:c+' / '+target,
+            barStyle:'height:100%;width:'+pct+'%;background:'+col+';border-radius:100px',
+            countStyle:'flex:0 0 46px;text-align:right;font-size:12px;font-weight:600;color:'+(status==='ok'?'var(--tl-fg-muted)':col) };
+        }) })) };
+    });
+
+    // ── reports: matrices ──
+    const pairCount=(a,b)=>s.placements.filter(p=>(p.teamAId===a&&p.teamBId===b)||(p.teamAId===b&&p.teamBId===a)).length;
+    const matrices=[];
+    s.divisions.forEach(d=>{
+      const dteams=s.teams.filter(t=>t.divisionId===d.id).sort((a,b)=>a.name.localeCompare(b.name));
+      const initials=(n)=>n.slice(0,3);
+      tierBuckets(dteams).forEach(g=>{
+        const gt=g.teams;
+        if(!gt.length) return;
+        matrices.push({ name:d.name+' · '+g.label, heads:gt.map(t=>initials(t.name)),
+          rows:gt.map(t=>({ name:t.name, cells:gt.map(o=>{
+            if(o.id===t.id) return {val:'·', style:'padding:3px 5px;text-align:center;color:var(--tl-border);background:var(--tl-bg-alt)'};
+            const c=pairCount(t.id,o.id);
+            return {val:c||'', style:'padding:3px 5px;text-align:center;color:'+(c?'var(--tl-fg)':'var(--tl-divider)')+';font-weight:'+(c?'600':'400')+';border:1px solid var(--tl-divider)'};
+          }) })) });
+      });
+    });
+
+    // ── reports: zone split ──
+    let inZoneCount=0, crossZoneCount=0, unsetZoneCount=0; const perZone={}, crossPairs={};
+    s.placements.forEach(p=>{
+      const a=this.zoneOfTeam(p.teamAId), b=this.zoneOfTeam(p.teamBId);
+      if(!a||!b){ unsetZoneCount++; return; }
+      if(a===b){ inZoneCount++; perZone[a]=(perZone[a]||0)+1; }
+      else { crossZoneCount++; const k=[this.zoneName(a),this.zoneName(b)].sort().join(' ↔ '); crossPairs[k]=(crossPairs[k]||0)+1; }
+    });
+    const zoneTotal=inZoneCount+crossZoneCount+unsetZoneCount;
+    const zonePct=(n)=>zoneTotal?Math.round(n/zoneTotal*100):0;
+    const zoneReport={
+      total:zoneTotal, empty:zoneTotal===0,
+      inLabel:inZoneCount+' in-zone', crossLabel:crossZoneCount+' cross-zone',
+      inPctLabel:zonePct(inZoneCount)+'%', crossPctLabel:zonePct(crossZoneCount)+'%',
+      inBarStyle:'height:100%;width:'+zonePct(inZoneCount)+'%;background:var(--tl-success);border-radius:100px',
+      crossBarStyle:'height:100%;width:'+zonePct(crossZoneCount)+'%;background:var(--tl-warning);border-radius:100px',
+      hasUnset:unsetZoneCount>0, unsetLabel:unsetZoneCount+' games have a team with no zone set',
+      rows:(s.zones||[]).map(z=>({ name:z.name, count:perZone[z.id]||0 })),
+      crossRows:Object.keys(crossPairs).sort().map(k=>({ name:k, count:crossPairs[k] })),
+      hasCross:crossZoneCount>0
+    };
+
+    // ── reports: locations ──
+    const locationStats=s.facilities.map(f=>{
+      const fp=s.placements.filter(p=>{ const sl=this.slotById(p.slotId); return sl && sl.facilityId===f.id; });
+      const per={};
+      fp.forEach(p=>{ [p.teamAId,p.teamBId].forEach(t=>{ per[t]=(per[t]||0)+1; }); });
+      const teams=Object.keys(per).map(t=>({name:this.teamName(t),count:per[t]})).sort((a,b)=>b.count-a.count);
+      return { name:f.name, total:fp.length, teams };
+    });
+
+    const conflictLog=s.conflictLog.map(c=>({type:c.type,match:c.match,detail:c.detail,where:c.where,when:c.when}));
+
+    // ── setup lists ──
+    const divisionList=s.divisions.map(d=>({ name:d.name, meta:(d.duration?d.duration+' min · ':'default dur · ')+s.teams.filter(t=>t.divisionId===d.id).length+' teams', dotStyle:'width:10px;height:10px;border-radius:3px;background:'+d.color, onDelete:()=>this.delById('divisions',d.id) }));
+    const teamList=s.teams.map(t=>({ name:t.name, divName:this.divName(t.divisionId), divStyle:this.divBadge(t.divisionId,false),
+      hasTier:!!this.tierName(t.tierId), tierName:this.tierName(t.tierId), tierStyle:this.tierChip(),
+      hasZone:!!this.zoneName(t.zoneId), zoneName:this.zoneName(t.zoneId), zoneStyle:this.zoneChip(),
+      homeLabel:t.homeFacilityId?('Home: '+this.facName(t.homeFacilityId)):'', dotStyle:'width:8px;height:8px;border-radius:50%;background:'+this.divColor(t.divisionId), onDelete:()=>this.delById('teams',t.id) }));
+    const coachRows=s.coaches.map(c=>({ name:c.name,
+      teams:c.teamIds.map(tid=>({ name:this.teamName(tid), onRemove:()=>this.mutate(x=>{ const cc=x.coaches.find(z=>z.id===c.id); if(cc) cc.teamIds=cc.teamIds.filter(i=>i!==tid); }) })),
+      addOptions:s.teams.filter(t=>c.teamIds.indexOf(t.id)<0).map(t=>({value:t.id,label:t.name+' · '+this.divName(t.divisionId)})),
+      onAdd:(e)=>{ const v=e.target.value; if(!v) return; this.mutate(x=>{ const cc=x.coaches.find(z=>z.id===c.id); if(cc && cc.teamIds.indexOf(v)<0) cc.teamIds.push(v); }); },
+      onDelete:()=>this.delById('coaches',c.id) }));
+    const facilityList=s.facilities.map(f=>({ name:f.name, meta:s.slots.filter(x=>x.facilityId===f.id).length+' slots', onDelete:()=>this.delById('facilities',f.id) }));
+    // ── availability builder ──
+    const spec=this.avSpec(), build=this.avBuild();
+    const chip=(on)=>'border:1px solid '+(on?'var(--tl-blue)':'var(--tl-border)')+';background:'+(on?'var(--tl-blue)':'#fff')+';color:'+(on?'#fff':'var(--tl-fg-3)')+';font-size:12px;font-weight:500;letter-spacing:-.02em;padding:7px 11px;border-radius:100px;cursor:pointer;font-family:inherit';
+    const seg=(on)=>'border:0;background:'+(on?'var(--tl-blue-soft)':'#fff')+';color:'+(on?'var(--tl-blue)':'var(--tl-fg-muted)')+';font-size:12px;font-weight:'+(on?'600':'500')+';letter-spacing:-.02em;padding:9px 14px;cursor:pointer;font-family:inherit';
+    const dayCount=this.avDates(spec).length;
+    let previewText, previewIcon='event_available', pIconColor='var(--tl-blue)';
+    if(!spec.facility){ previewText='Pick a facility to see what this creates.'; previewIcon='info'; pIconColor='var(--tl-fg-muted)'; }
+    else if(build.badWindow){ previewText='The window is shorter than one slot — widen it or shorten the slot length.'; previewIcon='error'; pIconColor='var(--tl-error)'; }
+    else if(!build.slots.length && build.dupes){ previewText='These slots already exist — nothing new to add.'; previewIcon='check_circle'; pIconColor='var(--tl-success)'; }
+    else if(!build.slots.length){ previewText=spec.mode==='weekly'?'No dates match — choose at least one day inside the date range.':'Choose a date.'; previewIcon='info'; pIconColor='var(--tl-fg-muted)'; }
+    else {
+      const per=Math.round(build.slots.length/Math.max(build.dates,1));
+      previewText=build.slots.length+' slots · '+per+' per day across '+build.dates+(build.dates===1?' date':' dates')
+        + (build.skipped?' · skips '+build.skipped+' blackout '+(build.skipped===1?'date':'dates'):'')
+        + (build.dupes?' · '+build.dupes+' already exist':'');
+    }
+    const av={
+      facility:spec.facility, from:spec.from, to:spec.to, len:String(spec.len), gap:String(spec.gap),
+      start:spec.start, end:spec.end, date:spec.date,
+      weekly:spec.mode==='weekly', single:spec.mode==='single',
+      setWeekly:()=>this.setAvMode('weekly'), setSingle:()=>this.setAvMode('single'),
+      weeklyStyle:seg(spec.mode==='weekly'), singleStyle:seg(spec.mode==='single'),
+      dayChips:this.DOW.map((n,i)=>({ label:n, onClick:()=>this.toggleAvDay(i), style:chip(spec.days.indexOf(i)>=0) })),
+      rangeNote: spec.mode==='weekly' ? (dayCount?dayCount+(dayCount===1?' matching date':' matching dates'):'no matching dates') : '',
+      lenOptions:[45,50,60,75,90,120].map(v=>({value:String(v),label:v+' min'})),
+      gapOptions:[0,5,10,15,30].map(v=>({value:String(v),label:v?v+' min':'None'})),
+      previewText, previewIcon, previewIconStyle:'font-size:18px;color:'+pIconColor,
+      disabled:!build.slots.length,
+      addLabel:build.slots.length?('Add '+build.slots.length+' slots'):'Add slots',
+      addStyle:'border:0;border-radius:100px;padding:10px 18px;font-size:13px;font-weight:500;letter-spacing:-.02em;font-family:inherit;background:'+(build.slots.length?'var(--tl-blue)':'var(--tl-border)')+';color:#fff;cursor:'+(build.slots.length?'pointer':'not-allowed')
+    };
+
+    // ── availability list, grouped by date ──
+    const totalHours=s.slots.reduce((n,x)=>n+(this.minutes(x.end)-this.minutes(x.start)),0)/60;
+    const avTotalLabel=s.slots.length?(s.slots.length+' slots · '+(Math.round(totalHours*10)/10)+' hours'):'';
+    const gamesNeeded=Math.round(s.teams.length*(s.settings.gamesPerTeam||0)/2);
+    const openSlots=s.slots.length-s.placements.length;
+    let capText, capIcon='check_circle', capTone='var(--tl-success)';
+    if(!s.slots.length){ capText='No availability yet. Add a window below and slots appear on the board.'; capIcon='info'; capTone='var(--tl-fg-muted)'; }
+    else if(s.slots.length<gamesNeeded){ capText='Short on room: '+gamesNeeded+' games needed for '+s.teams.length+' teams, but only '+s.slots.length+' slots exist. Add about '+(gamesNeeded-s.slots.length)+' more.'; capIcon='warning'; capTone='var(--tl-warning)'; }
+    else { capText='Enough room: '+s.slots.length+' slots for the '+gamesNeeded+' games your target needs — '+openSlots+' still open.'; }
+    const capStyle='display:flex;gap:9px;align-items:flex-start;padding:11px 13px;border-radius:12px;margin-bottom:16px;border:1px solid var(--tl-divider);background:var(--tl-bg-alt)';
+    const capIconStyle='font-size:19px;color:'+capTone;
+
+    const byDate={}; s.slots.forEach(sl=>{ (byDate[sl.date]=byDate[sl.date]||[]).push(sl); });
+    const slotGroups=Object.keys(byDate).sort().map(dt=>{
+      const list=byDate[dt], bl=this.isBlackout(dt);
+      const freeIds=list.filter(sl=>!s.placements.some(p=>p.slotId===sl.id)).map(sl=>sl.id);
+      const facs={}; list.forEach(sl=>{ (facs[sl.facilityId]=facs[sl.facilityId]||[]).push(sl); });
+      return {
+        dateLabel:this.fmtDate(dt),
+        countLabel:list.length+(list.length===1?' slot':' slots')+(list.length-freeIds.length?' · '+(list.length-freeIds.length)+' booked':''),
+        blackout:!!bl, blackoutLabel: bl?('Blackout'+(bl.note?' · '+bl.note:'')):'',
+        clearLabel: freeIds.length?'Remove open slots':'All booked',
+        clearTitle: freeIds.length?('Removes the '+freeIds.length+' unbooked slots on this date'):'Remove the games first',
+        clearStyle:'border:1px solid var(--tl-divider);background:#fff;border-radius:100px;padding:5px 11px;font-size:11px;font-family:inherit;letter-spacing:-.02em;color:'+(freeIds.length?'var(--tl-fg-3)':'var(--tl-border)')+';cursor:'+(freeIds.length?'pointer':'default'),
+        onClear: freeIds.length?(()=>this.mutate(x=>{ x.slots=x.slots.filter(z=>freeIds.indexOf(z.id)<0); })):(()=>{}),
+        rows: Object.keys(facs).map(fid=>({
+          facName:this.facName(fid),
+          chips: facs[fid].slice().sort((a,b)=>this.minutes(a.start)-this.minutes(b.start)).map(sl=>{
+            const used=s.placements.some(p=>p.slotId===sl.id);
+            return {
+              label:sl.start+'–'+sl.end, icon:used?'lock':'close',
+              title:used?'Booked — remove the game on the board first':'Remove this slot',
+              style:'display:inline-flex;align-items:center;gap:3px;font-size:12px;letter-spacing:-.02em;padding:3px 4px 3px 9px;border-radius:100px;border:1px solid '+(used?'transparent':'var(--tl-divider)')+';background:'+(used?'var(--tl-blue-soft)':'#fff')+';color:'+(used?'var(--tl-blue)':'var(--tl-fg-2)'),
+              btnStyle:'border:0;background:transparent;padding:0;display:flex;cursor:'+(used?'default':'pointer')+';color:'+(used?'var(--tl-blue)':'var(--tl-fg-muted)')+';opacity:'+(used?'.6':'1'),
+              onDelete: used?(()=>{}):(()=>this.delSlot(sl.id))
+            };
+          })
+        }))
+      };
+    });
+    const scopeLabel=(sc)=>sc==='global'?'All facilities':(this.facById(sc)?'Facility · '+this.facName(sc):(this.divById(sc)?'Division · '+this.divName(sc):sc));
+    const blackoutList=s.blackouts.map(b=>({ dateLabel:this.fmtDate(b.date), scopeLabel:scopeLabel(b.scope), scopeStyle:'background:var(--tl-bg-alt);color:var(--tl-fg-3);font-size:11px;font-weight:500;padding:2px 8px;border-radius:100px', note:b.note||'', onDelete:()=>this.delById('blackouts',b.id) }));
+    const blackoutScopeOptions=[{value:'global',label:'All facilities (global)'}].concat(s.facilities.map(f=>({value:f.id,label:'Facility · '+f.name}))).concat(s.divisions.map(d=>({value:d.id,label:'Division · '+d.name})));
+
+    // ── pending modal ──
+    const pd=s.pendingDrop;
+    let pendingIssues=[], pendingMatch='', pendingWhere='';
+    if(pd){
+      const r=this.resolve(pd.payload); const slot=this.slotById(pd.slotId);
+      if(r.mu){ pendingMatch=this.matchLabel(r.mu); }
+      if(slot){ pendingWhere=this.facName(slot.facilityId)+' · '+this.fmtDate(slot.date)+' '+slot.start; }
+      const icons={coach:'group',blackout:'block',duration:'timelapse',occupied:'layers',zone:'swap_horiz'};
+      pendingIssues=pd.issues.map(i=>({ msg:i.msg, icon:icons[i.type]||'warning', iconStyle:'font-size:18px;color:'+(i.type==='coach'||i.type==='blackout'?'var(--tl-error)':'var(--tl-warning)')+';font-family:var(--tl-font-icon)' }));
+    }
+
+    return {
+      isBoard:s.view==='board', isSetup:s.view==='setup', reportsOpen:s.reportsOpen,
+      navBoardStyle:this.navStyle(s.view==='board'), navSetupStyle:this.navStyle(s.view==='setup'),
+      goBoard:this.goBoard, goSetup:this.goSetup, toggleReports:this.toggleReports, resetAll:this.resetAll,
+      boardGridStyle:'flex:1;display:grid;grid-template-columns:300px minmax(0,1fr) '+(s.reportsOpen?'336px':'0px')+';min-height:0;overflow:hidden',
+
+      // pool
+      pool, poolCount:s.pool.length, poolEmpty:s.pool.length===0,
+      generate:this.generate, clearPool:this.clearPool, addManual:this.addManual, onDragEnd:this.onDragEnd,
+      draft, onDraftChange:this.onDraftChange,
+      divisionOptions, facilityOptions, tierOptions, zoneOptions, mmTeamOptions,
+
+      // grid
+      selectedDateLabel:this.fmtDate(sd), selectedIsBlackout:!!this.isBlackout(sd),
+      dateChips, prevDate, nextDate, placedCount:s.placements.length,
+      noSlots:dateSlots.length===0, facilityColumns, hourMarks, gutterStyle,
+
+      // reports
+      reportDivisions, matrices, locationStats,
+      conflictLog, conflictCount:s.conflictLog.length, noConflicts:s.conflictLog.length===0,
+
+      // setup
+      season:s.season, settings:s.settings, onSeason:this.onSeason, onSetting:this.onSetting,
+      sectionStyle, inStyle, lblStyle, rowStyle, delBtnStyle, addBtnStyle, addBtnGhostStyle,
+      divisionList, teamList, coachRows, facilityList, slotGroups, blackoutList, blackoutScopeOptions,
+      tierList, zoneList, addTier:this.addTier, addZone:this.addZone, zoneReport,
+      av, avTotalLabel, capText, capIcon, capStyle, capIconStyle, addAvailability:this.addAvailability,
+      noTeams:s.divisions.length===0, noSlotsSetup:s.slots.length===0, noBlackouts:s.blackouts.length===0,
+      addDivision:this.addDivision, addTeam:this.addTeam, addCoach:this.addCoach, addFacility:this.addFacility,
+      addBlackout:this.addBlackout,
+
+      // modal
+      hasPending:!!pd, pendingIssues, pendingMatch, pendingWhere,
+      confirmDrop:this.confirmDrop, cancelDrop:this.cancelDrop
+    };
+  }
+}
+</script>
+</body>
+</html>
