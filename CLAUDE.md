@@ -7,18 +7,14 @@ Primary user: the league scheduler. Then coaches, parents/players, and later ref
 
 ## Current state (as of Phase 0, 2026-10-14)
 - The repo is a **design prototype**, not an app yet. See `docs/AUDIT.md` for the full audit and `docs/ROADMAP.md` for the plan (awaiting approval).
-- `Scheduling Workspace.dc.html`: a single-file Claude Design "dc" prototype. All logic is in the `Component` class in the `<script data-dc-script>` block. State is in `localStorage` key `tl_sched_v1`.
-- `support.js`: generated dc runtime. **Do not edit.** It loads React 18.3.1 and Babel from unpkg at runtime.
-- `colors_and_type.css`, `_ds_bundle.js`, `*.ttf`, `README.md`: TeamLinkt design system. `README.md` is the **brand and voice guide**: sentence case, no emoji, `--tl-*` tokens, Be Vietnam Pro, Material Symbols Rounded. Follow it for all UI.
+- `prototype/Scheduling Workspace.dc.html`: a single-file Claude Design "dc" prototype, kept as the UX reference. All logic is in the `Component` class in the `<script data-dc-script>` block. State is in `localStorage` key `tl_sched_v1`.
+- `prototype/support.js`: generated dc runtime. **Do not edit.** It loads React 18.3.1 and Babel from unpkg at runtime.
+- `design-system/`: TeamLinkt design system (tokens in `colors_and_type.css`, fonts in `fonts/`). `design-system/README.md` is the **brand and voice guide**: sentence case, no emoji, `--tl-*` tokens, Be Vietnam Pro, Material Symbols Rounded. Follow it for all UI.
 - No backend, build, package manifest, or tests exist yet.
 
 ## Running the prototype
-The HTML expects the design-system files under `_ds/teamlinkt-design-system-019dd02c-0677-72b6-8f0c-56e2cc2c1ac8/`, with fonts in a `fonts/` subfolder. As committed they sit at the repo root, so the page loads unstyled. To run it, assemble that layout in a scratch directory:
 ```sh
-D=_ds/teamlinkt-design-system-019dd02c-0677-72b6-8f0c-56e2cc2c1ac8
-mkdir -p /tmp/site/$D/fonts && cp "Scheduling Workspace.dc.html" support.js /tmp/site/ \
-  && cp colors_and_type.css _ds_bundle.js /tmp/site/$D/ && cp *.ttf /tmp/site/$D/fonts/
-cd /tmp/site && python3 -m http.server 8000   # open /Scheduling%20Workspace.dc.html
+python3 -m http.server 8000   # from the repo root; open http://localhost:8000/prototype/Scheduling%20Workspace.dc.html
 ```
 It needs unpkg.com reachable. In the cloud sandbox unpkg is blocked; get React with `npm pack react@18.3.1 react-dom@18.3.1 @babel/standalone@7.29.0` and serve it through Playwright `page.route`. Chromium is at `/opt/pw-browsers`. Don't run `playwright install`.
 

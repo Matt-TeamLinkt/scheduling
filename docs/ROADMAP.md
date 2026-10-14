@@ -1,6 +1,11 @@
 # Roadmap
 
-Status: **proposed, waiting for approval** (Phase 0 complete). Adjusted from the original brief after the [audit](AUDIT.md).
+Status: **approved 2026-10-14**, Phase 1 in progress. Adjusted from the original brief after the [audit](AUDIT.md).
+
+## Decisions
+- **2026-10-14 · Standalone product.** We own the data model for leagues, teams, people and facilities. No dependency on another platform's registration data. CSV import is the on-ramp.
+- **2026-10-14 · Engine = Python + OR-Tools CP-SAT** ("best long-term and cheapest"). OR-Tools is free (Apache 2.0). A server is required anyway for publishing, iCal and notifications, so a Python engine adds no hosting cost. It is the only option that can explain infeasible schedules properly.
+- **Hosting plan (cheapest that scales):** one container (FastAPI serves the API and the built web app) on a small instance, plus managed Postgres. Solves run in a background worker in the same container until volume justifies splitting it out.
 
 What changed from the brief: the existing code is a single-file browser prototype with no backend or tests, so Phase 1 has to include **standing up the real app skeleton**. The prototype's best UX pieces get ported in Phase 3 rather than rebuilt from scratch.
 
