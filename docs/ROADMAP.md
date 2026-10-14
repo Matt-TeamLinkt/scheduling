@@ -1,0 +1,44 @@
+# Roadmap
+
+Status: **proposed, waiting for approval** (Phase 0 complete). Adjusted from the original brief after the [audit](AUDIT.md).
+
+What changed from the brief: the existing code is a single-file browser prototype with no backend or tests, so Phase 1 has to include **standing up the real app skeleton**. The prototype's best UX pieces get ported in Phase 3 rather than rebuilt from scratch.
+
+## Proposed stack (needs your OK)
+
+- **Engine:** Python 3.12 with OR-Tools CP-SAT, as a pure library with no web code inside. Tested with pytest and fixtures.
+- **API:** FastAPI wrapping the engine. Solves run as background jobs with progress reporting.
+- **DB:** Postgres in production, SQLite for local development and tests, through SQLAlchemy and Alembic.
+- **Web:** React + TypeScript + Vite, using the TeamLinkt design tokens (`colors_and_type.css`) as-is.
+- **Layout:** `engine/`, `api/`, `web/`, `fixtures/`, `prototype/` (the current dc file, kept as UX reference), `docs/`.
+
+## Phase 1 · Foundation
+1. Move the prototype to `prototype/` and fix its asset paths so it opens locally.
+2. Scaffold `engine/`, `api/`, `web/` with lint, type checking, test runners, and CI.
+3. **Data model:** organization → league → season → divisions → teams; coaches and families (people ↔ teams); venues → surfaces (sport preset, size, splittable, lights); time slots on a surface (length, split unit, cost); blackouts scoped to league, division, team, or venue/surface; rules with league defaults plus division and team overrides; events (game, practice, tournament, one-off) with draft/published state.
+4. **Fixtures:** `small_8` (one division, 2 venues), `league_40` (4 divisions × 10, shared venues, half-ice), `nightmare` (tight facility time, many shared coaches, siblings across divisions, blackouts). Each fixture has a generator script and a frozen JSON snapshot.
+5. **One validator:** `validate(schedule, league) -> [Violation]` for every hard constraint, with plain-language messages. One test per constraint proves it catches a violation. The UI and the engine will both use it.
+6. **Forgiving CSV/Excel import** for teams, coaches, and slots: preview, fuzzy column matching, and per-row problems flagged rather than a failed import.
+
+## Phase 2 · Engine
+1. CP-SAT model for all 7 hard constraints. Every fixture run must produce zero validator violations, enforced by tests.
+2. Soft constraints, set through a **priority ranking** (drag to reorder "what matters most"). The ranking maps to weights internally.
+3. **Explanations:** when the model is infeasible, find the minimal set of conflicting rules and turn it into actions, e.g. "Adding one more Saturday slot at North Arena would resolve 6 of the 8 conflicts" (found by trying a short list of candidate relaxations).
+4. **Fairness report** after every run: home/away, early/late slot share, games per team, rest gaps, repeat opponents, with outliers flagged.
+5. Locking plus partial regeneration (by division, date range, or "everything not locked").
+6. **Quality tracking:** `make bench` runs every fixture and appends metrics (solve time, violations, fairness scores) to `bench/history.csv`. Regressions fail CI.
+
+## Phase 3 · Scheduler experience
+Port the prototype's board, availability builder, capacity check, conflict modal, and reports. Add: season calendar plus views by team, venue, and division; drag-and-drop with live validator checks; draft vs published; undo/redo for every action; save and clone a season template.
+
+## Phase 4 · Families and coaches
+Mobile-first public schedule pages with no login, per-team iCal feeds, change notifications only to affected teams (built from the publish diff), and coach conflict or change requests.
+
+## Phase 5 · Season reality
+Rainout/closure handling with ranked makeup suggestions (least disruption first), practices from the shared pool ("2 per week, 1 on a weekday"), crossover games, and playoff brackets seeded from standings.
+
+## Phase 6 · Extras
+Referee and official assignment, facility cost tracking, multi-league organizations, a public API.
+
+## First increment after approval (small, about 1 to 2 sessions)
+Phase 1 steps 1, 2, 3 and 5: skeleton, data model, and the hard-constraint validator with tests. No solver or UI yet. This gives every later step a safety net.
