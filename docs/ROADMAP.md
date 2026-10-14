@@ -51,4 +51,6 @@ Referee and official assignment, facility cost tracking, multi-league organizati
 - [x] Phase 1.3 Data model (`engine/src/scheduling_engine/model.py`).
 - [x] Phase 1.4 Fixtures `small_8`, `league_40`, `nightmare` (feasibility of `nightmare` confirmed in Phase 2).
 - [x] Phase 1.5 Hard-constraint checker plus setup checks, with one test group per constraint.
-- [ ] Phase 1.6 Forgiving CSV/Excel import.
+- [x] Phase 1.6 Forgiving CSV/Excel import for teams (with coach columns), coaches and time slots (`engine/src/scheduling_engine/importer/`). Families/siblings import comes with rosters in Phase 4.
+
+**Phase 1 complete.** Next: Phase 2, the CP-SAT solver.

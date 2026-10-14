@@ -676,14 +676,18 @@
    "name": "Fatima Wilson",
    "team_ids": [
     "t-u11-01"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-02",
    "name": "Emma Diaz",
    "team_ids": [
     "t-u11-03"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-03",
@@ -691,21 +695,27 @@
    "team_ids": [
     "t-u11-04",
     "t-u11-09"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-04",
    "name": "Robin Okafor",
    "team_ids": [
     "t-u11-05"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-05",
    "name": "Omar Singh",
    "team_ids": [
     "t-u11-06"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-06",
@@ -713,28 +723,36 @@
    "team_ids": [
     "t-u11-07",
     "t-u15-03"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-07",
    "name": "Sam Murphy",
    "team_ids": [
     "t-u11-08"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-08",
    "name": "Casey Diaz",
    "team_ids": [
     "t-u11-10"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-09",
    "name": "Dana Gagnon",
    "team_ids": [
     "t-u13-01"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-10",
@@ -742,119 +760,153 @@
    "team_ids": [
     "t-u13-02",
     "t-u15-08"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-11",
    "name": "Priya Kowalski",
    "team_ids": [
     "t-u13-03"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-12",
    "name": "Theo Rossi",
    "team_ids": [
     "t-u13-05"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-13",
    "name": "Jamie Singh",
    "team_ids": [
     "t-u13-06"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-14",
    "name": "Ethan Okafor",
    "team_ids": [
     "t-u13-07"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-15",
    "name": "Yusuf Schmidt",
    "team_ids": [
     "t-u13-08"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-16",
    "name": "Emma Ivanova",
    "team_ids": [
     "t-u13-09"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-17",
    "name": "Morgan Fraser",
    "team_ids": [
     "t-u13-10"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-18",
    "name": "Priya Brown",
    "team_ids": [
     "t-u15-01"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-19",
    "name": "Ethan Campbell",
    "team_ids": [
     "t-u15-02"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-20",
    "name": "Mei Nguyen",
    "team_ids": [
     "t-u15-04"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-21",
    "name": "Riley MacLeod",
    "team_ids": [
     "t-u15-05"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-22",
    "name": "Avery Murphy",
    "team_ids": [
     "t-u15-06"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-23",
    "name": "Aisha Lopez",
    "team_ids": [
     "t-u15-07"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-24",
    "name": "Liam Bouchard",
    "team_ids": [
     "t-u15-09"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-25",
    "name": "Avery Ivanova",
    "team_ids": [
     "t-u15-10"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-26",
    "name": "Maya Tremblay",
    "team_ids": [
     "t-u15-12"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-27",
@@ -862,28 +914,36 @@
    "team_ids": [
     "t-u9-01",
     "t-u13-04"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-28",
    "name": "Emma Lee",
    "team_ids": [
     "t-u9-02"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-29",
    "name": "Avery Wilson",
    "team_ids": [
     "t-u9-03"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-30",
    "name": "Robin Gagnon",
    "team_ids": [
     "t-u9-04"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-31",
@@ -891,21 +951,27 @@
    "team_ids": [
     "t-u9-05",
     "t-u11-02"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-32",
    "name": "Taylor Bouchard",
    "team_ids": [
     "t-u9-06"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-33",
    "name": "Ines MacLeod",
    "team_ids": [
     "t-u9-07"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-34",
@@ -913,7 +979,9 @@
    "team_ids": [
     "t-u9-08",
     "t-u15-11"
-   ]
+   ],
+   "email": null,
+   "phone": null
   }
  ],
  "families": [

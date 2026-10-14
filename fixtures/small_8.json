@@ -158,49 +158,63 @@
    "team_ids": [
     "t-01",
     "t-05"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-02",
    "name": "Lucas Okafor",
    "team_ids": [
     "t-02"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-03",
    "name": "Dana Lopez",
    "team_ids": [
     "t-03"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-04",
    "name": "Jordan Lee",
    "team_ids": [
     "t-04"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-05",
    "name": "Casey Nguyen",
    "team_ids": [
     "t-06"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-06",
    "name": "Yusuf Tremblay",
    "team_ids": [
     "t-07"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-07",
    "name": "Zoe Ali",
    "team_ids": [
     "t-08"
-   ]
+   ],
+   "email": null,
+   "phone": null
   }
  ],
  "families": [

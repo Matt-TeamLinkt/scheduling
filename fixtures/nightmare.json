@@ -677,7 +677,9 @@
    "team_ids": [
     "t-u11-01",
     "t-u15-07"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-02",
@@ -685,7 +687,9 @@
    "team_ids": [
     "t-u11-02",
     "t-u11-09"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-03",
@@ -693,7 +697,9 @@
    "team_ids": [
     "t-u11-03",
     "t-u9-08"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-04",
@@ -701,7 +707,9 @@
    "team_ids": [
     "t-u11-04",
     "t-u9-05"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-05",
@@ -709,7 +717,9 @@
    "team_ids": [
     "t-u11-05",
     "t-u13-06"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-06",
@@ -717,7 +727,9 @@
    "team_ids": [
     "t-u11-06",
     "t-u13-05"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-07",
@@ -725,7 +737,9 @@
    "team_ids": [
     "t-u11-07",
     "t-u11-10"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-08",
@@ -733,21 +747,27 @@
    "team_ids": [
     "t-u11-08",
     "t-u15-09"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-09",
    "name": "Ravi Martin",
    "team_ids": [
     "t-u13-01"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-10",
    "name": "Ben Singh",
    "team_ids": [
     "t-u13-03"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-11",
@@ -755,7 +775,9 @@
    "team_ids": [
     "t-u13-04",
     "t-u13-08"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-12",
@@ -763,21 +785,27 @@
    "team_ids": [
     "t-u13-07",
     "t-u15-11"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-13",
    "name": "Hannah Lopez",
    "team_ids": [
     "t-u13-09"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-14",
    "name": "Ben Roy",
    "team_ids": [
     "t-u13-10"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-15",
@@ -785,14 +813,18 @@
    "team_ids": [
     "t-u15-01",
     "t-u15-10"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-16",
    "name": "Lucas Patel",
    "team_ids": [
     "t-u15-03"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-17",
@@ -800,14 +832,18 @@
    "team_ids": [
     "t-u15-04",
     "t-u9-07"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-18",
    "name": "Yusuf Bouchard",
    "team_ids": [
     "t-u15-05"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-19",
@@ -815,28 +851,36 @@
    "team_ids": [
     "t-u15-06",
     "t-u9-04"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-20",
    "name": "Ravi Rossi",
    "team_ids": [
     "t-u15-08"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-21",
    "name": "Avery Rossi",
    "team_ids": [
     "t-u15-12"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-22",
    "name": "Robin Chen",
    "team_ids": [
     "t-u9-01"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-23",
@@ -845,7 +889,9 @@
     "t-u9-02",
     "t-u13-02",
     "t-u15-02"
-   ]
+   ],
+   "email": null,
+   "phone": null
   },
   {
    "id": "c-24",
@@ -853,7 +899,9 @@
    "team_ids": [
     "t-u9-03",
     "t-u9-06"
-   ]
+   ],
+   "email": null,
+   "phone": null
   }
  ],
  "families": [

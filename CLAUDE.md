@@ -35,6 +35,13 @@ CI (`.github/workflows/engine.yml`) runs the same four checks.
 - Setup problems (bad references, overlapping slots, tiny divisions) come from `check_setup`. It's forgiving: it returns problems and never raises.
 - Fixtures are deterministic (seeded). `test_snapshot_matches_generator` fails if the JSON is stale.
 
+## Importer conventions (`scheduling_engine/importer/`)
+- Always two steps: `preview_teams / preview_coaches / preview_slots(league, data, filename)` returns an `ImportPreview` (summary, column matches, per-row problems); `apply_import(league, preview)` returns a **new** League. Nothing changes until apply.
+- Never raise on bad input. Every problem is a `Problem` with the spreadsheet row number and a level: `skipped` (row left out), `check` (imported, worth a look) or `note` (FYI).
+- Never silently merge a near-miss name ("U13s" vs "U13", "Nrth Arena"). Create it and flag it with "Did you mean…".
+- Coach names are de-duplicated by `values.key()` across rows and files; that's how shared coaches are found.
+- New messy real-world cases go in `engine/tests/data/` with a test.
+
 ## Running the prototype
 ```sh
 python3 -m http.server 8000   # from the repo root; open http://localhost:8000/prototype/Scheduling%20Workspace.dc.html

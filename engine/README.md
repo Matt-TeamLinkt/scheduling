@@ -12,4 +12,5 @@ uv run python -m scheduling_engine.fixtures ../fixtures   # regenerate fixture s
 - `model.py`: league, rules (league defaults → division → team overrides), facilities, events.
 - `validate.py`: `validate(league, events)` returns every hard-constraint violation, in plain language. The solver's tests and the drag-and-drop UI both use it.
 - `setup_check.py`: `check_setup(league)` returns problems with the setup itself (bad references, overlapping slots, tiny divisions…).
+- `importer/`: forgiving CSV/Excel import (preview, then apply) for teams, coaches and time slots.
 - `fixtures.py`: deterministic test leagues `small_8`, `league_40`, `nightmare`.

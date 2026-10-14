@@ -129,6 +129,8 @@ class Coach(Model):
     id: str
     name: str
     team_ids: list[str] = []
+    email: str | None = None
+    phone: str | None = None
 
 
 class Family(Model):
