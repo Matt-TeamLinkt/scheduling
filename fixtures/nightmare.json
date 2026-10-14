@@ -1,0 +1,3564 @@
+{
+ "id": "nightmare",
+ "name": "Metro Minor Hockey · Winter (tight ice)",
+ "sport": "hockey",
+ "timezone": "America/Toronto",
+ "season_start": "2027-01-04",
+ "season_end": "2027-03-28",
+ "rules": {
+  "games_per_team": 12,
+  "game_minutes": 60,
+  "units": null,
+  "min_rest_minutes": 0,
+  "max_games_per_day": 1,
+  "earliest_start": "07:00:00",
+  "latest_end": "21:00:00"
+ },
+ "divisions": [
+  {
+   "id": "d-u9",
+   "name": "U9",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": 50,
+    "units": 1,
+    "min_rest_minutes": null,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": "18:00:00"
+   }
+  },
+  {
+   "id": "d-u11",
+   "name": "U11",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": null,
+    "units": null,
+    "min_rest_minutes": null,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": "20:00:00"
+   }
+  },
+  {
+   "id": "d-u13",
+   "name": "U13",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": null,
+    "units": null,
+    "min_rest_minutes": 1080,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": null
+   }
+  },
+  {
+   "id": "d-u15",
+   "name": "U15",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": 75,
+    "units": null,
+    "min_rest_minutes": 1080,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": null
+   }
+  }
+ ],
+ "teams": [
+  {
+   "id": "t-u9-01",
+   "name": "North Stars U9 Blue",
+   "division_id": "d-u9",
+   "home_venue_id": "v-north",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": null,
+    "units": null,
+    "min_rest_minutes": null,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": null
+   }
+  },
+  {
+   "id": "t-u9-02",
+   "name": "Riverside Rapids U9 Blue",
+   "division_id": "d-u9",
+   "home_venue_id": "v-river",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": null,
+    "units": null,
+    "min_rest_minutes": null,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": null
+   }
+  },
+  {
+   "id": "t-u9-03",
+   "name": "Eastside Eagles U9 Blue",
+   "division_id": "d-u9",
+   "home_venue_id": "v-east",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": null,
+    "units": null,
+    "min_rest_minutes": null,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": null
+   }
+  },
+  {
+   "id": "t-u9-04",
+   "name": "Westwood Wolves U9 Blue",
+   "division_id": "d-u9",
+   "home_venue_id": "v-north",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": null,
+    "units": null,
+    "min_rest_minutes": null,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": null
+   }
+  },
+  {
+   "id": "t-u9-05",
+   "name": "Lakeshore Lynx U9 Blue",
+   "division_id": "d-u9",
+   "home_venue_id": "v-river",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": null,
+    "units": null,
+    "min_rest_minutes": null,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": null
+   }
+  },
+  {
+   "id": "t-u9-06",
+   "name": "Hillcrest Hawks U9 Blue",
+   "division_id": "d-u9",
+   "home_venue_id": "v-east",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": null,
+    "units": null,
+    "min_rest_minutes": null,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": null
+   }
+  },
+  {
+   "id": "t-u9-07",
+   "name": "North Stars U9 Red",
+   "division_id": "d-u9",
+   "home_venue_id": "v-north",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": null,
+    "units": null,
+    "min_rest_minutes": null,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": null
+   }
+  },
+  {
+   "id": "t-u9-08",
+   "name": "Riverside Rapids U9 Red",
+   "division_id": "d-u9",
+   "home_venue_id": "v-river",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": null,
+    "units": null,
+    "min_rest_minutes": null,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": null
+   }
+  },
+  {
+   "id": "t-u11-01",
+   "name": "North Stars U11 Blue",
+   "division_id": "d-u11",
+   "home_venue_id": "v-north",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": null,
+    "units": null,
+    "min_rest_minutes": null,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": null
+   }
+  },
+  {
+   "id": "t-u11-02",
+   "name": "Riverside Rapids U11 Blue",
+   "division_id": "d-u11",
+   "home_venue_id": "v-river",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": null,
+    "units": null,
+    "min_rest_minutes": null,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": null
+   }
+  },
+  {
+   "id": "t-u11-03",
+   "name": "Eastside Eagles U11 Blue",
+   "division_id": "d-u11",
+   "home_venue_id": "v-east",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": null,
+    "units": null,
+    "min_rest_minutes": null,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": null
+   }
+  },
+  {
+   "id": "t-u11-04",
+   "name": "Westwood Wolves U11 Blue",
+   "division_id": "d-u11",
+   "home_venue_id": "v-north",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": null,
+    "units": null,
+    "min_rest_minutes": null,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": null
+   }
+  },
+  {
+   "id": "t-u11-05",
+   "name": "Lakeshore Lynx U11 Blue",
+   "division_id": "d-u11",
+   "home_venue_id": "v-river",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": null,
+    "units": null,
+    "min_rest_minutes": null,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": null
+   }
+  },
+  {
+   "id": "t-u11-06",
+   "name": "Hillcrest Hawks U11 Blue",
+   "division_id": "d-u11",
+   "home_venue_id": "v-east",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": null,
+    "units": null,
+    "min_rest_minutes": null,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": null
+   }
+  },
+  {
+   "id": "t-u11-07",
+   "name": "North Stars U11 Red",
+   "division_id": "d-u11",
+   "home_venue_id": "v-north",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": null,
+    "units": null,
+    "min_rest_minutes": null,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": null
+   }
+  },
+  {
+   "id": "t-u11-08",
+   "name": "Riverside Rapids U11 Red",
+   "division_id": "d-u11",
+   "home_venue_id": "v-river",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": null,
+    "units": null,
+    "min_rest_minutes": null,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": null
+   }
+  },
+  {
+   "id": "t-u11-09",
+   "name": "Eastside Eagles U11 Red",
+   "division_id": "d-u11",
+   "home_venue_id": "v-east",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": null,
+    "units": null,
+    "min_rest_minutes": null,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": null
+   }
+  },
+  {
+   "id": "t-u11-10",
+   "name": "Westwood Wolves U11 Red",
+   "division_id": "d-u11",
+   "home_venue_id": "v-north",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": null,
+    "units": null,
+    "min_rest_minutes": null,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": null
+   }
+  },
+  {
+   "id": "t-u13-01",
+   "name": "North Stars U13 Blue",
+   "division_id": "d-u13",
+   "home_venue_id": "v-north",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": null,
+    "units": null,
+    "min_rest_minutes": null,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": null
+   }
+  },
+  {
+   "id": "t-u13-02",
+   "name": "Riverside Rapids U13 Blue",
+   "division_id": "d-u13",
+   "home_venue_id": "v-river",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": null,
+    "units": null,
+    "min_rest_minutes": null,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": null
+   }
+  },
+  {
+   "id": "t-u13-03",
+   "name": "Eastside Eagles U13 Blue",
+   "division_id": "d-u13",
+   "home_venue_id": "v-east",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": null,
+    "units": null,
+    "min_rest_minutes": null,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": null
+   }
+  },
+  {
+   "id": "t-u13-04",
+   "name": "Westwood Wolves U13 Blue",
+   "division_id": "d-u13",
+   "home_venue_id": "v-north",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": null,
+    "units": null,
+    "min_rest_minutes": null,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": null
+   }
+  },
+  {
+   "id": "t-u13-05",
+   "name": "Lakeshore Lynx U13 Blue",
+   "division_id": "d-u13",
+   "home_venue_id": "v-river",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": null,
+    "units": null,
+    "min_rest_minutes": null,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": null
+   }
+  },
+  {
+   "id": "t-u13-06",
+   "name": "Hillcrest Hawks U13 Blue",
+   "division_id": "d-u13",
+   "home_venue_id": "v-east",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": null,
+    "units": null,
+    "min_rest_minutes": null,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": null
+   }
+  },
+  {
+   "id": "t-u13-07",
+   "name": "North Stars U13 Red",
+   "division_id": "d-u13",
+   "home_venue_id": "v-north",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": null,
+    "units": null,
+    "min_rest_minutes": null,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": null
+   }
+  },
+  {
+   "id": "t-u13-08",
+   "name": "Riverside Rapids U13 Red",
+   "division_id": "d-u13",
+   "home_venue_id": "v-river",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": null,
+    "units": null,
+    "min_rest_minutes": null,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": null
+   }
+  },
+  {
+   "id": "t-u13-09",
+   "name": "Eastside Eagles U13 Red",
+   "division_id": "d-u13",
+   "home_venue_id": "v-east",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": null,
+    "units": null,
+    "min_rest_minutes": null,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": null
+   }
+  },
+  {
+   "id": "t-u13-10",
+   "name": "Westwood Wolves U13 Red",
+   "division_id": "d-u13",
+   "home_venue_id": "v-north",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": null,
+    "units": null,
+    "min_rest_minutes": null,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": null
+   }
+  },
+  {
+   "id": "t-u15-01",
+   "name": "North Stars U15 Blue",
+   "division_id": "d-u15",
+   "home_venue_id": "v-north",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": null,
+    "units": null,
+    "min_rest_minutes": null,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": null
+   }
+  },
+  {
+   "id": "t-u15-02",
+   "name": "Riverside Rapids U15 Blue",
+   "division_id": "d-u15",
+   "home_venue_id": "v-river",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": null,
+    "units": null,
+    "min_rest_minutes": null,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": null
+   }
+  },
+  {
+   "id": "t-u15-03",
+   "name": "Eastside Eagles U15 Blue",
+   "division_id": "d-u15",
+   "home_venue_id": "v-east",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": null,
+    "units": null,
+    "min_rest_minutes": null,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": null
+   }
+  },
+  {
+   "id": "t-u15-04",
+   "name": "Westwood Wolves U15 Blue",
+   "division_id": "d-u15",
+   "home_venue_id": "v-north",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": null,
+    "units": null,
+    "min_rest_minutes": null,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": null
+   }
+  },
+  {
+   "id": "t-u15-05",
+   "name": "Lakeshore Lynx U15 Blue",
+   "division_id": "d-u15",
+   "home_venue_id": "v-river",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": null,
+    "units": null,
+    "min_rest_minutes": null,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": null
+   }
+  },
+  {
+   "id": "t-u15-06",
+   "name": "Hillcrest Hawks U15 Blue",
+   "division_id": "d-u15",
+   "home_venue_id": "v-east",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": null,
+    "units": null,
+    "min_rest_minutes": null,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": null
+   }
+  },
+  {
+   "id": "t-u15-07",
+   "name": "North Stars U15 Red",
+   "division_id": "d-u15",
+   "home_venue_id": "v-north",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": null,
+    "units": null,
+    "min_rest_minutes": null,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": null
+   }
+  },
+  {
+   "id": "t-u15-08",
+   "name": "Riverside Rapids U15 Red",
+   "division_id": "d-u15",
+   "home_venue_id": "v-river",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": null,
+    "units": null,
+    "min_rest_minutes": null,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": null
+   }
+  },
+  {
+   "id": "t-u15-09",
+   "name": "Eastside Eagles U15 Red",
+   "division_id": "d-u15",
+   "home_venue_id": "v-east",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": null,
+    "units": null,
+    "min_rest_minutes": null,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": null
+   }
+  },
+  {
+   "id": "t-u15-10",
+   "name": "Westwood Wolves U15 Red",
+   "division_id": "d-u15",
+   "home_venue_id": "v-north",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": null,
+    "units": null,
+    "min_rest_minutes": null,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": null
+   }
+  },
+  {
+   "id": "t-u15-11",
+   "name": "Lakeshore Lynx U15 Red",
+   "division_id": "d-u15",
+   "home_venue_id": "v-river",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": null,
+    "units": null,
+    "min_rest_minutes": null,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": null
+   }
+  },
+  {
+   "id": "t-u15-12",
+   "name": "Hillcrest Hawks U15 Red",
+   "division_id": "d-u15",
+   "home_venue_id": "v-east",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": null,
+    "units": null,
+    "min_rest_minutes": null,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": null
+   }
+  }
+ ],
+ "coaches": [
+  {
+   "id": "c-01",
+   "name": "Quinn Singh",
+   "team_ids": [
+    "t-u11-01",
+    "t-u15-07"
+   ]
+  },
+  {
+   "id": "c-02",
+   "name": "Fatima Patel",
+   "team_ids": [
+    "t-u11-02",
+    "t-u11-09"
+   ]
+  },
+  {
+   "id": "c-03",
+   "name": "Robin Bouchard",
+   "team_ids": [
+    "t-u11-03",
+    "t-u9-08"
+   ]
+  },
+  {
+   "id": "c-04",
+   "name": "Jordan Fraser",
+   "team_ids": [
+    "t-u11-04",
+    "t-u9-05"
+   ]
+  },
+  {
+   "id": "c-05",
+   "name": "Hannah Haddad",
+   "team_ids": [
+    "t-u11-05",
+    "t-u13-06"
+   ]
+  },
+  {
+   "id": "c-06",
+   "name": "Yusuf Singh",
+   "team_ids": [
+    "t-u11-06",
+    "t-u13-05"
+   ]
+  },
+  {
+   "id": "c-07",
+   "name": "Owen Roy",
+   "team_ids": [
+    "t-u11-07",
+    "t-u11-10"
+   ]
+  },
+  {
+   "id": "c-08",
+   "name": "Jamie Brown",
+   "team_ids": [
+    "t-u11-08",
+    "t-u15-09"
+   ]
+  },
+  {
+   "id": "c-09",
+   "name": "Ravi Martin",
+   "team_ids": [
+    "t-u13-01"
+   ]
+  },
+  {
+   "id": "c-10",
+   "name": "Ben Singh",
+   "team_ids": [
+    "t-u13-03"
+   ]
+  },
+  {
+   "id": "c-11",
+   "name": "Ravi Kim",
+   "team_ids": [
+    "t-u13-04",
+    "t-u13-08"
+   ]
+  },
+  {
+   "id": "c-12",
+   "name": "Noor Lee",
+   "team_ids": [
+    "t-u13-07",
+    "t-u15-11"
+   ]
+  },
+  {
+   "id": "c-13",
+   "name": "Hannah Lopez",
+   "team_ids": [
+    "t-u13-09"
+   ]
+  },
+  {
+   "id": "c-14",
+   "name": "Ben Roy",
+   "team_ids": [
+    "t-u13-10"
+   ]
+  },
+  {
+   "id": "c-15",
+   "name": "Avery Fraser",
+   "team_ids": [
+    "t-u15-01",
+    "t-u15-10"
+   ]
+  },
+  {
+   "id": "c-16",
+   "name": "Lucas Patel",
+   "team_ids": [
+    "t-u15-03"
+   ]
+  },
+  {
+   "id": "c-17",
+   "name": "Fatima Rossi",
+   "team_ids": [
+    "t-u15-04",
+    "t-u9-07"
+   ]
+  },
+  {
+   "id": "c-18",
+   "name": "Yusuf Bouchard",
+   "team_ids": [
+    "t-u15-05"
+   ]
+  },
+  {
+   "id": "c-19",
+   "name": "Diego Schmidt",
+   "team_ids": [
+    "t-u15-06",
+    "t-u9-04"
+   ]
+  },
+  {
+   "id": "c-20",
+   "name": "Ravi Rossi",
+   "team_ids": [
+    "t-u15-08"
+   ]
+  },
+  {
+   "id": "c-21",
+   "name": "Avery Rossi",
+   "team_ids": [
+    "t-u15-12"
+   ]
+  },
+  {
+   "id": "c-22",
+   "name": "Robin Chen",
+   "team_ids": [
+    "t-u9-01"
+   ]
+  },
+  {
+   "id": "c-23",
+   "name": "Omar Hughes",
+   "team_ids": [
+    "t-u9-02",
+    "t-u13-02",
+    "t-u15-02"
+   ]
+  },
+  {
+   "id": "c-24",
+   "name": "Jamie Park",
+   "team_ids": [
+    "t-u9-03",
+    "t-u9-06"
+   ]
+  }
+ ],
+ "families": [
+  {
+   "id": "f-01",
+   "name": "Rossi",
+   "team_ids": [
+    "t-u13-08",
+    "t-u15-05",
+    "t-u9-07"
+   ]
+  },
+  {
+   "id": "f-02",
+   "name": "Patel",
+   "team_ids": [
+    "t-u11-01",
+    "t-u15-04",
+    "t-u9-05"
+   ]
+  },
+  {
+   "id": "f-03",
+   "name": "Singh",
+   "team_ids": [
+    "t-u11-07",
+    "t-u13-05",
+    "t-u9-06"
+   ]
+  },
+  {
+   "id": "f-04",
+   "name": "Singh",
+   "team_ids": [
+    "t-u11-05",
+    "t-u13-07",
+    "t-u9-06"
+   ]
+  },
+  {
+   "id": "f-05",
+   "name": "Campbell",
+   "team_ids": [
+    "t-u13-01",
+    "t-u15-10",
+    "t-u9-08"
+   ]
+  },
+  {
+   "id": "f-06",
+   "name": "Schmidt",
+   "team_ids": [
+    "t-u11-06",
+    "t-u13-08",
+    "t-u15-07"
+   ]
+  },
+  {
+   "id": "f-07",
+   "name": "Murphy",
+   "team_ids": [
+    "t-u13-07",
+    "t-u15-12",
+    "t-u9-07"
+   ]
+  },
+  {
+   "id": "f-08",
+   "name": "Okafor",
+   "team_ids": [
+    "t-u11-02",
+    "t-u13-07",
+    "t-u15-05"
+   ]
+  },
+  {
+   "id": "f-09",
+   "name": "Park",
+   "team_ids": [
+    "t-u11-08",
+    "t-u13-08",
+    "t-u15-05"
+   ]
+  },
+  {
+   "id": "f-10",
+   "name": "Singh",
+   "team_ids": [
+    "t-u11-10",
+    "t-u13-06",
+    "t-u15-07"
+   ]
+  },
+  {
+   "id": "f-11",
+   "name": "Park",
+   "team_ids": [
+    "t-u11-06",
+    "t-u9-03"
+   ]
+  },
+  {
+   "id": "f-12",
+   "name": "Okafor",
+   "team_ids": [
+    "t-u13-06",
+    "t-u9-01"
+   ]
+  },
+  {
+   "id": "f-13",
+   "name": "Tremblay",
+   "team_ids": [
+    "t-u11-08",
+    "t-u15-09"
+   ]
+  },
+  {
+   "id": "f-14",
+   "name": "Tremblay",
+   "team_ids": [
+    "t-u11-06",
+    "t-u13-04"
+   ]
+  },
+  {
+   "id": "f-15",
+   "name": "Patel",
+   "team_ids": [
+    "t-u11-06",
+    "t-u13-02"
+   ]
+  },
+  {
+   "id": "f-16",
+   "name": "Schmidt",
+   "team_ids": [
+    "t-u11-08",
+    "t-u15-10"
+   ]
+  },
+  {
+   "id": "f-17",
+   "name": "Campbell",
+   "team_ids": [
+    "t-u11-07",
+    "t-u13-03"
+   ]
+  },
+  {
+   "id": "f-18",
+   "name": "Ali",
+   "team_ids": [
+    "t-u11-06",
+    "t-u9-05"
+   ]
+  },
+  {
+   "id": "f-19",
+   "name": "Schmidt",
+   "team_ids": [
+    "t-u11-02",
+    "t-u13-03"
+   ]
+  },
+  {
+   "id": "f-20",
+   "name": "Nair",
+   "team_ids": [
+    "t-u13-05",
+    "t-u9-07"
+   ]
+  },
+  {
+   "id": "f-21",
+   "name": "Ali",
+   "team_ids": [
+    "t-u11-03",
+    "t-u15-05"
+   ]
+  },
+  {
+   "id": "f-22",
+   "name": "Martin",
+   "team_ids": [
+    "t-u11-08",
+    "t-u9-04"
+   ]
+  },
+  {
+   "id": "f-23",
+   "name": "Tremblay",
+   "team_ids": [
+    "t-u15-12",
+    "t-u9-04"
+   ]
+  },
+  {
+   "id": "f-24",
+   "name": "Campbell",
+   "team_ids": [
+    "t-u11-04",
+    "t-u9-06"
+   ]
+  },
+  {
+   "id": "f-25",
+   "name": "Kim",
+   "team_ids": [
+    "t-u13-10",
+    "t-u15-11"
+   ]
+  },
+  {
+   "id": "f-26",
+   "name": "Ivanova",
+   "team_ids": [
+    "t-u11-07",
+    "t-u15-12"
+   ]
+  },
+  {
+   "id": "f-27",
+   "name": "Gagnon",
+   "team_ids": [
+    "t-u15-07",
+    "t-u9-04"
+   ]
+  },
+  {
+   "id": "f-28",
+   "name": "Kowalski",
+   "team_ids": [
+    "t-u11-01",
+    "t-u15-08"
+   ]
+  },
+  {
+   "id": "f-29",
+   "name": "Brown",
+   "team_ids": [
+    "t-u15-08",
+    "t-u9-04"
+   ]
+  },
+  {
+   "id": "f-30",
+   "name": "Nguyen",
+   "team_ids": [
+    "t-u11-06",
+    "t-u15-07"
+   ]
+  },
+  {
+   "id": "f-31",
+   "name": "Rossi",
+   "team_ids": [
+    "t-u11-02",
+    "t-u15-07"
+   ]
+  },
+  {
+   "id": "f-32",
+   "name": "Singh",
+   "team_ids": [
+    "t-u13-02",
+    "t-u9-04"
+   ]
+  },
+  {
+   "id": "f-33",
+   "name": "Nair",
+   "team_ids": [
+    "t-u13-06",
+    "t-u15-05"
+   ]
+  },
+  {
+   "id": "f-34",
+   "name": "Murphy",
+   "team_ids": [
+    "t-u11-05",
+    "t-u9-02"
+   ]
+  },
+  {
+   "id": "f-35",
+   "name": "Diaz",
+   "team_ids": [
+    "t-u11-03",
+    "t-u9-04"
+   ]
+  },
+  {
+   "id": "f-36",
+   "name": "Park",
+   "team_ids": [
+    "t-u11-07",
+    "t-u13-04"
+   ]
+  },
+  {
+   "id": "f-37",
+   "name": "Lee",
+   "team_ids": [
+    "t-u11-05",
+    "t-u15-12"
+   ]
+  },
+  {
+   "id": "f-38",
+   "name": "Chen",
+   "team_ids": [
+    "t-u15-10",
+    "t-u9-08"
+   ]
+  },
+  {
+   "id": "f-39",
+   "name": "Campbell",
+   "team_ids": [
+    "t-u13-03",
+    "t-u9-04"
+   ]
+  },
+  {
+   "id": "f-40",
+   "name": "Rossi",
+   "team_ids": [
+    "t-u11-05",
+    "t-u9-08"
+   ]
+  },
+  {
+   "id": "f-41",
+   "name": "Singh",
+   "team_ids": [
+    "t-u13-07",
+    "t-u9-02"
+   ]
+  },
+  {
+   "id": "f-42",
+   "name": "Tremblay",
+   "team_ids": [
+    "t-u11-06",
+    "t-u15-12"
+   ]
+  },
+  {
+   "id": "f-43",
+   "name": "Nair",
+   "team_ids": [
+    "t-u11-05",
+    "t-u9-02"
+   ]
+  },
+  {
+   "id": "f-44",
+   "name": "Nair",
+   "team_ids": [
+    "t-u13-01",
+    "t-u9-08"
+   ]
+  },
+  {
+   "id": "f-45",
+   "name": "Lee",
+   "team_ids": [
+    "t-u11-07",
+    "t-u13-10"
+   ]
+  },
+  {
+   "id": "f-46",
+   "name": "Fraser",
+   "team_ids": [
+    "t-u13-05",
+    "t-u15-08"
+   ]
+  },
+  {
+   "id": "f-47",
+   "name": "Martin",
+   "team_ids": [
+    "t-u15-05",
+    "t-u9-08"
+   ]
+  },
+  {
+   "id": "f-48",
+   "name": "Lopez",
+   "team_ids": [
+    "t-u11-07",
+    "t-u13-04"
+   ]
+  },
+  {
+   "id": "f-49",
+   "name": "Schmidt",
+   "team_ids": [
+    "t-u11-06",
+    "t-u13-04"
+   ]
+  },
+  {
+   "id": "f-50",
+   "name": "Kim",
+   "team_ids": [
+    "t-u11-07",
+    "t-u9-04"
+   ]
+  },
+  {
+   "id": "f-51",
+   "name": "Haddad",
+   "team_ids": [
+    "t-u15-01",
+    "t-u9-02"
+   ]
+  },
+  {
+   "id": "f-52",
+   "name": "Lopez",
+   "team_ids": [
+    "t-u11-08",
+    "t-u13-06"
+   ]
+  },
+  {
+   "id": "f-53",
+   "name": "Wilson",
+   "team_ids": [
+    "t-u11-10",
+    "t-u9-02"
+   ]
+  },
+  {
+   "id": "f-54",
+   "name": "Diaz",
+   "team_ids": [
+    "t-u11-01",
+    "t-u9-03"
+   ]
+  },
+  {
+   "id": "f-55",
+   "name": "Kowalski",
+   "team_ids": [
+    "t-u15-12",
+    "t-u9-06"
+   ]
+  },
+  {
+   "id": "f-56",
+   "name": "Murphy",
+   "team_ids": [
+    "t-u11-01",
+    "t-u15-04"
+   ]
+  },
+  {
+   "id": "f-57",
+   "name": "Gagnon",
+   "team_ids": [
+    "t-u13-08",
+    "t-u9-01"
+   ]
+  },
+  {
+   "id": "f-58",
+   "name": "Kowalski",
+   "team_ids": [
+    "t-u13-08",
+    "t-u9-05"
+   ]
+  },
+  {
+   "id": "f-59",
+   "name": "Ali",
+   "team_ids": [
+    "t-u13-09",
+    "t-u9-02"
+   ]
+  },
+  {
+   "id": "f-60",
+   "name": "Ivanova",
+   "team_ids": [
+    "t-u13-07",
+    "t-u15-10"
+   ]
+  }
+ ],
+ "venues": [
+  {
+   "id": "v-north",
+   "name": "North Arena",
+   "address": null,
+   "latitude": 43.8,
+   "longitude": -79.42
+  },
+  {
+   "id": "v-river",
+   "name": "Riverside Arena",
+   "address": null,
+   "latitude": 43.7,
+   "longitude": -79.35
+  },
+  {
+   "id": "v-east",
+   "name": "Eastside Community Centre",
+   "address": null,
+   "latitude": 43.72,
+   "longitude": -79.2
+  }
+ ],
+ "surfaces": [
+  {
+   "id": "s-north-1",
+   "venue_id": "v-north",
+   "name": "Rink 1",
+   "units": 2,
+   "lit": true
+  },
+  {
+   "id": "s-north-2",
+   "venue_id": "v-north",
+   "name": "Rink 2",
+   "units": 2,
+   "lit": true
+  },
+  {
+   "id": "s-river",
+   "venue_id": "v-river",
+   "name": "Main Rink",
+   "units": 2,
+   "lit": true
+  },
+  {
+   "id": "s-east",
+   "venue_id": "v-east",
+   "name": "Rink",
+   "units": 2,
+   "lit": true
+  }
+ ],
+ "slots": [
+  {
+   "id": "sl-0001",
+   "surface_id": "s-north-1",
+   "date": "2027-01-09",
+   "start": "07:00:00",
+   "end": "08:15:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0002",
+   "surface_id": "s-north-1",
+   "date": "2027-01-09",
+   "start": "08:15:00",
+   "end": "09:30:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0003",
+   "surface_id": "s-north-1",
+   "date": "2027-01-09",
+   "start": "09:30:00",
+   "end": "10:45:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0004",
+   "surface_id": "s-north-1",
+   "date": "2027-01-09",
+   "start": "10:45:00",
+   "end": "12:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0005",
+   "surface_id": "s-north-1",
+   "date": "2027-01-09",
+   "start": "12:00:00",
+   "end": "13:15:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0006",
+   "surface_id": "s-north-1",
+   "date": "2027-01-16",
+   "start": "07:00:00",
+   "end": "08:15:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0007",
+   "surface_id": "s-north-1",
+   "date": "2027-01-16",
+   "start": "08:15:00",
+   "end": "09:30:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0008",
+   "surface_id": "s-north-1",
+   "date": "2027-01-16",
+   "start": "09:30:00",
+   "end": "10:45:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0009",
+   "surface_id": "s-north-1",
+   "date": "2027-01-16",
+   "start": "10:45:00",
+   "end": "12:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0010",
+   "surface_id": "s-north-1",
+   "date": "2027-01-16",
+   "start": "12:00:00",
+   "end": "13:15:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0011",
+   "surface_id": "s-north-1",
+   "date": "2027-01-23",
+   "start": "07:00:00",
+   "end": "08:15:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0012",
+   "surface_id": "s-north-1",
+   "date": "2027-01-23",
+   "start": "08:15:00",
+   "end": "09:30:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0013",
+   "surface_id": "s-north-1",
+   "date": "2027-01-23",
+   "start": "09:30:00",
+   "end": "10:45:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0014",
+   "surface_id": "s-north-1",
+   "date": "2027-01-23",
+   "start": "10:45:00",
+   "end": "12:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0015",
+   "surface_id": "s-north-1",
+   "date": "2027-01-23",
+   "start": "12:00:00",
+   "end": "13:15:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0016",
+   "surface_id": "s-north-1",
+   "date": "2027-01-30",
+   "start": "07:00:00",
+   "end": "08:15:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0017",
+   "surface_id": "s-north-1",
+   "date": "2027-01-30",
+   "start": "08:15:00",
+   "end": "09:30:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0018",
+   "surface_id": "s-north-1",
+   "date": "2027-01-30",
+   "start": "09:30:00",
+   "end": "10:45:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0019",
+   "surface_id": "s-north-1",
+   "date": "2027-01-30",
+   "start": "10:45:00",
+   "end": "12:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0020",
+   "surface_id": "s-north-1",
+   "date": "2027-01-30",
+   "start": "12:00:00",
+   "end": "13:15:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0021",
+   "surface_id": "s-north-1",
+   "date": "2027-02-06",
+   "start": "07:00:00",
+   "end": "08:15:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0022",
+   "surface_id": "s-north-1",
+   "date": "2027-02-06",
+   "start": "08:15:00",
+   "end": "09:30:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0023",
+   "surface_id": "s-north-1",
+   "date": "2027-02-06",
+   "start": "09:30:00",
+   "end": "10:45:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0024",
+   "surface_id": "s-north-1",
+   "date": "2027-02-06",
+   "start": "10:45:00",
+   "end": "12:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0025",
+   "surface_id": "s-north-1",
+   "date": "2027-02-06",
+   "start": "12:00:00",
+   "end": "13:15:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0026",
+   "surface_id": "s-north-1",
+   "date": "2027-02-13",
+   "start": "07:00:00",
+   "end": "08:15:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0027",
+   "surface_id": "s-north-1",
+   "date": "2027-02-13",
+   "start": "08:15:00",
+   "end": "09:30:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0028",
+   "surface_id": "s-north-1",
+   "date": "2027-02-13",
+   "start": "09:30:00",
+   "end": "10:45:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0029",
+   "surface_id": "s-north-1",
+   "date": "2027-02-13",
+   "start": "10:45:00",
+   "end": "12:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0030",
+   "surface_id": "s-north-1",
+   "date": "2027-02-13",
+   "start": "12:00:00",
+   "end": "13:15:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0031",
+   "surface_id": "s-north-1",
+   "date": "2027-02-20",
+   "start": "07:00:00",
+   "end": "08:15:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0032",
+   "surface_id": "s-north-1",
+   "date": "2027-02-20",
+   "start": "08:15:00",
+   "end": "09:30:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0033",
+   "surface_id": "s-north-1",
+   "date": "2027-02-20",
+   "start": "09:30:00",
+   "end": "10:45:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0034",
+   "surface_id": "s-north-1",
+   "date": "2027-02-20",
+   "start": "10:45:00",
+   "end": "12:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0035",
+   "surface_id": "s-north-1",
+   "date": "2027-02-20",
+   "start": "12:00:00",
+   "end": "13:15:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0036",
+   "surface_id": "s-north-1",
+   "date": "2027-02-27",
+   "start": "07:00:00",
+   "end": "08:15:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0037",
+   "surface_id": "s-north-1",
+   "date": "2027-02-27",
+   "start": "08:15:00",
+   "end": "09:30:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0038",
+   "surface_id": "s-north-1",
+   "date": "2027-02-27",
+   "start": "09:30:00",
+   "end": "10:45:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0039",
+   "surface_id": "s-north-1",
+   "date": "2027-02-27",
+   "start": "10:45:00",
+   "end": "12:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0040",
+   "surface_id": "s-north-1",
+   "date": "2027-02-27",
+   "start": "12:00:00",
+   "end": "13:15:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0041",
+   "surface_id": "s-north-1",
+   "date": "2027-03-06",
+   "start": "07:00:00",
+   "end": "08:15:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0042",
+   "surface_id": "s-north-1",
+   "date": "2027-03-06",
+   "start": "08:15:00",
+   "end": "09:30:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0043",
+   "surface_id": "s-north-1",
+   "date": "2027-03-06",
+   "start": "09:30:00",
+   "end": "10:45:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0044",
+   "surface_id": "s-north-1",
+   "date": "2027-03-06",
+   "start": "10:45:00",
+   "end": "12:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0045",
+   "surface_id": "s-north-1",
+   "date": "2027-03-06",
+   "start": "12:00:00",
+   "end": "13:15:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0046",
+   "surface_id": "s-north-1",
+   "date": "2027-03-13",
+   "start": "07:00:00",
+   "end": "08:15:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0047",
+   "surface_id": "s-north-1",
+   "date": "2027-03-13",
+   "start": "08:15:00",
+   "end": "09:30:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0048",
+   "surface_id": "s-north-1",
+   "date": "2027-03-13",
+   "start": "09:30:00",
+   "end": "10:45:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0049",
+   "surface_id": "s-north-1",
+   "date": "2027-03-13",
+   "start": "10:45:00",
+   "end": "12:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0050",
+   "surface_id": "s-north-1",
+   "date": "2027-03-13",
+   "start": "12:00:00",
+   "end": "13:15:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0051",
+   "surface_id": "s-north-1",
+   "date": "2027-03-20",
+   "start": "07:00:00",
+   "end": "08:15:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0052",
+   "surface_id": "s-north-1",
+   "date": "2027-03-20",
+   "start": "08:15:00",
+   "end": "09:30:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0053",
+   "surface_id": "s-north-1",
+   "date": "2027-03-20",
+   "start": "09:30:00",
+   "end": "10:45:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0054",
+   "surface_id": "s-north-1",
+   "date": "2027-03-20",
+   "start": "10:45:00",
+   "end": "12:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0055",
+   "surface_id": "s-north-1",
+   "date": "2027-03-20",
+   "start": "12:00:00",
+   "end": "13:15:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0056",
+   "surface_id": "s-north-1",
+   "date": "2027-03-27",
+   "start": "07:00:00",
+   "end": "08:15:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0057",
+   "surface_id": "s-north-1",
+   "date": "2027-03-27",
+   "start": "08:15:00",
+   "end": "09:30:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0058",
+   "surface_id": "s-north-1",
+   "date": "2027-03-27",
+   "start": "09:30:00",
+   "end": "10:45:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0059",
+   "surface_id": "s-north-1",
+   "date": "2027-03-27",
+   "start": "10:45:00",
+   "end": "12:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0060",
+   "surface_id": "s-north-1",
+   "date": "2027-03-27",
+   "start": "12:00:00",
+   "end": "13:15:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0061",
+   "surface_id": "s-north-2",
+   "date": "2027-01-09",
+   "start": "07:00:00",
+   "end": "08:15:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0062",
+   "surface_id": "s-north-2",
+   "date": "2027-01-09",
+   "start": "08:15:00",
+   "end": "09:30:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0063",
+   "surface_id": "s-north-2",
+   "date": "2027-01-16",
+   "start": "07:00:00",
+   "end": "08:15:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0064",
+   "surface_id": "s-north-2",
+   "date": "2027-01-16",
+   "start": "08:15:00",
+   "end": "09:30:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0065",
+   "surface_id": "s-north-2",
+   "date": "2027-01-23",
+   "start": "07:00:00",
+   "end": "08:15:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0066",
+   "surface_id": "s-north-2",
+   "date": "2027-01-23",
+   "start": "08:15:00",
+   "end": "09:30:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0067",
+   "surface_id": "s-north-2",
+   "date": "2027-01-30",
+   "start": "07:00:00",
+   "end": "08:15:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0068",
+   "surface_id": "s-north-2",
+   "date": "2027-01-30",
+   "start": "08:15:00",
+   "end": "09:30:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0069",
+   "surface_id": "s-north-2",
+   "date": "2027-02-06",
+   "start": "07:00:00",
+   "end": "08:15:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0070",
+   "surface_id": "s-north-2",
+   "date": "2027-02-06",
+   "start": "08:15:00",
+   "end": "09:30:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0071",
+   "surface_id": "s-north-2",
+   "date": "2027-02-13",
+   "start": "07:00:00",
+   "end": "08:15:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0072",
+   "surface_id": "s-north-2",
+   "date": "2027-02-13",
+   "start": "08:15:00",
+   "end": "09:30:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0073",
+   "surface_id": "s-north-2",
+   "date": "2027-02-20",
+   "start": "07:00:00",
+   "end": "08:15:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0074",
+   "surface_id": "s-north-2",
+   "date": "2027-02-20",
+   "start": "08:15:00",
+   "end": "09:30:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0075",
+   "surface_id": "s-north-2",
+   "date": "2027-02-27",
+   "start": "07:00:00",
+   "end": "08:15:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0076",
+   "surface_id": "s-north-2",
+   "date": "2027-02-27",
+   "start": "08:15:00",
+   "end": "09:30:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0077",
+   "surface_id": "s-north-2",
+   "date": "2027-03-06",
+   "start": "07:00:00",
+   "end": "08:15:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0078",
+   "surface_id": "s-north-2",
+   "date": "2027-03-06",
+   "start": "08:15:00",
+   "end": "09:30:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0079",
+   "surface_id": "s-north-2",
+   "date": "2027-03-13",
+   "start": "07:00:00",
+   "end": "08:15:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0080",
+   "surface_id": "s-north-2",
+   "date": "2027-03-13",
+   "start": "08:15:00",
+   "end": "09:30:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0081",
+   "surface_id": "s-north-2",
+   "date": "2027-03-20",
+   "start": "07:00:00",
+   "end": "08:15:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0082",
+   "surface_id": "s-north-2",
+   "date": "2027-03-20",
+   "start": "08:15:00",
+   "end": "09:30:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0083",
+   "surface_id": "s-north-2",
+   "date": "2027-03-27",
+   "start": "07:00:00",
+   "end": "08:15:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0084",
+   "surface_id": "s-north-2",
+   "date": "2027-03-27",
+   "start": "08:15:00",
+   "end": "09:30:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0085",
+   "surface_id": "s-north-2",
+   "date": "2027-01-10",
+   "start": "07:00:00",
+   "end": "08:15:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0086",
+   "surface_id": "s-north-2",
+   "date": "2027-01-10",
+   "start": "08:15:00",
+   "end": "09:30:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0087",
+   "surface_id": "s-north-2",
+   "date": "2027-01-10",
+   "start": "09:30:00",
+   "end": "10:45:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0088",
+   "surface_id": "s-north-2",
+   "date": "2027-01-17",
+   "start": "07:00:00",
+   "end": "08:15:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0089",
+   "surface_id": "s-north-2",
+   "date": "2027-01-17",
+   "start": "08:15:00",
+   "end": "09:30:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0090",
+   "surface_id": "s-north-2",
+   "date": "2027-01-17",
+   "start": "09:30:00",
+   "end": "10:45:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0091",
+   "surface_id": "s-north-2",
+   "date": "2027-01-24",
+   "start": "07:00:00",
+   "end": "08:15:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0092",
+   "surface_id": "s-north-2",
+   "date": "2027-01-24",
+   "start": "08:15:00",
+   "end": "09:30:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0093",
+   "surface_id": "s-north-2",
+   "date": "2027-01-24",
+   "start": "09:30:00",
+   "end": "10:45:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0094",
+   "surface_id": "s-north-2",
+   "date": "2027-01-31",
+   "start": "07:00:00",
+   "end": "08:15:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0095",
+   "surface_id": "s-north-2",
+   "date": "2027-01-31",
+   "start": "08:15:00",
+   "end": "09:30:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0096",
+   "surface_id": "s-north-2",
+   "date": "2027-01-31",
+   "start": "09:30:00",
+   "end": "10:45:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0097",
+   "surface_id": "s-north-2",
+   "date": "2027-02-07",
+   "start": "07:00:00",
+   "end": "08:15:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0098",
+   "surface_id": "s-north-2",
+   "date": "2027-02-07",
+   "start": "08:15:00",
+   "end": "09:30:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0099",
+   "surface_id": "s-north-2",
+   "date": "2027-02-07",
+   "start": "09:30:00",
+   "end": "10:45:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0100",
+   "surface_id": "s-north-2",
+   "date": "2027-02-14",
+   "start": "07:00:00",
+   "end": "08:15:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0101",
+   "surface_id": "s-north-2",
+   "date": "2027-02-14",
+   "start": "08:15:00",
+   "end": "09:30:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0102",
+   "surface_id": "s-north-2",
+   "date": "2027-02-14",
+   "start": "09:30:00",
+   "end": "10:45:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0103",
+   "surface_id": "s-north-2",
+   "date": "2027-02-21",
+   "start": "07:00:00",
+   "end": "08:15:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0104",
+   "surface_id": "s-north-2",
+   "date": "2027-02-21",
+   "start": "08:15:00",
+   "end": "09:30:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0105",
+   "surface_id": "s-north-2",
+   "date": "2027-02-21",
+   "start": "09:30:00",
+   "end": "10:45:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0106",
+   "surface_id": "s-north-2",
+   "date": "2027-02-28",
+   "start": "07:00:00",
+   "end": "08:15:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0107",
+   "surface_id": "s-north-2",
+   "date": "2027-02-28",
+   "start": "08:15:00",
+   "end": "09:30:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0108",
+   "surface_id": "s-north-2",
+   "date": "2027-02-28",
+   "start": "09:30:00",
+   "end": "10:45:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0109",
+   "surface_id": "s-north-2",
+   "date": "2027-03-07",
+   "start": "07:00:00",
+   "end": "08:15:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0110",
+   "surface_id": "s-north-2",
+   "date": "2027-03-07",
+   "start": "08:15:00",
+   "end": "09:30:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0111",
+   "surface_id": "s-north-2",
+   "date": "2027-03-07",
+   "start": "09:30:00",
+   "end": "10:45:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0112",
+   "surface_id": "s-north-2",
+   "date": "2027-03-14",
+   "start": "07:00:00",
+   "end": "08:15:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0113",
+   "surface_id": "s-north-2",
+   "date": "2027-03-14",
+   "start": "08:15:00",
+   "end": "09:30:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0114",
+   "surface_id": "s-north-2",
+   "date": "2027-03-14",
+   "start": "09:30:00",
+   "end": "10:45:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0115",
+   "surface_id": "s-north-2",
+   "date": "2027-03-21",
+   "start": "07:00:00",
+   "end": "08:15:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0116",
+   "surface_id": "s-north-2",
+   "date": "2027-03-21",
+   "start": "08:15:00",
+   "end": "09:30:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0117",
+   "surface_id": "s-north-2",
+   "date": "2027-03-21",
+   "start": "09:30:00",
+   "end": "10:45:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0118",
+   "surface_id": "s-north-2",
+   "date": "2027-03-28",
+   "start": "07:00:00",
+   "end": "08:15:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0119",
+   "surface_id": "s-north-2",
+   "date": "2027-03-28",
+   "start": "08:15:00",
+   "end": "09:30:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0120",
+   "surface_id": "s-north-2",
+   "date": "2027-03-28",
+   "start": "09:30:00",
+   "end": "10:45:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0121",
+   "surface_id": "s-river",
+   "date": "2027-01-05",
+   "start": "17:00:00",
+   "end": "18:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0122",
+   "surface_id": "s-river",
+   "date": "2027-01-05",
+   "start": "18:00:00",
+   "end": "19:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0123",
+   "surface_id": "s-river",
+   "date": "2027-01-05",
+   "start": "19:00:00",
+   "end": "20:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0124",
+   "surface_id": "s-river",
+   "date": "2027-01-05",
+   "start": "20:00:00",
+   "end": "21:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0125",
+   "surface_id": "s-river",
+   "date": "2027-01-12",
+   "start": "17:00:00",
+   "end": "18:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0126",
+   "surface_id": "s-river",
+   "date": "2027-01-12",
+   "start": "18:00:00",
+   "end": "19:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0127",
+   "surface_id": "s-river",
+   "date": "2027-01-12",
+   "start": "19:00:00",
+   "end": "20:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0128",
+   "surface_id": "s-river",
+   "date": "2027-01-12",
+   "start": "20:00:00",
+   "end": "21:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0129",
+   "surface_id": "s-river",
+   "date": "2027-01-19",
+   "start": "17:00:00",
+   "end": "18:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0130",
+   "surface_id": "s-river",
+   "date": "2027-01-19",
+   "start": "18:00:00",
+   "end": "19:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0131",
+   "surface_id": "s-river",
+   "date": "2027-01-19",
+   "start": "19:00:00",
+   "end": "20:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0132",
+   "surface_id": "s-river",
+   "date": "2027-01-19",
+   "start": "20:00:00",
+   "end": "21:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0133",
+   "surface_id": "s-river",
+   "date": "2027-01-26",
+   "start": "17:00:00",
+   "end": "18:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0134",
+   "surface_id": "s-river",
+   "date": "2027-01-26",
+   "start": "18:00:00",
+   "end": "19:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0135",
+   "surface_id": "s-river",
+   "date": "2027-01-26",
+   "start": "19:00:00",
+   "end": "20:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0136",
+   "surface_id": "s-river",
+   "date": "2027-01-26",
+   "start": "20:00:00",
+   "end": "21:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0137",
+   "surface_id": "s-river",
+   "date": "2027-02-02",
+   "start": "17:00:00",
+   "end": "18:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0138",
+   "surface_id": "s-river",
+   "date": "2027-02-02",
+   "start": "18:00:00",
+   "end": "19:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0139",
+   "surface_id": "s-river",
+   "date": "2027-02-02",
+   "start": "19:00:00",
+   "end": "20:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0140",
+   "surface_id": "s-river",
+   "date": "2027-02-02",
+   "start": "20:00:00",
+   "end": "21:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0141",
+   "surface_id": "s-river",
+   "date": "2027-02-09",
+   "start": "17:00:00",
+   "end": "18:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0142",
+   "surface_id": "s-river",
+   "date": "2027-02-09",
+   "start": "18:00:00",
+   "end": "19:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0143",
+   "surface_id": "s-river",
+   "date": "2027-02-09",
+   "start": "19:00:00",
+   "end": "20:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0144",
+   "surface_id": "s-river",
+   "date": "2027-02-09",
+   "start": "20:00:00",
+   "end": "21:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0145",
+   "surface_id": "s-river",
+   "date": "2027-02-16",
+   "start": "17:00:00",
+   "end": "18:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0146",
+   "surface_id": "s-river",
+   "date": "2027-02-16",
+   "start": "18:00:00",
+   "end": "19:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0147",
+   "surface_id": "s-river",
+   "date": "2027-02-16",
+   "start": "19:00:00",
+   "end": "20:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0148",
+   "surface_id": "s-river",
+   "date": "2027-02-16",
+   "start": "20:00:00",
+   "end": "21:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0149",
+   "surface_id": "s-river",
+   "date": "2027-02-23",
+   "start": "17:00:00",
+   "end": "18:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0150",
+   "surface_id": "s-river",
+   "date": "2027-02-23",
+   "start": "18:00:00",
+   "end": "19:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0151",
+   "surface_id": "s-river",
+   "date": "2027-02-23",
+   "start": "19:00:00",
+   "end": "20:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0152",
+   "surface_id": "s-river",
+   "date": "2027-02-23",
+   "start": "20:00:00",
+   "end": "21:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0153",
+   "surface_id": "s-river",
+   "date": "2027-03-02",
+   "start": "17:00:00",
+   "end": "18:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0154",
+   "surface_id": "s-river",
+   "date": "2027-03-02",
+   "start": "18:00:00",
+   "end": "19:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0155",
+   "surface_id": "s-river",
+   "date": "2027-03-02",
+   "start": "19:00:00",
+   "end": "20:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0156",
+   "surface_id": "s-river",
+   "date": "2027-03-02",
+   "start": "20:00:00",
+   "end": "21:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0157",
+   "surface_id": "s-river",
+   "date": "2027-03-09",
+   "start": "17:00:00",
+   "end": "18:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0158",
+   "surface_id": "s-river",
+   "date": "2027-03-09",
+   "start": "18:00:00",
+   "end": "19:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0159",
+   "surface_id": "s-river",
+   "date": "2027-03-09",
+   "start": "19:00:00",
+   "end": "20:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0160",
+   "surface_id": "s-river",
+   "date": "2027-03-09",
+   "start": "20:00:00",
+   "end": "21:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0161",
+   "surface_id": "s-river",
+   "date": "2027-03-16",
+   "start": "17:00:00",
+   "end": "18:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0162",
+   "surface_id": "s-river",
+   "date": "2027-03-16",
+   "start": "18:00:00",
+   "end": "19:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0163",
+   "surface_id": "s-river",
+   "date": "2027-03-16",
+   "start": "19:00:00",
+   "end": "20:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0164",
+   "surface_id": "s-river",
+   "date": "2027-03-16",
+   "start": "20:00:00",
+   "end": "21:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0165",
+   "surface_id": "s-river",
+   "date": "2027-03-23",
+   "start": "17:00:00",
+   "end": "18:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0166",
+   "surface_id": "s-river",
+   "date": "2027-03-23",
+   "start": "18:00:00",
+   "end": "19:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0167",
+   "surface_id": "s-river",
+   "date": "2027-03-23",
+   "start": "19:00:00",
+   "end": "20:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0168",
+   "surface_id": "s-river",
+   "date": "2027-03-23",
+   "start": "20:00:00",
+   "end": "21:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0169",
+   "surface_id": "s-river",
+   "date": "2027-01-10",
+   "start": "08:00:00",
+   "end": "09:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0170",
+   "surface_id": "s-river",
+   "date": "2027-01-10",
+   "start": "09:00:00",
+   "end": "10:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0171",
+   "surface_id": "s-river",
+   "date": "2027-01-10",
+   "start": "10:00:00",
+   "end": "11:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0172",
+   "surface_id": "s-river",
+   "date": "2027-01-10",
+   "start": "11:00:00",
+   "end": "12:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0173",
+   "surface_id": "s-river",
+   "date": "2027-01-17",
+   "start": "08:00:00",
+   "end": "09:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0174",
+   "surface_id": "s-river",
+   "date": "2027-01-17",
+   "start": "09:00:00",
+   "end": "10:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0175",
+   "surface_id": "s-river",
+   "date": "2027-01-17",
+   "start": "10:00:00",
+   "end": "11:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0176",
+   "surface_id": "s-river",
+   "date": "2027-01-17",
+   "start": "11:00:00",
+   "end": "12:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0177",
+   "surface_id": "s-river",
+   "date": "2027-01-24",
+   "start": "08:00:00",
+   "end": "09:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0178",
+   "surface_id": "s-river",
+   "date": "2027-01-24",
+   "start": "09:00:00",
+   "end": "10:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0179",
+   "surface_id": "s-river",
+   "date": "2027-01-24",
+   "start": "10:00:00",
+   "end": "11:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0180",
+   "surface_id": "s-river",
+   "date": "2027-01-24",
+   "start": "11:00:00",
+   "end": "12:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0181",
+   "surface_id": "s-river",
+   "date": "2027-01-31",
+   "start": "08:00:00",
+   "end": "09:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0182",
+   "surface_id": "s-river",
+   "date": "2027-01-31",
+   "start": "09:00:00",
+   "end": "10:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0183",
+   "surface_id": "s-river",
+   "date": "2027-01-31",
+   "start": "10:00:00",
+   "end": "11:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0184",
+   "surface_id": "s-river",
+   "date": "2027-01-31",
+   "start": "11:00:00",
+   "end": "12:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0185",
+   "surface_id": "s-river",
+   "date": "2027-02-07",
+   "start": "08:00:00",
+   "end": "09:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0186",
+   "surface_id": "s-river",
+   "date": "2027-02-07",
+   "start": "09:00:00",
+   "end": "10:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0187",
+   "surface_id": "s-river",
+   "date": "2027-02-07",
+   "start": "10:00:00",
+   "end": "11:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0188",
+   "surface_id": "s-river",
+   "date": "2027-02-07",
+   "start": "11:00:00",
+   "end": "12:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0189",
+   "surface_id": "s-river",
+   "date": "2027-02-14",
+   "start": "08:00:00",
+   "end": "09:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0190",
+   "surface_id": "s-river",
+   "date": "2027-02-14",
+   "start": "09:00:00",
+   "end": "10:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0191",
+   "surface_id": "s-river",
+   "date": "2027-02-14",
+   "start": "10:00:00",
+   "end": "11:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0192",
+   "surface_id": "s-river",
+   "date": "2027-02-14",
+   "start": "11:00:00",
+   "end": "12:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0193",
+   "surface_id": "s-river",
+   "date": "2027-02-21",
+   "start": "08:00:00",
+   "end": "09:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0194",
+   "surface_id": "s-river",
+   "date": "2027-02-21",
+   "start": "09:00:00",
+   "end": "10:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0195",
+   "surface_id": "s-river",
+   "date": "2027-02-21",
+   "start": "10:00:00",
+   "end": "11:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0196",
+   "surface_id": "s-river",
+   "date": "2027-02-21",
+   "start": "11:00:00",
+   "end": "12:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0197",
+   "surface_id": "s-river",
+   "date": "2027-02-28",
+   "start": "08:00:00",
+   "end": "09:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0198",
+   "surface_id": "s-river",
+   "date": "2027-02-28",
+   "start": "09:00:00",
+   "end": "10:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0199",
+   "surface_id": "s-river",
+   "date": "2027-02-28",
+   "start": "10:00:00",
+   "end": "11:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0200",
+   "surface_id": "s-river",
+   "date": "2027-02-28",
+   "start": "11:00:00",
+   "end": "12:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0201",
+   "surface_id": "s-river",
+   "date": "2027-03-07",
+   "start": "08:00:00",
+   "end": "09:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0202",
+   "surface_id": "s-river",
+   "date": "2027-03-07",
+   "start": "09:00:00",
+   "end": "10:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0203",
+   "surface_id": "s-river",
+   "date": "2027-03-07",
+   "start": "10:00:00",
+   "end": "11:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0204",
+   "surface_id": "s-river",
+   "date": "2027-03-07",
+   "start": "11:00:00",
+   "end": "12:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0205",
+   "surface_id": "s-river",
+   "date": "2027-03-14",
+   "start": "08:00:00",
+   "end": "09:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0206",
+   "surface_id": "s-river",
+   "date": "2027-03-14",
+   "start": "09:00:00",
+   "end": "10:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0207",
+   "surface_id": "s-river",
+   "date": "2027-03-14",
+   "start": "10:00:00",
+   "end": "11:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0208",
+   "surface_id": "s-river",
+   "date": "2027-03-14",
+   "start": "11:00:00",
+   "end": "12:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0209",
+   "surface_id": "s-river",
+   "date": "2027-03-21",
+   "start": "08:00:00",
+   "end": "09:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0210",
+   "surface_id": "s-river",
+   "date": "2027-03-21",
+   "start": "09:00:00",
+   "end": "10:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0211",
+   "surface_id": "s-river",
+   "date": "2027-03-21",
+   "start": "10:00:00",
+   "end": "11:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0212",
+   "surface_id": "s-river",
+   "date": "2027-03-21",
+   "start": "11:00:00",
+   "end": "12:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0213",
+   "surface_id": "s-river",
+   "date": "2027-03-28",
+   "start": "08:00:00",
+   "end": "09:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0214",
+   "surface_id": "s-river",
+   "date": "2027-03-28",
+   "start": "09:00:00",
+   "end": "10:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0215",
+   "surface_id": "s-river",
+   "date": "2027-03-28",
+   "start": "10:00:00",
+   "end": "11:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0216",
+   "surface_id": "s-river",
+   "date": "2027-03-28",
+   "start": "11:00:00",
+   "end": "12:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0217",
+   "surface_id": "s-east",
+   "date": "2027-01-06",
+   "start": "18:00:00",
+   "end": "19:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0218",
+   "surface_id": "s-east",
+   "date": "2027-01-06",
+   "start": "19:00:00",
+   "end": "20:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0219",
+   "surface_id": "s-east",
+   "date": "2027-01-06",
+   "start": "20:00:00",
+   "end": "21:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0220",
+   "surface_id": "s-east",
+   "date": "2027-01-13",
+   "start": "18:00:00",
+   "end": "19:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0221",
+   "surface_id": "s-east",
+   "date": "2027-01-13",
+   "start": "19:00:00",
+   "end": "20:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0222",
+   "surface_id": "s-east",
+   "date": "2027-01-13",
+   "start": "20:00:00",
+   "end": "21:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0223",
+   "surface_id": "s-east",
+   "date": "2027-01-20",
+   "start": "18:00:00",
+   "end": "19:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0224",
+   "surface_id": "s-east",
+   "date": "2027-01-20",
+   "start": "19:00:00",
+   "end": "20:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0225",
+   "surface_id": "s-east",
+   "date": "2027-01-20",
+   "start": "20:00:00",
+   "end": "21:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0226",
+   "surface_id": "s-east",
+   "date": "2027-01-27",
+   "start": "18:00:00",
+   "end": "19:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0227",
+   "surface_id": "s-east",
+   "date": "2027-01-27",
+   "start": "19:00:00",
+   "end": "20:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0228",
+   "surface_id": "s-east",
+   "date": "2027-01-27",
+   "start": "20:00:00",
+   "end": "21:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0229",
+   "surface_id": "s-east",
+   "date": "2027-02-03",
+   "start": "18:00:00",
+   "end": "19:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0230",
+   "surface_id": "s-east",
+   "date": "2027-02-03",
+   "start": "19:00:00",
+   "end": "20:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0231",
+   "surface_id": "s-east",
+   "date": "2027-02-03",
+   "start": "20:00:00",
+   "end": "21:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0232",
+   "surface_id": "s-east",
+   "date": "2027-02-10",
+   "start": "18:00:00",
+   "end": "19:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0233",
+   "surface_id": "s-east",
+   "date": "2027-02-10",
+   "start": "19:00:00",
+   "end": "20:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0234",
+   "surface_id": "s-east",
+   "date": "2027-02-10",
+   "start": "20:00:00",
+   "end": "21:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0235",
+   "surface_id": "s-east",
+   "date": "2027-02-17",
+   "start": "18:00:00",
+   "end": "19:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0236",
+   "surface_id": "s-east",
+   "date": "2027-02-17",
+   "start": "19:00:00",
+   "end": "20:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0237",
+   "surface_id": "s-east",
+   "date": "2027-02-17",
+   "start": "20:00:00",
+   "end": "21:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0238",
+   "surface_id": "s-east",
+   "date": "2027-02-24",
+   "start": "18:00:00",
+   "end": "19:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0239",
+   "surface_id": "s-east",
+   "date": "2027-02-24",
+   "start": "19:00:00",
+   "end": "20:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0240",
+   "surface_id": "s-east",
+   "date": "2027-02-24",
+   "start": "20:00:00",
+   "end": "21:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0241",
+   "surface_id": "s-east",
+   "date": "2027-03-03",
+   "start": "18:00:00",
+   "end": "19:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0242",
+   "surface_id": "s-east",
+   "date": "2027-03-03",
+   "start": "19:00:00",
+   "end": "20:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0243",
+   "surface_id": "s-east",
+   "date": "2027-03-03",
+   "start": "20:00:00",
+   "end": "21:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0244",
+   "surface_id": "s-east",
+   "date": "2027-03-10",
+   "start": "18:00:00",
+   "end": "19:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0245",
+   "surface_id": "s-east",
+   "date": "2027-03-10",
+   "start": "19:00:00",
+   "end": "20:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0246",
+   "surface_id": "s-east",
+   "date": "2027-03-10",
+   "start": "20:00:00",
+   "end": "21:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0247",
+   "surface_id": "s-east",
+   "date": "2027-03-17",
+   "start": "18:00:00",
+   "end": "19:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0248",
+   "surface_id": "s-east",
+   "date": "2027-03-17",
+   "start": "19:00:00",
+   "end": "20:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0249",
+   "surface_id": "s-east",
+   "date": "2027-03-17",
+   "start": "20:00:00",
+   "end": "21:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0250",
+   "surface_id": "s-east",
+   "date": "2027-03-24",
+   "start": "18:00:00",
+   "end": "19:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0251",
+   "surface_id": "s-east",
+   "date": "2027-03-24",
+   "start": "19:00:00",
+   "end": "20:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0252",
+   "surface_id": "s-east",
+   "date": "2027-03-24",
+   "start": "20:00:00",
+   "end": "21:00:00",
+   "cost": null
+  }
+ ],
+ "blackouts": [
+  {
+   "id": "b-01",
+   "scope": "league",
+   "target_id": null,
+   "start_date": "2027-02-13",
+   "end_date": "2027-02-15",
+   "start_time": null,
+   "end_time": null,
+   "note": "Family Day weekend"
+  },
+  {
+   "id": "b-02",
+   "scope": "surface",
+   "target_id": "s-north-2",
+   "start_date": "2027-03-13",
+   "end_date": "2027-03-14",
+   "start_time": null,
+   "end_time": null,
+   "note": "Rink 2 resurfacing"
+  },
+  {
+   "id": "b-t01",
+   "scope": "team",
+   "target_id": "t-u15-12",
+   "start_date": "2027-02-05",
+   "end_date": "2027-02-07",
+   "start_time": null,
+   "end_time": null,
+   "note": "Away tournament"
+  },
+  {
+   "id": "b-t02",
+   "scope": "team",
+   "target_id": "t-u9-03",
+   "start_date": "2027-02-26",
+   "end_date": "2027-02-28",
+   "start_time": null,
+   "end_time": null,
+   "note": "Away tournament"
+  },
+  {
+   "id": "b-t03",
+   "scope": "team",
+   "target_id": "t-u11-01",
+   "start_date": "2027-03-12",
+   "end_date": "2027-03-14",
+   "start_time": null,
+   "end_time": null,
+   "note": "Away tournament"
+  },
+  {
+   "id": "b-t04",
+   "scope": "team",
+   "target_id": "t-u9-02",
+   "start_date": "2027-01-22",
+   "end_date": "2027-01-24",
+   "start_time": null,
+   "end_time": null,
+   "note": "Away tournament"
+  },
+  {
+   "id": "b-t05",
+   "scope": "team",
+   "target_id": "t-u15-06",
+   "start_date": "2027-02-05",
+   "end_date": "2027-02-07",
+   "start_time": null,
+   "end_time": null,
+   "note": "Away tournament"
+  },
+  {
+   "id": "b-t06",
+   "scope": "team",
+   "target_id": "t-u9-01",
+   "start_date": "2027-02-26",
+   "end_date": "2027-02-28",
+   "start_time": null,
+   "end_time": null,
+   "note": "Away tournament"
+  },
+  {
+   "id": "b-t07",
+   "scope": "team",
+   "target_id": "t-u9-04",
+   "start_date": "2027-03-12",
+   "end_date": "2027-03-14",
+   "start_time": null,
+   "end_time": null,
+   "note": "Away tournament"
+  },
+  {
+   "id": "b-t08",
+   "scope": "team",
+   "target_id": "t-u15-07",
+   "start_date": "2027-01-22",
+   "end_date": "2027-01-24",
+   "start_time": null,
+   "end_time": null,
+   "note": "Away tournament"
+  },
+  {
+   "id": "b-t09",
+   "scope": "team",
+   "target_id": "t-u11-04",
+   "start_date": "2027-02-05",
+   "end_date": "2027-02-07",
+   "start_time": null,
+   "end_time": null,
+   "note": "Away tournament"
+  },
+  {
+   "id": "b-t10",
+   "scope": "team",
+   "target_id": "t-u15-09",
+   "start_date": "2027-02-26",
+   "end_date": "2027-02-28",
+   "start_time": null,
+   "end_time": null,
+   "note": "Away tournament"
+  },
+  {
+   "id": "b-t11",
+   "scope": "team",
+   "target_id": "t-u15-04",
+   "start_date": "2027-03-12",
+   "end_date": "2027-03-14",
+   "start_time": null,
+   "end_time": null,
+   "note": "Away tournament"
+  },
+  {
+   "id": "b-t12",
+   "scope": "team",
+   "target_id": "t-u13-07",
+   "start_date": "2027-01-22",
+   "end_date": "2027-01-24",
+   "start_time": null,
+   "end_time": null,
+   "note": "Away tournament"
+  }
+ ]
+}

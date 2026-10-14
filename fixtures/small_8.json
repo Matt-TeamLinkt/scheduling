@@ -1,0 +1,1230 @@
+{
+ "id": "small_8",
+ "name": "Maple Valley Soccer · U10 Spring",
+ "sport": "soccer",
+ "timezone": "America/Toronto",
+ "season_start": "2027-04-10",
+ "season_end": "2027-06-13",
+ "rules": {
+  "games_per_team": 7,
+  "game_minutes": 60,
+  "units": null,
+  "min_rest_minutes": 0,
+  "max_games_per_day": 1,
+  "earliest_start": "08:00:00",
+  "latest_end": "18:00:00"
+ },
+ "divisions": [
+  {
+   "id": "d-u10",
+   "name": "U10",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": null,
+    "units": null,
+    "min_rest_minutes": null,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": null
+   }
+  }
+ ],
+ "teams": [
+  {
+   "id": "t-01",
+   "name": "Falcons",
+   "division_id": "d-u10",
+   "home_venue_id": "v-maple",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": null,
+    "units": null,
+    "min_rest_minutes": null,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": null
+   }
+  },
+  {
+   "id": "t-02",
+   "name": "Rovers",
+   "division_id": "d-u10",
+   "home_venue_id": "v-maple",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": null,
+    "units": null,
+    "min_rest_minutes": null,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": null
+   }
+  },
+  {
+   "id": "t-03",
+   "name": "Comets",
+   "division_id": "d-u10",
+   "home_venue_id": "v-maple",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": null,
+    "units": null,
+    "min_rest_minutes": null,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": null
+   }
+  },
+  {
+   "id": "t-04",
+   "name": "Strikers",
+   "division_id": "d-u10",
+   "home_venue_id": "v-maple",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": null,
+    "units": null,
+    "min_rest_minutes": null,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": null
+   }
+  },
+  {
+   "id": "t-05",
+   "name": "Titans",
+   "division_id": "d-u10",
+   "home_venue_id": "v-river",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": null,
+    "units": null,
+    "min_rest_minutes": null,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": null
+   }
+  },
+  {
+   "id": "t-06",
+   "name": "Wolves",
+   "division_id": "d-u10",
+   "home_venue_id": "v-river",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": null,
+    "units": null,
+    "min_rest_minutes": null,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": null
+   }
+  },
+  {
+   "id": "t-07",
+   "name": "Rangers",
+   "division_id": "d-u10",
+   "home_venue_id": "v-river",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": null,
+    "units": null,
+    "min_rest_minutes": null,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": null
+   }
+  },
+  {
+   "id": "t-08",
+   "name": "Kings",
+   "division_id": "d-u10",
+   "home_venue_id": "v-river",
+   "rules": {
+    "games_per_team": null,
+    "game_minutes": null,
+    "units": null,
+    "min_rest_minutes": null,
+    "max_games_per_day": null,
+    "earliest_start": null,
+    "latest_end": null
+   }
+  }
+ ],
+ "coaches": [
+  {
+   "id": "c-01",
+   "name": "Kai Haddad",
+   "team_ids": [
+    "t-01",
+    "t-05"
+   ]
+  },
+  {
+   "id": "c-02",
+   "name": "Lucas Okafor",
+   "team_ids": [
+    "t-02"
+   ]
+  },
+  {
+   "id": "c-03",
+   "name": "Dana Lopez",
+   "team_ids": [
+    "t-03"
+   ]
+  },
+  {
+   "id": "c-04",
+   "name": "Jordan Lee",
+   "team_ids": [
+    "t-04"
+   ]
+  },
+  {
+   "id": "c-05",
+   "name": "Casey Nguyen",
+   "team_ids": [
+    "t-06"
+   ]
+  },
+  {
+   "id": "c-06",
+   "name": "Yusuf Tremblay",
+   "team_ids": [
+    "t-07"
+   ]
+  },
+  {
+   "id": "c-07",
+   "name": "Zoe Ali",
+   "team_ids": [
+    "t-08"
+   ]
+  }
+ ],
+ "families": [
+  {
+   "id": "f-01",
+   "name": "Nguyen",
+   "team_ids": [
+    "t-02",
+    "t-06"
+   ]
+  },
+  {
+   "id": "f-02",
+   "name": "Okafor",
+   "team_ids": [
+    "t-03",
+    "t-07"
+   ]
+  }
+ ],
+ "venues": [
+  {
+   "id": "v-maple",
+   "name": "Maple Park",
+   "address": null,
+   "latitude": null,
+   "longitude": null
+  },
+  {
+   "id": "v-river",
+   "name": "Riverside Fields",
+   "address": null,
+   "latitude": null,
+   "longitude": null
+  }
+ ],
+ "surfaces": [
+  {
+   "id": "s-maple-1",
+   "venue_id": "v-maple",
+   "name": "Field 1",
+   "units": 2,
+   "lit": false
+  },
+  {
+   "id": "s-river-a",
+   "venue_id": "v-river",
+   "name": "Field A",
+   "units": 2,
+   "lit": false
+  }
+ ],
+ "slots": [
+  {
+   "id": "sl-0001",
+   "surface_id": "s-maple-1",
+   "date": "2027-04-10",
+   "start": "09:00:00",
+   "end": "10:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0002",
+   "surface_id": "s-maple-1",
+   "date": "2027-04-10",
+   "start": "10:00:00",
+   "end": "11:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0003",
+   "surface_id": "s-maple-1",
+   "date": "2027-04-10",
+   "start": "11:00:00",
+   "end": "12:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0004",
+   "surface_id": "s-maple-1",
+   "date": "2027-04-10",
+   "start": "12:00:00",
+   "end": "13:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0005",
+   "surface_id": "s-maple-1",
+   "date": "2027-04-10",
+   "start": "13:00:00",
+   "end": "14:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0006",
+   "surface_id": "s-maple-1",
+   "date": "2027-04-10",
+   "start": "14:00:00",
+   "end": "15:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0007",
+   "surface_id": "s-maple-1",
+   "date": "2027-04-17",
+   "start": "09:00:00",
+   "end": "10:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0008",
+   "surface_id": "s-maple-1",
+   "date": "2027-04-17",
+   "start": "10:00:00",
+   "end": "11:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0009",
+   "surface_id": "s-maple-1",
+   "date": "2027-04-17",
+   "start": "11:00:00",
+   "end": "12:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0010",
+   "surface_id": "s-maple-1",
+   "date": "2027-04-17",
+   "start": "12:00:00",
+   "end": "13:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0011",
+   "surface_id": "s-maple-1",
+   "date": "2027-04-17",
+   "start": "13:00:00",
+   "end": "14:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0012",
+   "surface_id": "s-maple-1",
+   "date": "2027-04-17",
+   "start": "14:00:00",
+   "end": "15:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0013",
+   "surface_id": "s-maple-1",
+   "date": "2027-04-24",
+   "start": "09:00:00",
+   "end": "10:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0014",
+   "surface_id": "s-maple-1",
+   "date": "2027-04-24",
+   "start": "10:00:00",
+   "end": "11:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0015",
+   "surface_id": "s-maple-1",
+   "date": "2027-04-24",
+   "start": "11:00:00",
+   "end": "12:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0016",
+   "surface_id": "s-maple-1",
+   "date": "2027-04-24",
+   "start": "12:00:00",
+   "end": "13:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0017",
+   "surface_id": "s-maple-1",
+   "date": "2027-04-24",
+   "start": "13:00:00",
+   "end": "14:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0018",
+   "surface_id": "s-maple-1",
+   "date": "2027-04-24",
+   "start": "14:00:00",
+   "end": "15:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0019",
+   "surface_id": "s-maple-1",
+   "date": "2027-05-01",
+   "start": "09:00:00",
+   "end": "10:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0020",
+   "surface_id": "s-maple-1",
+   "date": "2027-05-01",
+   "start": "10:00:00",
+   "end": "11:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0021",
+   "surface_id": "s-maple-1",
+   "date": "2027-05-01",
+   "start": "11:00:00",
+   "end": "12:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0022",
+   "surface_id": "s-maple-1",
+   "date": "2027-05-01",
+   "start": "12:00:00",
+   "end": "13:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0023",
+   "surface_id": "s-maple-1",
+   "date": "2027-05-01",
+   "start": "13:00:00",
+   "end": "14:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0024",
+   "surface_id": "s-maple-1",
+   "date": "2027-05-01",
+   "start": "14:00:00",
+   "end": "15:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0025",
+   "surface_id": "s-maple-1",
+   "date": "2027-05-08",
+   "start": "09:00:00",
+   "end": "10:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0026",
+   "surface_id": "s-maple-1",
+   "date": "2027-05-08",
+   "start": "10:00:00",
+   "end": "11:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0027",
+   "surface_id": "s-maple-1",
+   "date": "2027-05-08",
+   "start": "11:00:00",
+   "end": "12:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0028",
+   "surface_id": "s-maple-1",
+   "date": "2027-05-08",
+   "start": "12:00:00",
+   "end": "13:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0029",
+   "surface_id": "s-maple-1",
+   "date": "2027-05-08",
+   "start": "13:00:00",
+   "end": "14:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0030",
+   "surface_id": "s-maple-1",
+   "date": "2027-05-08",
+   "start": "14:00:00",
+   "end": "15:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0031",
+   "surface_id": "s-maple-1",
+   "date": "2027-05-15",
+   "start": "09:00:00",
+   "end": "10:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0032",
+   "surface_id": "s-maple-1",
+   "date": "2027-05-15",
+   "start": "10:00:00",
+   "end": "11:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0033",
+   "surface_id": "s-maple-1",
+   "date": "2027-05-15",
+   "start": "11:00:00",
+   "end": "12:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0034",
+   "surface_id": "s-maple-1",
+   "date": "2027-05-15",
+   "start": "12:00:00",
+   "end": "13:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0035",
+   "surface_id": "s-maple-1",
+   "date": "2027-05-15",
+   "start": "13:00:00",
+   "end": "14:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0036",
+   "surface_id": "s-maple-1",
+   "date": "2027-05-15",
+   "start": "14:00:00",
+   "end": "15:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0037",
+   "surface_id": "s-maple-1",
+   "date": "2027-05-22",
+   "start": "09:00:00",
+   "end": "10:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0038",
+   "surface_id": "s-maple-1",
+   "date": "2027-05-22",
+   "start": "10:00:00",
+   "end": "11:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0039",
+   "surface_id": "s-maple-1",
+   "date": "2027-05-22",
+   "start": "11:00:00",
+   "end": "12:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0040",
+   "surface_id": "s-maple-1",
+   "date": "2027-05-22",
+   "start": "12:00:00",
+   "end": "13:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0041",
+   "surface_id": "s-maple-1",
+   "date": "2027-05-22",
+   "start": "13:00:00",
+   "end": "14:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0042",
+   "surface_id": "s-maple-1",
+   "date": "2027-05-22",
+   "start": "14:00:00",
+   "end": "15:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0043",
+   "surface_id": "s-maple-1",
+   "date": "2027-05-29",
+   "start": "09:00:00",
+   "end": "10:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0044",
+   "surface_id": "s-maple-1",
+   "date": "2027-05-29",
+   "start": "10:00:00",
+   "end": "11:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0045",
+   "surface_id": "s-maple-1",
+   "date": "2027-05-29",
+   "start": "11:00:00",
+   "end": "12:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0046",
+   "surface_id": "s-maple-1",
+   "date": "2027-05-29",
+   "start": "12:00:00",
+   "end": "13:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0047",
+   "surface_id": "s-maple-1",
+   "date": "2027-05-29",
+   "start": "13:00:00",
+   "end": "14:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0048",
+   "surface_id": "s-maple-1",
+   "date": "2027-05-29",
+   "start": "14:00:00",
+   "end": "15:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0049",
+   "surface_id": "s-maple-1",
+   "date": "2027-06-05",
+   "start": "09:00:00",
+   "end": "10:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0050",
+   "surface_id": "s-maple-1",
+   "date": "2027-06-05",
+   "start": "10:00:00",
+   "end": "11:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0051",
+   "surface_id": "s-maple-1",
+   "date": "2027-06-05",
+   "start": "11:00:00",
+   "end": "12:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0052",
+   "surface_id": "s-maple-1",
+   "date": "2027-06-05",
+   "start": "12:00:00",
+   "end": "13:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0053",
+   "surface_id": "s-maple-1",
+   "date": "2027-06-05",
+   "start": "13:00:00",
+   "end": "14:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0054",
+   "surface_id": "s-maple-1",
+   "date": "2027-06-05",
+   "start": "14:00:00",
+   "end": "15:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0055",
+   "surface_id": "s-maple-1",
+   "date": "2027-06-12",
+   "start": "09:00:00",
+   "end": "10:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0056",
+   "surface_id": "s-maple-1",
+   "date": "2027-06-12",
+   "start": "10:00:00",
+   "end": "11:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0057",
+   "surface_id": "s-maple-1",
+   "date": "2027-06-12",
+   "start": "11:00:00",
+   "end": "12:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0058",
+   "surface_id": "s-maple-1",
+   "date": "2027-06-12",
+   "start": "12:00:00",
+   "end": "13:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0059",
+   "surface_id": "s-maple-1",
+   "date": "2027-06-12",
+   "start": "13:00:00",
+   "end": "14:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0060",
+   "surface_id": "s-maple-1",
+   "date": "2027-06-12",
+   "start": "14:00:00",
+   "end": "15:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0061",
+   "surface_id": "s-river-a",
+   "date": "2027-04-10",
+   "start": "09:00:00",
+   "end": "10:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0062",
+   "surface_id": "s-river-a",
+   "date": "2027-04-10",
+   "start": "10:00:00",
+   "end": "11:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0063",
+   "surface_id": "s-river-a",
+   "date": "2027-04-10",
+   "start": "11:00:00",
+   "end": "12:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0064",
+   "surface_id": "s-river-a",
+   "date": "2027-04-10",
+   "start": "12:00:00",
+   "end": "13:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0065",
+   "surface_id": "s-river-a",
+   "date": "2027-04-10",
+   "start": "13:00:00",
+   "end": "14:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0066",
+   "surface_id": "s-river-a",
+   "date": "2027-04-10",
+   "start": "14:00:00",
+   "end": "15:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0067",
+   "surface_id": "s-river-a",
+   "date": "2027-04-17",
+   "start": "09:00:00",
+   "end": "10:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0068",
+   "surface_id": "s-river-a",
+   "date": "2027-04-17",
+   "start": "10:00:00",
+   "end": "11:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0069",
+   "surface_id": "s-river-a",
+   "date": "2027-04-17",
+   "start": "11:00:00",
+   "end": "12:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0070",
+   "surface_id": "s-river-a",
+   "date": "2027-04-17",
+   "start": "12:00:00",
+   "end": "13:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0071",
+   "surface_id": "s-river-a",
+   "date": "2027-04-17",
+   "start": "13:00:00",
+   "end": "14:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0072",
+   "surface_id": "s-river-a",
+   "date": "2027-04-17",
+   "start": "14:00:00",
+   "end": "15:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0073",
+   "surface_id": "s-river-a",
+   "date": "2027-04-24",
+   "start": "09:00:00",
+   "end": "10:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0074",
+   "surface_id": "s-river-a",
+   "date": "2027-04-24",
+   "start": "10:00:00",
+   "end": "11:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0075",
+   "surface_id": "s-river-a",
+   "date": "2027-04-24",
+   "start": "11:00:00",
+   "end": "12:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0076",
+   "surface_id": "s-river-a",
+   "date": "2027-04-24",
+   "start": "12:00:00",
+   "end": "13:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0077",
+   "surface_id": "s-river-a",
+   "date": "2027-04-24",
+   "start": "13:00:00",
+   "end": "14:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0078",
+   "surface_id": "s-river-a",
+   "date": "2027-04-24",
+   "start": "14:00:00",
+   "end": "15:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0079",
+   "surface_id": "s-river-a",
+   "date": "2027-05-01",
+   "start": "09:00:00",
+   "end": "10:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0080",
+   "surface_id": "s-river-a",
+   "date": "2027-05-01",
+   "start": "10:00:00",
+   "end": "11:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0081",
+   "surface_id": "s-river-a",
+   "date": "2027-05-01",
+   "start": "11:00:00",
+   "end": "12:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0082",
+   "surface_id": "s-river-a",
+   "date": "2027-05-01",
+   "start": "12:00:00",
+   "end": "13:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0083",
+   "surface_id": "s-river-a",
+   "date": "2027-05-01",
+   "start": "13:00:00",
+   "end": "14:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0084",
+   "surface_id": "s-river-a",
+   "date": "2027-05-01",
+   "start": "14:00:00",
+   "end": "15:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0085",
+   "surface_id": "s-river-a",
+   "date": "2027-05-08",
+   "start": "09:00:00",
+   "end": "10:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0086",
+   "surface_id": "s-river-a",
+   "date": "2027-05-08",
+   "start": "10:00:00",
+   "end": "11:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0087",
+   "surface_id": "s-river-a",
+   "date": "2027-05-08",
+   "start": "11:00:00",
+   "end": "12:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0088",
+   "surface_id": "s-river-a",
+   "date": "2027-05-08",
+   "start": "12:00:00",
+   "end": "13:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0089",
+   "surface_id": "s-river-a",
+   "date": "2027-05-08",
+   "start": "13:00:00",
+   "end": "14:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0090",
+   "surface_id": "s-river-a",
+   "date": "2027-05-08",
+   "start": "14:00:00",
+   "end": "15:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0091",
+   "surface_id": "s-river-a",
+   "date": "2027-05-15",
+   "start": "09:00:00",
+   "end": "10:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0092",
+   "surface_id": "s-river-a",
+   "date": "2027-05-15",
+   "start": "10:00:00",
+   "end": "11:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0093",
+   "surface_id": "s-river-a",
+   "date": "2027-05-15",
+   "start": "11:00:00",
+   "end": "12:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0094",
+   "surface_id": "s-river-a",
+   "date": "2027-05-15",
+   "start": "12:00:00",
+   "end": "13:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0095",
+   "surface_id": "s-river-a",
+   "date": "2027-05-15",
+   "start": "13:00:00",
+   "end": "14:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0096",
+   "surface_id": "s-river-a",
+   "date": "2027-05-15",
+   "start": "14:00:00",
+   "end": "15:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0097",
+   "surface_id": "s-river-a",
+   "date": "2027-05-22",
+   "start": "09:00:00",
+   "end": "10:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0098",
+   "surface_id": "s-river-a",
+   "date": "2027-05-22",
+   "start": "10:00:00",
+   "end": "11:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0099",
+   "surface_id": "s-river-a",
+   "date": "2027-05-22",
+   "start": "11:00:00",
+   "end": "12:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0100",
+   "surface_id": "s-river-a",
+   "date": "2027-05-22",
+   "start": "12:00:00",
+   "end": "13:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0101",
+   "surface_id": "s-river-a",
+   "date": "2027-05-22",
+   "start": "13:00:00",
+   "end": "14:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0102",
+   "surface_id": "s-river-a",
+   "date": "2027-05-22",
+   "start": "14:00:00",
+   "end": "15:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0103",
+   "surface_id": "s-river-a",
+   "date": "2027-05-29",
+   "start": "09:00:00",
+   "end": "10:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0104",
+   "surface_id": "s-river-a",
+   "date": "2027-05-29",
+   "start": "10:00:00",
+   "end": "11:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0105",
+   "surface_id": "s-river-a",
+   "date": "2027-05-29",
+   "start": "11:00:00",
+   "end": "12:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0106",
+   "surface_id": "s-river-a",
+   "date": "2027-05-29",
+   "start": "12:00:00",
+   "end": "13:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0107",
+   "surface_id": "s-river-a",
+   "date": "2027-05-29",
+   "start": "13:00:00",
+   "end": "14:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0108",
+   "surface_id": "s-river-a",
+   "date": "2027-05-29",
+   "start": "14:00:00",
+   "end": "15:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0109",
+   "surface_id": "s-river-a",
+   "date": "2027-06-05",
+   "start": "09:00:00",
+   "end": "10:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0110",
+   "surface_id": "s-river-a",
+   "date": "2027-06-05",
+   "start": "10:00:00",
+   "end": "11:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0111",
+   "surface_id": "s-river-a",
+   "date": "2027-06-05",
+   "start": "11:00:00",
+   "end": "12:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0112",
+   "surface_id": "s-river-a",
+   "date": "2027-06-05",
+   "start": "12:00:00",
+   "end": "13:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0113",
+   "surface_id": "s-river-a",
+   "date": "2027-06-05",
+   "start": "13:00:00",
+   "end": "14:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0114",
+   "surface_id": "s-river-a",
+   "date": "2027-06-05",
+   "start": "14:00:00",
+   "end": "15:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0115",
+   "surface_id": "s-river-a",
+   "date": "2027-06-12",
+   "start": "09:00:00",
+   "end": "10:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0116",
+   "surface_id": "s-river-a",
+   "date": "2027-06-12",
+   "start": "10:00:00",
+   "end": "11:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0117",
+   "surface_id": "s-river-a",
+   "date": "2027-06-12",
+   "start": "11:00:00",
+   "end": "12:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0118",
+   "surface_id": "s-river-a",
+   "date": "2027-06-12",
+   "start": "12:00:00",
+   "end": "13:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0119",
+   "surface_id": "s-river-a",
+   "date": "2027-06-12",
+   "start": "13:00:00",
+   "end": "14:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0120",
+   "surface_id": "s-river-a",
+   "date": "2027-06-12",
+   "start": "14:00:00",
+   "end": "15:00:00",
+   "cost": null
+  }
+ ],
+ "blackouts": [
+  {
+   "id": "b-01",
+   "scope": "league",
+   "target_id": null,
+   "start_date": "2027-05-29",
+   "end_date": "2027-05-30",
+   "start_time": null,
+   "end_time": null,
+   "note": "Long weekend"
+  }
+ ]
+}

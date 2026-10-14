@@ -1,0 +1,22 @@
+name: engine
+
+on:
+  push:
+    paths: ["engine/**", "fixtures/**", ".github/workflows/engine.yml"]
+  pull_request:
+    paths: ["engine/**", "fixtures/**", ".github/workflows/engine.yml"]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: engine
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync --locked
+      - run: uv run ruff check src tests
+      - run: uv run ruff format --check src tests
+      - run: uv run mypy src tests
+      - run: uv run pytest -q

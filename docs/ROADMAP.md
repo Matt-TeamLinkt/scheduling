@@ -45,5 +45,10 @@ Rainout/closure handling with ranked makeup suggestions (least disruption first)
 ## Phase 6 · Extras
 Referee and official assignment, facility cost tracking, multi-league organizations, a public API.
 
-## First increment after approval (small, about 1 to 2 sessions)
-Phase 1 steps 1, 2, 3 and 5: skeleton, data model, and the hard-constraint validator with tests. No solver or UI yet. This gives every later step a safety net.
+## Progress
+- [x] Phase 1.1 Prototype moved to `prototype/`, asset paths fixed.
+- [x] Phase 1.2 `engine/` scaffold with lint, strict types, tests, CI. (`api/` and `web/` get scaffolded when first needed, in Phase 2 and 3.)
+- [x] Phase 1.3 Data model (`engine/src/scheduling_engine/model.py`).
+- [x] Phase 1.4 Fixtures `small_8`, `league_40`, `nightmare` (feasibility of `nightmare` confirmed in Phase 2).
+- [x] Phase 1.5 Hard-constraint checker plus setup checks, with one test group per constraint.
+- [ ] Phase 1.6 Forgiving CSV/Excel import.
