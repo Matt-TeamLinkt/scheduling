@@ -76,8 +76,11 @@ def fairness_report(league: League, events: Sequence[Event]) -> FairnessReport:
         for v in league.venues
         if v.latitude is not None and v.longitude is not None
     }
-    venue_of_slot = {s.id: ix.surfaces[s.surface_id].venue_id for s in league.slots
-                     if s.surface_id in ix.surfaces}  # fmt: skip
+    venue_of_slot = {
+        s.id: ix.surfaces[s.surface_id].venue_id
+        for s in league.slots
+        if s.surface_id in ix.surfaces
+    }
 
     lines: list[TeamLine] = []
     for team in league.teams:
@@ -159,26 +162,40 @@ def _flags(lines: list[TeamLine], clashes: list[str]) -> list[Flag]:
         avg_bad = statistics.mean(t.early_or_late for t in ts)
         for t in ts:
             if t.games < t.target:
-                flags.append(Flag(f"{t.name} play {t.games} games; the target is {t.target}.",
-                                  (t.team_id,)))  # fmt: skip
+                flags.append(
+                    Flag(f"{t.name} play {t.games} games; the target is {t.target}.", (t.team_id,))
+                )
             if abs(t.home - t.away) >= 2:
-                flags.append(Flag(f"{t.name} have {t.home} home and {t.away} away games.",
-                                  (t.team_id,)))  # fmt: skip
+                flags.append(
+                    Flag(f"{t.name} have {t.home} home and {t.away} away games.", (t.team_id,))
+                )
             if t.early_or_late >= avg_bad + 2:
-                flags.append(Flag(
-                    f"{t.name} have {t.early_or_late} early or late games; the {div} average "
-                    f"is {avg_bad:.1f}.", (t.team_id,)))  # fmt: skip
+                flags.append(
+                    Flag(
+                        f"{t.name} have {t.early_or_late} early or late games; the {div} average "
+                        f"is {avg_bad:.1f}.",
+                        (t.team_id,),
+                    )
+                )
             if t.longest_gap_days >= 21:
-                flags.append(Flag(f"{t.name} go {t.longest_gap_days} days without a game.",
-                                  (t.team_id,)))  # fmt: skip
+                flags.append(
+                    Flag(f"{t.name} go {t.longest_gap_days} days without a game.", (t.team_id,))
+                )
             if t.back_to_back_days >= 3:
-                flags.append(Flag(
-                    f"{t.name} play on back-to-back days {t.back_to_back_days} times.",
-                    (t.team_id,)))  # fmt: skip
+                flags.append(
+                    Flag(
+                        f"{t.name} play on back-to-back days {t.back_to_back_days} times.",
+                        (t.team_id,),
+                    )
+                )
             if t.quickest_rematch_days is not None and t.quickest_rematch_days < 7:
-                flags.append(Flag(
-                    f"{t.name} play the same opponent twice within "
-                    f"{t.quickest_rematch_days} days.", (t.team_id,)))  # fmt: skip
+                flags.append(
+                    Flag(
+                        f"{t.name} play the same opponent twice within "
+                        f"{t.quickest_rematch_days} days.",
+                        (t.team_id,),
+                    )
+                )
     flags += [Flag(c) for c in clashes]
     return flags
 
@@ -188,8 +205,12 @@ def _metrics(lines: list[TeamLine], clashes: list[str], n_events: int) -> dict[s
     for t in lines:
         by_div[t.division].append(t)
     spread = max(
-        (max(t.early_or_late for t in ts) - min(t.early_or_late for t in ts)
-         for ts in by_div.values()), default=0)  # fmt: skip
+        (
+            max(t.early_or_late for t in ts) - min(t.early_or_late for t in ts)
+            for ts in by_div.values()
+        ),
+        default=0,
+    )
     rematches = [t.quickest_rematch_days for t in lines if t.quickest_rematch_days is not None]
     return {
         "games": n_events,

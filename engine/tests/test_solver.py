@@ -46,9 +46,14 @@ def _tightened(seed: int) -> League:
     for i in range(rng.randint(1, 4)):
         day = lg.season_start + timedelta(days=7 * rng.randint(0, 8))
         lg.blackouts.append(
-            Blackout(id=f"b-x{i}", scope=BlackoutScope.TEAM, target_id=rng.choice(teams),
-                     start_date=day, end_date=day)
-        )  # fmt: skip
+            Blackout(
+                id=f"b-x{i}",
+                scope=BlackoutScope.TEAM,
+                target_id=rng.choice(teams),
+                start_date=day,
+                end_date=day,
+            )
+        )
     lg.divisions[0].rules = RuleOverrides(
         units=rng.choice([None, 1]),
         max_games_per_day=rng.choice([1, 2]),
@@ -94,10 +99,10 @@ def test_ranking_changes_the_outcome() -> None:
     """With venues that have no map location, 'keep travel short' means playing home
     games at the home venue. Ranking it first should do much better than turning it off."""
     lg = fixtures.small_8()
-    first = solve(lg, options=SolveOptions(time_limit_s=10, workers=4,
-                                           priorities=[Goal.TRAVEL, Goal.SPACING]))  # fmt: skip
-    off = solve(lg, options=SolveOptions(time_limit_s=10, workers=4,
-                                         priorities=[Goal.SPACING]))  # fmt: skip
+    first = solve(
+        lg, options=SolveOptions(time_limit_s=10, workers=4, priorities=[Goal.TRAVEL, Goal.SPACING])
+    )
+    off = solve(lg, options=SolveOptions(time_limit_s=10, workers=4, priorities=[Goal.SPACING]))
 
     def away_from_home(events: list) -> int:  # type: ignore[type-arg]
         home_venue = {t.id: t.home_venue_id for t in lg.teams}
@@ -115,8 +120,7 @@ def test_ranking_changes_the_outcome() -> None:
 def test_families_goal_avoids_sibling_clashes() -> None:
     lg = fixtures.small_8()
     lg.families = [Family(id="f", name="Busy", team_ids=["t-01", "t-02"])]
-    r = solve(lg, options=SolveOptions(time_limit_s=10, workers=4,
-                                       priorities=[Goal.FAMILIES]))  # fmt: skip
+    r = solve(lg, options=SolveOptions(time_limit_s=10, workers=4, priorities=[Goal.FAMILIES]))
     assert r.goal_scores[Goal.FAMILIES] == 0
     busy = [e for e in r.events if {"t-01", "t-02"} & set(e.team_ids)]
     for x in busy:
@@ -173,10 +177,17 @@ def test_greedy_draft_never_breaks_a_rule(name: str) -> None:
     spots = {s.key: s for s in b.spots}
     games = {g.id: g for g in b.games}
     events = [
-        Event(id=gid, division_id=games[gid].division_id, home_team_id=games[gid].home_team_id,
-              away_team_id=games[gid].away_team_id, slot_id=spots[k].slot_id,
-              start=spots[k].start, minutes=spots[k].minutes, units=spots[k].units)
+        Event(
+            id=gid,
+            division_id=games[gid].division_id,
+            home_team_id=games[gid].home_team_id,
+            away_team_id=games[gid].away_team_id,
+            slot_id=spots[k].slot_id,
+            start=spots[k].start,
+            minutes=spots[k].minutes,
+            units=spots[k].units,
+        )
         for gid, k in draft.items()
-    ]  # fmt: skip
+    ]
     assert validate(lg, events) == []
     assert len(draft) >= 0.95 * len(ms)

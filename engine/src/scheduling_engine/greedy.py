@@ -28,16 +28,16 @@ def greedy(b: ModelBuilder) -> dict[str, int]:
     per_day: Counter[tuple[str, date]] = Counter()
     days_of: dict[str, set[date]] = defaultdict(set)
     bad_count: Counter[str] = Counter()
-    coaches_of = {t: [c.id for c in ix.coaches_of_team.get(t, []) if len(c.team_ids) > 1]
-                  for t in ix.teams}  # fmt: skip
+    coaches_of = {
+        t: [c.id for c in ix.coaches_of_team.get(t, []) if len(c.team_ids) > 1] for t in ix.teams
+    }
     siblings: dict[str, set[str]] = defaultdict(set)
     for f in lg.families:
         for t in f.team_ids:
             siblings[t].update(x for x in f.team_ids if x != t)
     rest = {t: timedelta(minutes=ix.team_rules(t).min_rest_minutes) for t in ix.teams}
 
-    def week(s: Spot) -> int:
-        return (s.day - lg.season_start).days // 7
+    week = b.week
 
     def legal(g: Game, s: Spot) -> bool:
         for t in g.team_ids:
@@ -66,8 +66,10 @@ def greedy(b: ModelBuilder) -> dict[str, int]:
             for sib in siblings.get(t, ()):
                 if sib in g.team_ids:
                     continue
-                if any(a < s.end + FAMILY_BUFFER and s.start < z + FAMILY_BUFFER
-                       for a, z in team_busy[sib]):  # fmt: skip
+                if any(
+                    a < s.end + FAMILY_BUFFER and s.start < z + FAMILY_BUFFER
+                    for a, z in team_busy[sib]
+                ):
                     c += 8
         return c + s.start.hour / 100  # mild preference for earlier in the day (stable)
 
@@ -83,20 +85,7 @@ def greedy(b: ModelBuilder) -> dict[str, int]:
                 coach_busy[c].append((s.start, s.end))
         surface_use[s.surface_id].append((s.start, s.end, s.units))
 
-    # Target week per game, from its round.
-    target: dict[str, int] = {}
-    by_div: dict[str, list[Game]] = defaultdict(list)
-    for g in b.games:
-        if g.fixed is None and g.matchup is not None:
-            by_div[g.division_id].append(g)
-    for games in by_div.values():
-        weeks = sorted({week(s) for g in games for s in b.cands[g.id]})
-        if not weeks:
-            continue
-        rounds = max(g.matchup.round for g in games if g.matchup) + 1
-        for g in games:
-            assert g.matchup is not None
-            target[g.id] = weeks[min(len(weeks) - 1, g.matchup.round * len(weeks) // rounds)]
+    target = b.target_week
 
     for g in b.games:  # fixed events are already in place
         if g.fixed is not None:

@@ -25,7 +25,7 @@ from ortools.sat.python import cp_model
 from .cp import Expr, total
 
 if TYPE_CHECKING:
-    from .solver import Game, ModelBuilder
+    from .solver import ModelBuilder
 
 
 class Goal(StrEnum):
@@ -158,31 +158,18 @@ class GoalBuilder:
         return total(terms)
 
     def round_alignment(self) -> Expr:
-        """Aim round r of each division's round robin at the r-th usable week, so every
-        team plays about once a week and rematches land far apart. Cost: weeks off."""
-        lg = self.b.ix.league
-        by_div: dict[str, list[Game]] = defaultdict(list)
-        for g in self.b.games:
-            if g.fixed is None and g.matchup is not None:
-                by_div[g.division_id].append(g)
+        """Each game near its target week (round r of a round robin aims at the r-th usable
+        week), so teams play about once a week and rematches land far apart. Cost: weeks
+        off target."""
         terms: list[Expr] = []
-        for games in by_div.values():
-            weeks = sorted(
-                {(s.day - lg.season_start).days // 7 for g in games for s in self.b.cands[g.id]}
-            )
-            rounds = max(g.matchup.round for g in games if g.matchup) + 1
-            if not weeks:
-                continue
-            for g in games:
-                assert g.matchup is not None
-                target = weeks[min(len(weeks) - 1, g.matchup.round * len(weeks) // rounds)]
-                off = [
-                    abs((s.day - lg.season_start).days // 7 - target) * self.b.x[(g.id, s.key)]
-                    for s in self.b.cands[g.id]
-                    if (s.day - lg.season_start).days // 7 != target
-                ]
-                if off:
-                    terms.append(total(off))
+        for gid, target in self.b.target_week.items():
+            off = [
+                abs(self.b.week(s) - target) * self.b.x[(gid, s.key)]
+                for s in self.b.cands[gid]
+                if self.b.week(s) != target
+            ]
+            if off:
+                terms.append(total(off))
         return total(terms)
 
     def families(self) -> Expr:

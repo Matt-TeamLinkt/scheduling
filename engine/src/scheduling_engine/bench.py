@@ -23,11 +23,26 @@ from .validate import validate
 
 HISTORY = Path(__file__).resolve().parents[3] / "bench" / "history.csv"
 COLUMNS = [
-    "when", "commit", "label", "fixture", "seconds", "status", "games", "unplaced",
-    "violations", "short_of_target", "home_away_worst", "early_late_spread",
-    "back_to_back_days", "longest_gap_days", "quickest_rematch_days", "family_clashes",
-    "travel_km", "away_from_home_venue", "flags",
-]  # fmt: skip
+    "when",
+    "commit",
+    "label",
+    "fixture",
+    "seconds",
+    "status",
+    "games",
+    "unplaced",
+    "violations",
+    "short_of_target",
+    "home_away_worst",
+    "early_late_spread",
+    "back_to_back_days",
+    "longest_gap_days",
+    "quickest_rematch_days",
+    "family_clashes",
+    "travel_km",
+    "away_from_home_venue",
+    "flags",
+]
 
 
 def run_one(name: str, seconds: float, workers: int) -> dict[str, object]:
@@ -48,8 +63,9 @@ def run_one(name: str, seconds: float, workers: int) -> dict[str, object]:
 
 def _commit() -> str:
     try:
-        out = subprocess.run(["git", "rev-parse", "--short", "HEAD"], capture_output=True,
-                             text=True, check=True)  # fmt: skip
+        out = subprocess.run(
+            ["git", "rev-parse", "--short", "HEAD"], capture_output=True, text=True, check=True
+        )
         return out.stdout.strip()
     except (OSError, subprocess.CalledProcessError):
         return ""
@@ -67,8 +83,9 @@ def main() -> None:
     rows = []
     for name in args.fixtures:
         row = run_one(name, args.time, args.workers)
-        row.update(when=datetime.now().isoformat(timespec="seconds"), commit=_commit(),
-                   label=args.label)  # fmt: skip
+        row.update(
+            when=datetime.now().isoformat(timespec="seconds"), commit=_commit(), label=args.label
+        )
         rows.append(row)
         shown = {k: row[k] for k in COLUMNS[3:] if k in row}
         print("  ".join(f"{k}={v}" for k, v in shown.items()), flush=True)

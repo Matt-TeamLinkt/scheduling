@@ -108,6 +108,8 @@ class Game:
     units: int | None  # None = the whole surface
     fixed: Event | None = None
     matchup: Matchup | None = None
+    window: tuple[date, date] | None = None  # only place inside these dates (inclusive)
+    target_week: int | None = None  # aim for this week (default: from its round)
 
 
 class ModelBuilder:
@@ -121,6 +123,7 @@ class ModelBuilder:
         self.x: dict[tuple[str, int], cp_model.IntVar] = {}
         self.placed: dict[str, Expr] = {}
         self.cands: dict[str, list[Spot]] = {}
+        self.target_week: dict[str, int] = {}
 
     # ── spots ──
 
@@ -179,6 +182,8 @@ class ModelBuilder:
                 by_shape[shape] = spots
             ok = []
             for s in by_shape[shape]:
+                if g.window and not g.window[0] <= s.day <= g.window[1]:
+                    continue
                 fits = True
                 for t in g.team_ids:
                     k = (t, s.key)
@@ -190,6 +195,31 @@ class ModelBuilder:
                 if fits:
                     ok.append(s)
             self.cands[g.id] = ok
+        self._set_target_weeks()
+
+    def week(self, s: Spot) -> int:
+        return (s.day - self.lg.season_start).days // 7
+
+    def _set_target_weeks(self) -> None:
+        """Where each game should land: its own target if given (a rescheduled game aims
+        for its current week), else round r of its division at the r-th usable week."""
+        by_div: dict[str, list[Game]] = defaultdict(list)
+        for g in self.games:
+            if g.fixed is not None:
+                continue
+            if g.target_week is not None:
+                self.target_week[g.id] = g.target_week
+            elif g.matchup is not None:
+                by_div[g.division_id].append(g)
+        for games in by_div.values():
+            weeks = sorted({self.week(s) for g in games for s in self.cands[g.id]})
+            if not weeks:
+                continue
+            rounds = max(g.matchup.round for g in games if g.matchup) + 1
+            for g in games:
+                assert g.matchup is not None
+                i = min(len(weeks) - 1, g.matchup.round * len(weeks) // rounds)
+                self.target_week[g.id] = weeks[i]
 
     # ── variables and hard constraints ──
 
@@ -327,8 +357,15 @@ def games_for(league: League, matchups: Sequence[Matchup]) -> list[Game]:
 class _Watcher(cp_model.CpSolverSolutionCallback):
     """Reports progress; in the placing phase, stops as soon as every game is placed."""
 
-    def __init__(self, placed: Expr, goal: int, phase: Phase, t0: float,
-                 cb: Callable[[Progress], None] | None, stop_when_all: bool) -> None:  # fmt: skip
+    def __init__(
+        self,
+        placed: Expr,
+        goal: int,
+        phase: Phase,
+        t0: float,
+        cb: Callable[[Progress], None] | None,
+        stop_when_all: bool,
+    ) -> None:
         super().__init__()
         self.placed, self.goal, self.phase, self.t0, self.cb = placed, goal, phase, t0, cb
         self.stop_when_all = stop_when_all
@@ -364,8 +401,13 @@ def run(league: League, games: list[Game], opts: SolveOptions, notes: list[str])
     placed_expr = b.objective_placed()
     free = sum(1 for g in games if g.fixed is None)
     ceiling = b.placed_upper_bound()
-    stats = {"games": len(games), "spots": len(b.spots), "choices": len(b.x),
-             "constraints": len(b.m.proto.constraints), "most_possible": ceiling}  # fmt: skip
+    stats = {
+        "games": len(games),
+        "spots": len(b.spots),
+        "choices": len(b.x),
+        "constraints": len(b.m.proto.constraints),
+        "most_possible": ceiling,
+    }
 
     def solver_for(seconds: float) -> cp_model.CpSolver:
         sv = cp_model.CpSolver()
@@ -389,8 +431,9 @@ def run(league: League, games: list[Game], opts: SolveOptions, notes: list[str])
     if len(draft) >= ceiling:
         code, best_placed, values = cp_model.FEASIBLE, len(draft), draft_values
         if opts.on_progress:
-            opts.on_progress(Progress(clock.perf_counter() - t0, best_placed, ceiling,
-                                      Phase.PLACING))  # fmt: skip
+            opts.on_progress(
+                Progress(clock.perf_counter() - t0, best_placed, ceiling, Phase.PLACING)
+            )
     else:
         # Phase 1: place as many games as possible.
         for k, v in b.x.items():
@@ -403,8 +446,14 @@ def run(league: League, games: list[Game], opts: SolveOptions, notes: list[str])
             b.m, _Watcher(placed_expr, ceiling, Phase.PLACING, t0, opts.on_progress, True)
         )
         if code not in (cp_model.OPTIMAL, cp_model.FEASIBLE):
-            return SolveResult(Status.NO_SCHEDULE, [], [g.matchup for g in games if g.matchup],
-                               clock.perf_counter() - t0, notes, stats)  # fmt: skip
+            return SolveResult(
+                Status.NO_SCHEDULE,
+                [],
+                [g.matchup for g in games if g.matchup],
+                clock.perf_counter() - t0,
+                notes,
+                stats,
+            )
         best_placed = int(sv1.value(placed_expr))
         values = {k: sv1.boolean_value(v) for k, v in b.x.items()}
     proven = code == cp_model.OPTIMAL or best_placed >= ceiling
@@ -440,10 +489,21 @@ def run(league: League, games: list[Game], opts: SolveOptions, notes: list[str])
             if g.matchup is not None:
                 unplaced.append(g.matchup)
             continue
-        events.append(g.fixed if g.fixed is not None else Event(
-            id=g.id, kind=EventKind.GAME, division_id=g.division_id,
-            home_team_id=g.home_team_id, away_team_id=g.away_team_id, slot_id=sp.slot_id,
-            start=sp.start, minutes=sp.minutes, units=sp.units))  # fmt: skip
+        events.append(
+            g.fixed
+            if g.fixed is not None
+            else Event(
+                id=g.id,
+                kind=EventKind.GAME if g.away_team_id else EventKind.PRACTICE,
+                division_id=g.division_id,
+                home_team_id=g.home_team_id,
+                away_team_id=g.away_team_id,
+                slot_id=sp.slot_id,
+                start=sp.start,
+                minutes=sp.minutes,
+                units=sp.units,
+            )
+        )
     events.sort(key=lambda e: (e.start, e.slot_id, e.id))
     status = Status.BEST if final_code == cp_model.OPTIMAL and proven else Status.GOOD
     return SolveResult(status, events, unplaced, clock.perf_counter() - t0, notes, stats, scores)
