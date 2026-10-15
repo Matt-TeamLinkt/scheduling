@@ -10,4 +10,17 @@ A youth sports scheduling tool for league schedulers: load teams and facility ti
 | `design-system/` | TeamLinkt brand tokens, fonts and the voice guide. |
 | `docs/` | Audit, roadmap, decisions. |
 
+## Try it
+
+You need [uv](https://docs.astral.sh/uv/getting-started/installation/) and [Node.js](https://nodejs.org) 20 or newer.
+
+```sh
+git clone https://github.com/Matt-TeamLinkt/scheduling.git
+cd scheduling
+git checkout phase-3-app
+./start.sh          # then open http://localhost:8000
+```
+
+Pick a sample league ("Try it"), press **Generate schedule**, then drag games around, check the Fairness tab and publish. Your seasons are saved in `api/data/`.
+
 See `CLAUDE.md` for how to run and test everything.

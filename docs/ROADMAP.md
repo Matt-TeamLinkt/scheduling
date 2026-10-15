@@ -72,4 +72,4 @@ Referee and official assignment, facility cost tracking, multi-league organizati
 
 Still open in Phase 3: a week and month overview (the board shows one day), a by-venue list view, editing teams and slots one at a time in the UI (today: import or sample), deleting things with an undoable confirmation, user accounts and sign-in (single-scheduler for now), and running the e2e test in CI.
 
-Next: Phase 4, families and coaches (public mobile schedule pages, iCal feeds, notifying only affected teams from the change log, coach conflict requests).
+**2026-10-15 · Phase 4 (families and coaches) skipped for now** at the product owner's request. The change log already records which teams each change affects, so notifications can be added later without rework.
