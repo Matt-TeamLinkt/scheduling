@@ -27,11 +27,13 @@ from ortools.sat.python import cp_model
 
 from .cp import Expr, total
 from .goals import DEFAULT_PRIORITIES, Goal, GoalBuilder
+from .greedy import greedy
 from .index import LeagueIndex
 from .matchups import Matchup, make_matchups
 from .model import Event, EventKind, League
 from .validate import _check_blackouts, _check_slot_and_season, _check_time_window
 
+KEEP_DRAFT_WEIGHT = 10_000  # placing a game always beats keeping a draft spot
 PLACING_SHARE = 0.6  # at most this share of the time limit goes to fitting games in
 
 
@@ -375,19 +377,41 @@ def run(league: League, games: list[Game], opts: SolveOptions, notes: list[str])
     def left() -> float:
         return opts.time_limit_s - (clock.perf_counter() - t0)
 
-    # Phase 1: place games.
-    b.m.maximize(placed_expr)
-    sv = sv1 = solver_for(left() * PLACING_SHARE)
-    code = sv.solve(b.m, _Watcher(placed_expr, ceiling, Phase.PLACING, t0, opts.on_progress, True))
-    if code not in (cp_model.OPTIMAL, cp_model.FEASIBLE):
-        return SolveResult(Status.NO_SCHEDULE, [], [g.matchup for g in games if g.matchup],
-                           clock.perf_counter() - t0, notes, stats)  # fmt: skip
-    best_placed = int(sv.value(placed_expr))
-    values = {k: sv.boolean_value(v) for k, v in b.x.items()}
+    # Phase 0: a quick greedy draft. If it already fits every game that can fit, the
+    # solver only has to make it fairer; otherwise it's phase 1's starting point.
+    draft = greedy(b)
+    draft_values = {(gid, k): draft.get(gid) == k for (gid, k) in b.x}
+    for g in games:
+        if g.fixed is not None:
+            for fixed_spot in b.cands[g.id]:
+                draft_values[(g.id, fixed_spot.key)] = True
+    stats["draft_placed"] = len(draft)
+    if len(draft) >= ceiling:
+        code, best_placed, values = cp_model.FEASIBLE, len(draft), draft_values
+        if opts.on_progress:
+            opts.on_progress(Progress(clock.perf_counter() - t0, best_placed, ceiling,
+                                      Phase.PLACING))  # fmt: skip
+    else:
+        # Phase 1: place as many games as possible.
+        for k, v in b.x.items():
+            b.m.add_hint(v, draft_values[k])
+        # Fit the missing games while moving as little of the draft as possible.
+        keep = total(v for k, v in b.x.items() if draft_values[k])
+        b.m.maximize(KEEP_DRAFT_WEIGHT * placed_expr + keep)
+        sv1 = solver_for(left() * PLACING_SHARE)
+        code = sv1.solve(
+            b.m, _Watcher(placed_expr, ceiling, Phase.PLACING, t0, opts.on_progress, True)
+        )
+        if code not in (cp_model.OPTIMAL, cp_model.FEASIBLE):
+            return SolveResult(Status.NO_SCHEDULE, [], [g.matchup for g in games if g.matchup],
+                               clock.perf_counter() - t0, notes, stats)  # fmt: skip
+        best_placed = int(sv1.value(placed_expr))
+        values = {k: sv1.boolean_value(v) for k, v in b.x.items()}
     proven = code == cp_model.OPTIMAL or best_placed >= ceiling
 
     # Phase 2: same number of games, as fair as possible.
     final_code = code
+    scores: dict[Goal, int] = {}
     # Goals are added only now: they'd slow down the search for a complete schedule.
     goals = GoalBuilder(b)
     penalty = goals.build(opts.priorities)
@@ -403,8 +427,8 @@ def run(league: League, games: list[Game], opts: SolveOptions, notes: list[str])
         )
         if code2 in (cp_model.OPTIMAL, cp_model.FEASIBLE):
             values = {k: sv2.boolean_value(v) for k, v in b.x.items()}
-            sv, final_code = sv2, code2
-    scores = {g: int(sv.value(e)) for g, e in goals.parts.items()} if sv is not sv1 else {}
+            final_code = code2
+            scores = {g: int(sv2.value(e)) for g, e in goals.parts.items()}
 
     spot_by_key = {s.key: s for s in b.spots}
     chosen = {gid: spot_by_key[k] for (gid, k), on in values.items() if on}

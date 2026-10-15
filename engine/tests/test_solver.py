@@ -156,3 +156,27 @@ def test_impossible_league_still_gets_its_best_schedule() -> None:
     assert r.stats["most_possible"] == 228  # the solver knows 12 games can't fit
     assert 12 <= len(r.unplaced) <= 14  # and gets within a game or two of that
     assert {m.division_id for m in r.unplaced} == {"d-u15"}
+
+
+@pytest.mark.parametrize("name", ["small_8", "league_40", "nightmare"])
+def test_greedy_draft_never_breaks_a_rule(name: str) -> None:
+    from scheduling_engine.greedy import greedy
+    from scheduling_engine.matchups import make_matchups
+    from scheduling_engine.model import Event
+    from scheduling_engine.solver import ModelBuilder, games_for
+
+    lg = fixtures.ALL[name]()
+    ms, _ = make_matchups(lg)
+    b = ModelBuilder(lg, games_for(lg, ms))
+    b.build_candidates()
+    draft = greedy(b)
+    spots = {s.key: s for s in b.spots}
+    games = {g.id: g for g in b.games}
+    events = [
+        Event(id=gid, division_id=games[gid].division_id, home_team_id=games[gid].home_team_id,
+              away_team_id=games[gid].away_team_id, slot_id=spots[k].slot_id,
+              start=spots[k].start, minutes=spots[k].minutes, units=spots[k].units)
+        for gid, k in draft.items()
+    ]  # fmt: skip
+    assert validate(lg, events) == []
+    assert len(draft) >= 0.95 * len(ms)

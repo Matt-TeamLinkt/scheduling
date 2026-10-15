@@ -1,0 +1,7 @@
+when,commit,label,fixture,seconds,status,games,unplaced,violations,short_of_target,home_away_worst,early_late_spread,back_to_back_days,longest_gap_days,quickest_rematch_days,family_clashes,travel_km,away_from_home_venue,flags
+2026-10-15T00:20:01,e692fb4,baseline: first solver,small_8,1.2,best,28,0,0,0,1,0,0,21,0,0,0.0,0,3
+2026-10-15T00:21:02,e692fb4,baseline: first solver,league_40,60.3,good,240,0,0,0,0,3,49,28,1,13,4367.6,150,33
+2026-10-15T00:22:02,e692fb4,baseline: first solver,nightmare,60.2,good,240,0,0,0,0,6,59,27,1,74,4589.3,161,99
+2026-10-15T00:35:12,e692fb4,greedy draft + round/week alignment,small_8,0.6,best,28,0,0,0,1,0,0,14,nan,0,0.0,0,0
+2026-10-15T00:36:13,e692fb4,greedy draft + round/week alignment,league_40,60.3,good,240,0,0,0,0,2,49,22,3,5,4137.2,112,17
+2026-10-15T00:37:13,e692fb4,greedy draft + round/week alignment,nightmare,60.3,good,240,0,0,0,0,4,68,31,1,63,4724.6,161,83
