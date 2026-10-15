@@ -12,7 +12,9 @@
   "min_rest_minutes": 0,
   "max_games_per_day": 1,
   "earliest_start": "08:00:00",
-  "latest_end": "18:00:00"
+  "latest_end": "18:00:00",
+  "early_before": "08:00:00",
+  "late_from": "20:30:00"
  },
  "divisions": [
   {
@@ -25,7 +27,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": null
+    "latest_end": null,
+    "early_before": null,
+    "late_from": null
    }
   }
  ],
@@ -42,7 +46,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": null
+    "latest_end": null,
+    "early_before": null,
+    "late_from": null
    }
   },
   {
@@ -57,7 +63,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": null
+    "latest_end": null,
+    "early_before": null,
+    "late_from": null
    }
   },
   {
@@ -72,7 +80,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": null
+    "latest_end": null,
+    "early_before": null,
+    "late_from": null
    }
   },
   {
@@ -87,7 +97,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": null
+    "latest_end": null,
+    "early_before": null,
+    "late_from": null
    }
   },
   {
@@ -102,7 +114,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": null
+    "latest_end": null,
+    "early_before": null,
+    "late_from": null
    }
   },
   {
@@ -117,7 +131,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": null
+    "latest_end": null,
+    "early_before": null,
+    "late_from": null
    }
   },
   {
@@ -132,7 +148,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": null
+    "latest_end": null,
+    "early_before": null,
+    "late_from": null
    }
   },
   {
@@ -147,7 +165,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": null
+    "latest_end": null,
+    "early_before": null,
+    "late_from": null
    }
   }
  ],

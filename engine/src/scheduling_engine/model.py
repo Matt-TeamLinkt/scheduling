@@ -83,6 +83,10 @@ class Rules(Model):
     # Games must start at or after earliest_start and finish by latest_end.
     earliest_start: time = time(8, 0)
     latest_end: time = time(21, 0)
+    # Fairness only (not limits): what counts as an early or a late game, so they can be
+    # shared out evenly between teams.
+    early_before: time = time(8, 0)
+    late_from: time = time(20, 30)
 
     @model_validator(mode="after")
     def _window_is_open(self) -> Self:
@@ -101,6 +105,8 @@ class RuleOverrides(Model):
     max_games_per_day: int | None = Field(default=None, ge=1)
     earliest_start: time | None = None
     latest_end: time | None = None
+    early_before: time | None = None
+    late_from: time | None = None
 
     def apply_to(self, base: Rules) -> Rules:
         changes = self.model_dump(exclude_none=True)

@@ -24,6 +24,7 @@ dev = [
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+markers = ["slow: solves a realistic 40-team league (about a minute each)"]
 
 [tool.ruff]
 line-length = 100

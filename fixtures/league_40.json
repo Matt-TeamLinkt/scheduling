@@ -12,7 +12,9 @@
   "min_rest_minutes": 0,
   "max_games_per_day": 1,
   "earliest_start": "07:00:00",
-  "latest_end": "21:00:00"
+  "latest_end": "21:00:00",
+  "early_before": "08:00:00",
+  "late_from": "20:30:00"
  },
  "divisions": [
   {
@@ -25,7 +27,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": "19:00:00"
+    "latest_end": "19:00:00",
+    "early_before": null,
+    "late_from": null
    }
   },
   {
@@ -38,7 +42,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": "20:00:00"
+    "latest_end": "20:00:00",
+    "early_before": null,
+    "late_from": null
    }
   },
   {
@@ -51,7 +57,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": null
+    "latest_end": null,
+    "early_before": null,
+    "late_from": null
    }
   },
   {
@@ -64,7 +72,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": null
+    "latest_end": null,
+    "early_before": null,
+    "late_from": null
    }
   }
  ],
@@ -81,7 +91,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": null
+    "latest_end": null,
+    "early_before": null,
+    "late_from": null
    }
   },
   {
@@ -96,7 +108,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": null
+    "latest_end": null,
+    "early_before": null,
+    "late_from": null
    }
   },
   {
@@ -111,7 +125,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": null
+    "latest_end": null,
+    "early_before": null,
+    "late_from": null
    }
   },
   {
@@ -126,7 +142,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": null
+    "latest_end": null,
+    "early_before": null,
+    "late_from": null
    }
   },
   {
@@ -141,7 +159,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": null
+    "latest_end": null,
+    "early_before": null,
+    "late_from": null
    }
   },
   {
@@ -156,7 +176,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": null
+    "latest_end": null,
+    "early_before": null,
+    "late_from": null
    }
   },
   {
@@ -171,7 +193,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": null
+    "latest_end": null,
+    "early_before": null,
+    "late_from": null
    }
   },
   {
@@ -186,7 +210,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": null
+    "latest_end": null,
+    "early_before": null,
+    "late_from": null
    }
   },
   {
@@ -201,7 +227,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": null
+    "latest_end": null,
+    "early_before": null,
+    "late_from": null
    }
   },
   {
@@ -216,7 +244,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": null
+    "latest_end": null,
+    "early_before": null,
+    "late_from": null
    }
   },
   {
@@ -231,7 +261,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": null
+    "latest_end": null,
+    "early_before": null,
+    "late_from": null
    }
   },
   {
@@ -246,7 +278,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": null
+    "latest_end": null,
+    "early_before": null,
+    "late_from": null
    }
   },
   {
@@ -261,7 +295,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": null
+    "latest_end": null,
+    "early_before": null,
+    "late_from": null
    }
   },
   {
@@ -276,7 +312,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": null
+    "latest_end": null,
+    "early_before": null,
+    "late_from": null
    }
   },
   {
@@ -291,7 +329,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": null
+    "latest_end": null,
+    "early_before": null,
+    "late_from": null
    }
   },
   {
@@ -306,7 +346,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": null
+    "latest_end": null,
+    "early_before": null,
+    "late_from": null
    }
   },
   {
@@ -321,7 +363,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": null
+    "latest_end": null,
+    "early_before": null,
+    "late_from": null
    }
   },
   {
@@ -336,7 +380,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": null
+    "latest_end": null,
+    "early_before": null,
+    "late_from": null
    }
   },
   {
@@ -351,7 +397,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": null
+    "latest_end": null,
+    "early_before": null,
+    "late_from": null
    }
   },
   {
@@ -366,7 +414,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": null
+    "latest_end": null,
+    "early_before": null,
+    "late_from": null
    }
   },
   {
@@ -381,7 +431,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": null
+    "latest_end": null,
+    "early_before": null,
+    "late_from": null
    }
   },
   {
@@ -396,7 +448,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": null
+    "latest_end": null,
+    "early_before": null,
+    "late_from": null
    }
   },
   {
@@ -411,7 +465,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": null
+    "latest_end": null,
+    "early_before": null,
+    "late_from": null
    }
   },
   {
@@ -426,7 +482,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": null
+    "latest_end": null,
+    "early_before": null,
+    "late_from": null
    }
   },
   {
@@ -441,7 +499,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": null
+    "latest_end": null,
+    "early_before": null,
+    "late_from": null
    }
   },
   {
@@ -456,7 +516,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": null
+    "latest_end": null,
+    "early_before": null,
+    "late_from": null
    }
   },
   {
@@ -471,7 +533,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": null
+    "latest_end": null,
+    "early_before": null,
+    "late_from": null
    }
   },
   {
@@ -486,7 +550,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": null
+    "latest_end": null,
+    "early_before": null,
+    "late_from": null
    }
   },
   {
@@ -501,7 +567,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": null
+    "latest_end": null,
+    "early_before": null,
+    "late_from": null
    }
   },
   {
@@ -516,7 +584,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": null
+    "latest_end": null,
+    "early_before": null,
+    "late_from": null
    }
   },
   {
@@ -531,7 +601,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": null
+    "latest_end": null,
+    "early_before": null,
+    "late_from": null
    }
   },
   {
@@ -546,7 +618,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": null
+    "latest_end": null,
+    "early_before": null,
+    "late_from": null
    }
   },
   {
@@ -561,7 +635,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": null
+    "latest_end": null,
+    "early_before": null,
+    "late_from": null
    }
   },
   {
@@ -576,7 +652,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": null
+    "latest_end": null,
+    "early_before": null,
+    "late_from": null
    }
   },
   {
@@ -591,7 +669,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": null
+    "latest_end": null,
+    "early_before": null,
+    "late_from": null
    }
   },
   {
@@ -606,7 +686,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": null
+    "latest_end": null,
+    "early_before": null,
+    "late_from": null
    }
   },
   {
@@ -621,7 +703,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": null
+    "latest_end": null,
+    "early_before": null,
+    "late_from": null
    }
   },
   {
@@ -636,7 +720,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": null
+    "latest_end": null,
+    "early_before": null,
+    "late_from": null
    }
   },
   {
@@ -651,7 +737,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": null
+    "latest_end": null,
+    "early_before": null,
+    "late_from": null
    }
   },
   {
@@ -666,7 +754,9 @@
     "min_rest_minutes": null,
     "max_games_per_day": null,
     "earliest_start": null,
-    "latest_end": null
+    "latest_end": null,
+    "early_before": null,
+    "late_from": null
    }
   }
  ],
@@ -2246,296 +2336,296 @@
   },
   {
    "id": "sl-0121",
-   "surface_id": "s-river",
-   "date": "2027-01-05",
-   "start": "17:00:00",
-   "end": "18:00:00",
+   "surface_id": "s-north-1",
+   "date": "2027-01-10",
+   "start": "07:00:00",
+   "end": "08:15:00",
    "cost": null
   },
   {
    "id": "sl-0122",
-   "surface_id": "s-river",
-   "date": "2027-01-05",
-   "start": "18:00:00",
-   "end": "19:00:00",
+   "surface_id": "s-north-1",
+   "date": "2027-01-10",
+   "start": "08:15:00",
+   "end": "09:30:00",
    "cost": null
   },
   {
    "id": "sl-0123",
-   "surface_id": "s-river",
-   "date": "2027-01-05",
-   "start": "19:00:00",
-   "end": "20:00:00",
+   "surface_id": "s-north-1",
+   "date": "2027-01-10",
+   "start": "09:30:00",
+   "end": "10:45:00",
    "cost": null
   },
   {
    "id": "sl-0124",
-   "surface_id": "s-river",
-   "date": "2027-01-05",
-   "start": "20:00:00",
-   "end": "21:00:00",
+   "surface_id": "s-north-1",
+   "date": "2027-01-17",
+   "start": "07:00:00",
+   "end": "08:15:00",
    "cost": null
   },
   {
    "id": "sl-0125",
-   "surface_id": "s-river",
-   "date": "2027-01-07",
-   "start": "17:00:00",
-   "end": "18:00:00",
+   "surface_id": "s-north-1",
+   "date": "2027-01-17",
+   "start": "08:15:00",
+   "end": "09:30:00",
    "cost": null
   },
   {
    "id": "sl-0126",
-   "surface_id": "s-river",
-   "date": "2027-01-07",
-   "start": "18:00:00",
-   "end": "19:00:00",
+   "surface_id": "s-north-1",
+   "date": "2027-01-17",
+   "start": "09:30:00",
+   "end": "10:45:00",
    "cost": null
   },
   {
    "id": "sl-0127",
-   "surface_id": "s-river",
-   "date": "2027-01-07",
-   "start": "19:00:00",
-   "end": "20:00:00",
+   "surface_id": "s-north-1",
+   "date": "2027-01-24",
+   "start": "07:00:00",
+   "end": "08:15:00",
    "cost": null
   },
   {
    "id": "sl-0128",
-   "surface_id": "s-river",
-   "date": "2027-01-07",
-   "start": "20:00:00",
-   "end": "21:00:00",
+   "surface_id": "s-north-1",
+   "date": "2027-01-24",
+   "start": "08:15:00",
+   "end": "09:30:00",
    "cost": null
   },
   {
    "id": "sl-0129",
-   "surface_id": "s-river",
-   "date": "2027-01-12",
-   "start": "17:00:00",
-   "end": "18:00:00",
+   "surface_id": "s-north-1",
+   "date": "2027-01-24",
+   "start": "09:30:00",
+   "end": "10:45:00",
    "cost": null
   },
   {
    "id": "sl-0130",
-   "surface_id": "s-river",
-   "date": "2027-01-12",
-   "start": "18:00:00",
-   "end": "19:00:00",
+   "surface_id": "s-north-1",
+   "date": "2027-01-31",
+   "start": "07:00:00",
+   "end": "08:15:00",
    "cost": null
   },
   {
    "id": "sl-0131",
-   "surface_id": "s-river",
-   "date": "2027-01-12",
-   "start": "19:00:00",
-   "end": "20:00:00",
+   "surface_id": "s-north-1",
+   "date": "2027-01-31",
+   "start": "08:15:00",
+   "end": "09:30:00",
    "cost": null
   },
   {
    "id": "sl-0132",
-   "surface_id": "s-river",
-   "date": "2027-01-12",
-   "start": "20:00:00",
-   "end": "21:00:00",
+   "surface_id": "s-north-1",
+   "date": "2027-01-31",
+   "start": "09:30:00",
+   "end": "10:45:00",
    "cost": null
   },
   {
    "id": "sl-0133",
-   "surface_id": "s-river",
-   "date": "2027-01-14",
-   "start": "17:00:00",
-   "end": "18:00:00",
+   "surface_id": "s-north-1",
+   "date": "2027-02-07",
+   "start": "07:00:00",
+   "end": "08:15:00",
    "cost": null
   },
   {
    "id": "sl-0134",
-   "surface_id": "s-river",
-   "date": "2027-01-14",
-   "start": "18:00:00",
-   "end": "19:00:00",
+   "surface_id": "s-north-1",
+   "date": "2027-02-07",
+   "start": "08:15:00",
+   "end": "09:30:00",
    "cost": null
   },
   {
    "id": "sl-0135",
-   "surface_id": "s-river",
-   "date": "2027-01-14",
-   "start": "19:00:00",
-   "end": "20:00:00",
+   "surface_id": "s-north-1",
+   "date": "2027-02-07",
+   "start": "09:30:00",
+   "end": "10:45:00",
    "cost": null
   },
   {
    "id": "sl-0136",
-   "surface_id": "s-river",
-   "date": "2027-01-14",
-   "start": "20:00:00",
-   "end": "21:00:00",
+   "surface_id": "s-north-1",
+   "date": "2027-02-14",
+   "start": "07:00:00",
+   "end": "08:15:00",
    "cost": null
   },
   {
    "id": "sl-0137",
-   "surface_id": "s-river",
-   "date": "2027-01-19",
-   "start": "17:00:00",
-   "end": "18:00:00",
+   "surface_id": "s-north-1",
+   "date": "2027-02-14",
+   "start": "08:15:00",
+   "end": "09:30:00",
    "cost": null
   },
   {
    "id": "sl-0138",
-   "surface_id": "s-river",
-   "date": "2027-01-19",
-   "start": "18:00:00",
-   "end": "19:00:00",
+   "surface_id": "s-north-1",
+   "date": "2027-02-14",
+   "start": "09:30:00",
+   "end": "10:45:00",
    "cost": null
   },
   {
    "id": "sl-0139",
-   "surface_id": "s-river",
-   "date": "2027-01-19",
-   "start": "19:00:00",
-   "end": "20:00:00",
+   "surface_id": "s-north-1",
+   "date": "2027-02-21",
+   "start": "07:00:00",
+   "end": "08:15:00",
    "cost": null
   },
   {
    "id": "sl-0140",
-   "surface_id": "s-river",
-   "date": "2027-01-19",
-   "start": "20:00:00",
-   "end": "21:00:00",
+   "surface_id": "s-north-1",
+   "date": "2027-02-21",
+   "start": "08:15:00",
+   "end": "09:30:00",
    "cost": null
   },
   {
    "id": "sl-0141",
-   "surface_id": "s-river",
-   "date": "2027-01-21",
-   "start": "17:00:00",
-   "end": "18:00:00",
+   "surface_id": "s-north-1",
+   "date": "2027-02-21",
+   "start": "09:30:00",
+   "end": "10:45:00",
    "cost": null
   },
   {
    "id": "sl-0142",
-   "surface_id": "s-river",
-   "date": "2027-01-21",
-   "start": "18:00:00",
-   "end": "19:00:00",
+   "surface_id": "s-north-1",
+   "date": "2027-02-28",
+   "start": "07:00:00",
+   "end": "08:15:00",
    "cost": null
   },
   {
    "id": "sl-0143",
-   "surface_id": "s-river",
-   "date": "2027-01-21",
-   "start": "19:00:00",
-   "end": "20:00:00",
+   "surface_id": "s-north-1",
+   "date": "2027-02-28",
+   "start": "08:15:00",
+   "end": "09:30:00",
    "cost": null
   },
   {
    "id": "sl-0144",
-   "surface_id": "s-river",
-   "date": "2027-01-21",
-   "start": "20:00:00",
-   "end": "21:00:00",
+   "surface_id": "s-north-1",
+   "date": "2027-02-28",
+   "start": "09:30:00",
+   "end": "10:45:00",
    "cost": null
   },
   {
    "id": "sl-0145",
-   "surface_id": "s-river",
-   "date": "2027-01-26",
-   "start": "17:00:00",
-   "end": "18:00:00",
+   "surface_id": "s-north-1",
+   "date": "2027-03-07",
+   "start": "07:00:00",
+   "end": "08:15:00",
    "cost": null
   },
   {
    "id": "sl-0146",
-   "surface_id": "s-river",
-   "date": "2027-01-26",
-   "start": "18:00:00",
-   "end": "19:00:00",
+   "surface_id": "s-north-1",
+   "date": "2027-03-07",
+   "start": "08:15:00",
+   "end": "09:30:00",
    "cost": null
   },
   {
    "id": "sl-0147",
-   "surface_id": "s-river",
-   "date": "2027-01-26",
-   "start": "19:00:00",
-   "end": "20:00:00",
+   "surface_id": "s-north-1",
+   "date": "2027-03-07",
+   "start": "09:30:00",
+   "end": "10:45:00",
    "cost": null
   },
   {
    "id": "sl-0148",
-   "surface_id": "s-river",
-   "date": "2027-01-26",
-   "start": "20:00:00",
-   "end": "21:00:00",
+   "surface_id": "s-north-1",
+   "date": "2027-03-14",
+   "start": "07:00:00",
+   "end": "08:15:00",
    "cost": null
   },
   {
    "id": "sl-0149",
-   "surface_id": "s-river",
-   "date": "2027-01-28",
-   "start": "17:00:00",
-   "end": "18:00:00",
+   "surface_id": "s-north-1",
+   "date": "2027-03-14",
+   "start": "08:15:00",
+   "end": "09:30:00",
    "cost": null
   },
   {
    "id": "sl-0150",
-   "surface_id": "s-river",
-   "date": "2027-01-28",
-   "start": "18:00:00",
-   "end": "19:00:00",
+   "surface_id": "s-north-1",
+   "date": "2027-03-14",
+   "start": "09:30:00",
+   "end": "10:45:00",
    "cost": null
   },
   {
    "id": "sl-0151",
-   "surface_id": "s-river",
-   "date": "2027-01-28",
-   "start": "19:00:00",
-   "end": "20:00:00",
+   "surface_id": "s-north-1",
+   "date": "2027-03-21",
+   "start": "07:00:00",
+   "end": "08:15:00",
    "cost": null
   },
   {
    "id": "sl-0152",
-   "surface_id": "s-river",
-   "date": "2027-01-28",
-   "start": "20:00:00",
-   "end": "21:00:00",
+   "surface_id": "s-north-1",
+   "date": "2027-03-21",
+   "start": "08:15:00",
+   "end": "09:30:00",
    "cost": null
   },
   {
    "id": "sl-0153",
-   "surface_id": "s-river",
-   "date": "2027-02-02",
-   "start": "17:00:00",
-   "end": "18:00:00",
+   "surface_id": "s-north-1",
+   "date": "2027-03-21",
+   "start": "09:30:00",
+   "end": "10:45:00",
    "cost": null
   },
   {
    "id": "sl-0154",
-   "surface_id": "s-river",
-   "date": "2027-02-02",
-   "start": "18:00:00",
-   "end": "19:00:00",
+   "surface_id": "s-north-1",
+   "date": "2027-03-28",
+   "start": "07:00:00",
+   "end": "08:15:00",
    "cost": null
   },
   {
    "id": "sl-0155",
-   "surface_id": "s-river",
-   "date": "2027-02-02",
-   "start": "19:00:00",
-   "end": "20:00:00",
+   "surface_id": "s-north-1",
+   "date": "2027-03-28",
+   "start": "08:15:00",
+   "end": "09:30:00",
    "cost": null
   },
   {
    "id": "sl-0156",
-   "surface_id": "s-river",
-   "date": "2027-02-02",
-   "start": "20:00:00",
-   "end": "21:00:00",
+   "surface_id": "s-north-1",
+   "date": "2027-03-28",
+   "start": "09:30:00",
+   "end": "10:45:00",
    "cost": null
   },
   {
    "id": "sl-0157",
    "surface_id": "s-river",
-   "date": "2027-02-04",
+   "date": "2027-01-05",
    "start": "17:00:00",
    "end": "18:00:00",
    "cost": null
@@ -2543,7 +2633,7 @@
   {
    "id": "sl-0158",
    "surface_id": "s-river",
-   "date": "2027-02-04",
+   "date": "2027-01-05",
    "start": "18:00:00",
    "end": "19:00:00",
    "cost": null
@@ -2551,7 +2641,7 @@
   {
    "id": "sl-0159",
    "surface_id": "s-river",
-   "date": "2027-02-04",
+   "date": "2027-01-05",
    "start": "19:00:00",
    "end": "20:00:00",
    "cost": null
@@ -2559,7 +2649,7 @@
   {
    "id": "sl-0160",
    "surface_id": "s-river",
-   "date": "2027-02-04",
+   "date": "2027-01-05",
    "start": "20:00:00",
    "end": "21:00:00",
    "cost": null
@@ -2567,7 +2657,7 @@
   {
    "id": "sl-0161",
    "surface_id": "s-river",
-   "date": "2027-02-09",
+   "date": "2027-01-07",
    "start": "17:00:00",
    "end": "18:00:00",
    "cost": null
@@ -2575,7 +2665,7 @@
   {
    "id": "sl-0162",
    "surface_id": "s-river",
-   "date": "2027-02-09",
+   "date": "2027-01-07",
    "start": "18:00:00",
    "end": "19:00:00",
    "cost": null
@@ -2583,7 +2673,7 @@
   {
    "id": "sl-0163",
    "surface_id": "s-river",
-   "date": "2027-02-09",
+   "date": "2027-01-07",
    "start": "19:00:00",
    "end": "20:00:00",
    "cost": null
@@ -2591,7 +2681,7 @@
   {
    "id": "sl-0164",
    "surface_id": "s-river",
-   "date": "2027-02-09",
+   "date": "2027-01-07",
    "start": "20:00:00",
    "end": "21:00:00",
    "cost": null
@@ -2599,7 +2689,7 @@
   {
    "id": "sl-0165",
    "surface_id": "s-river",
-   "date": "2027-02-11",
+   "date": "2027-01-12",
    "start": "17:00:00",
    "end": "18:00:00",
    "cost": null
@@ -2607,7 +2697,7 @@
   {
    "id": "sl-0166",
    "surface_id": "s-river",
-   "date": "2027-02-11",
+   "date": "2027-01-12",
    "start": "18:00:00",
    "end": "19:00:00",
    "cost": null
@@ -2615,7 +2705,7 @@
   {
    "id": "sl-0167",
    "surface_id": "s-river",
-   "date": "2027-02-11",
+   "date": "2027-01-12",
    "start": "19:00:00",
    "end": "20:00:00",
    "cost": null
@@ -2623,7 +2713,7 @@
   {
    "id": "sl-0168",
    "surface_id": "s-river",
-   "date": "2027-02-11",
+   "date": "2027-01-12",
    "start": "20:00:00",
    "end": "21:00:00",
    "cost": null
@@ -2631,7 +2721,7 @@
   {
    "id": "sl-0169",
    "surface_id": "s-river",
-   "date": "2027-02-16",
+   "date": "2027-01-14",
    "start": "17:00:00",
    "end": "18:00:00",
    "cost": null
@@ -2639,7 +2729,7 @@
   {
    "id": "sl-0170",
    "surface_id": "s-river",
-   "date": "2027-02-16",
+   "date": "2027-01-14",
    "start": "18:00:00",
    "end": "19:00:00",
    "cost": null
@@ -2647,7 +2737,7 @@
   {
    "id": "sl-0171",
    "surface_id": "s-river",
-   "date": "2027-02-16",
+   "date": "2027-01-14",
    "start": "19:00:00",
    "end": "20:00:00",
    "cost": null
@@ -2655,7 +2745,7 @@
   {
    "id": "sl-0172",
    "surface_id": "s-river",
-   "date": "2027-02-16",
+   "date": "2027-01-14",
    "start": "20:00:00",
    "end": "21:00:00",
    "cost": null
@@ -2663,7 +2753,7 @@
   {
    "id": "sl-0173",
    "surface_id": "s-river",
-   "date": "2027-02-18",
+   "date": "2027-01-19",
    "start": "17:00:00",
    "end": "18:00:00",
    "cost": null
@@ -2671,7 +2761,7 @@
   {
    "id": "sl-0174",
    "surface_id": "s-river",
-   "date": "2027-02-18",
+   "date": "2027-01-19",
    "start": "18:00:00",
    "end": "19:00:00",
    "cost": null
@@ -2679,7 +2769,7 @@
   {
    "id": "sl-0175",
    "surface_id": "s-river",
-   "date": "2027-02-18",
+   "date": "2027-01-19",
    "start": "19:00:00",
    "end": "20:00:00",
    "cost": null
@@ -2687,7 +2777,7 @@
   {
    "id": "sl-0176",
    "surface_id": "s-river",
-   "date": "2027-02-18",
+   "date": "2027-01-19",
    "start": "20:00:00",
    "end": "21:00:00",
    "cost": null
@@ -2695,7 +2785,7 @@
   {
    "id": "sl-0177",
    "surface_id": "s-river",
-   "date": "2027-02-23",
+   "date": "2027-01-21",
    "start": "17:00:00",
    "end": "18:00:00",
    "cost": null
@@ -2703,7 +2793,7 @@
   {
    "id": "sl-0178",
    "surface_id": "s-river",
-   "date": "2027-02-23",
+   "date": "2027-01-21",
    "start": "18:00:00",
    "end": "19:00:00",
    "cost": null
@@ -2711,7 +2801,7 @@
   {
    "id": "sl-0179",
    "surface_id": "s-river",
-   "date": "2027-02-23",
+   "date": "2027-01-21",
    "start": "19:00:00",
    "end": "20:00:00",
    "cost": null
@@ -2719,7 +2809,7 @@
   {
    "id": "sl-0180",
    "surface_id": "s-river",
-   "date": "2027-02-23",
+   "date": "2027-01-21",
    "start": "20:00:00",
    "end": "21:00:00",
    "cost": null
@@ -2727,7 +2817,7 @@
   {
    "id": "sl-0181",
    "surface_id": "s-river",
-   "date": "2027-02-25",
+   "date": "2027-01-26",
    "start": "17:00:00",
    "end": "18:00:00",
    "cost": null
@@ -2735,7 +2825,7 @@
   {
    "id": "sl-0182",
    "surface_id": "s-river",
-   "date": "2027-02-25",
+   "date": "2027-01-26",
    "start": "18:00:00",
    "end": "19:00:00",
    "cost": null
@@ -2743,7 +2833,7 @@
   {
    "id": "sl-0183",
    "surface_id": "s-river",
-   "date": "2027-02-25",
+   "date": "2027-01-26",
    "start": "19:00:00",
    "end": "20:00:00",
    "cost": null
@@ -2751,7 +2841,7 @@
   {
    "id": "sl-0184",
    "surface_id": "s-river",
-   "date": "2027-02-25",
+   "date": "2027-01-26",
    "start": "20:00:00",
    "end": "21:00:00",
    "cost": null
@@ -2759,7 +2849,7 @@
   {
    "id": "sl-0185",
    "surface_id": "s-river",
-   "date": "2027-03-02",
+   "date": "2027-01-28",
    "start": "17:00:00",
    "end": "18:00:00",
    "cost": null
@@ -2767,7 +2857,7 @@
   {
    "id": "sl-0186",
    "surface_id": "s-river",
-   "date": "2027-03-02",
+   "date": "2027-01-28",
    "start": "18:00:00",
    "end": "19:00:00",
    "cost": null
@@ -2775,7 +2865,7 @@
   {
    "id": "sl-0187",
    "surface_id": "s-river",
-   "date": "2027-03-02",
+   "date": "2027-01-28",
    "start": "19:00:00",
    "end": "20:00:00",
    "cost": null
@@ -2783,7 +2873,7 @@
   {
    "id": "sl-0188",
    "surface_id": "s-river",
-   "date": "2027-03-02",
+   "date": "2027-01-28",
    "start": "20:00:00",
    "end": "21:00:00",
    "cost": null
@@ -2791,7 +2881,7 @@
   {
    "id": "sl-0189",
    "surface_id": "s-river",
-   "date": "2027-03-04",
+   "date": "2027-02-02",
    "start": "17:00:00",
    "end": "18:00:00",
    "cost": null
@@ -2799,7 +2889,7 @@
   {
    "id": "sl-0190",
    "surface_id": "s-river",
-   "date": "2027-03-04",
+   "date": "2027-02-02",
    "start": "18:00:00",
    "end": "19:00:00",
    "cost": null
@@ -2807,7 +2897,7 @@
   {
    "id": "sl-0191",
    "surface_id": "s-river",
-   "date": "2027-03-04",
+   "date": "2027-02-02",
    "start": "19:00:00",
    "end": "20:00:00",
    "cost": null
@@ -2815,7 +2905,7 @@
   {
    "id": "sl-0192",
    "surface_id": "s-river",
-   "date": "2027-03-04",
+   "date": "2027-02-02",
    "start": "20:00:00",
    "end": "21:00:00",
    "cost": null
@@ -2823,7 +2913,7 @@
   {
    "id": "sl-0193",
    "surface_id": "s-river",
-   "date": "2027-03-09",
+   "date": "2027-02-04",
    "start": "17:00:00",
    "end": "18:00:00",
    "cost": null
@@ -2831,7 +2921,7 @@
   {
    "id": "sl-0194",
    "surface_id": "s-river",
-   "date": "2027-03-09",
+   "date": "2027-02-04",
    "start": "18:00:00",
    "end": "19:00:00",
    "cost": null
@@ -2839,7 +2929,7 @@
   {
    "id": "sl-0195",
    "surface_id": "s-river",
-   "date": "2027-03-09",
+   "date": "2027-02-04",
    "start": "19:00:00",
    "end": "20:00:00",
    "cost": null
@@ -2847,7 +2937,7 @@
   {
    "id": "sl-0196",
    "surface_id": "s-river",
-   "date": "2027-03-09",
+   "date": "2027-02-04",
    "start": "20:00:00",
    "end": "21:00:00",
    "cost": null
@@ -2855,7 +2945,7 @@
   {
    "id": "sl-0197",
    "surface_id": "s-river",
-   "date": "2027-03-11",
+   "date": "2027-02-09",
    "start": "17:00:00",
    "end": "18:00:00",
    "cost": null
@@ -2863,7 +2953,7 @@
   {
    "id": "sl-0198",
    "surface_id": "s-river",
-   "date": "2027-03-11",
+   "date": "2027-02-09",
    "start": "18:00:00",
    "end": "19:00:00",
    "cost": null
@@ -2871,7 +2961,7 @@
   {
    "id": "sl-0199",
    "surface_id": "s-river",
-   "date": "2027-03-11",
+   "date": "2027-02-09",
    "start": "19:00:00",
    "end": "20:00:00",
    "cost": null
@@ -2879,7 +2969,7 @@
   {
    "id": "sl-0200",
    "surface_id": "s-river",
-   "date": "2027-03-11",
+   "date": "2027-02-09",
    "start": "20:00:00",
    "end": "21:00:00",
    "cost": null
@@ -2887,7 +2977,7 @@
   {
    "id": "sl-0201",
    "surface_id": "s-river",
-   "date": "2027-03-16",
+   "date": "2027-02-11",
    "start": "17:00:00",
    "end": "18:00:00",
    "cost": null
@@ -2895,7 +2985,7 @@
   {
    "id": "sl-0202",
    "surface_id": "s-river",
-   "date": "2027-03-16",
+   "date": "2027-02-11",
    "start": "18:00:00",
    "end": "19:00:00",
    "cost": null
@@ -2903,7 +2993,7 @@
   {
    "id": "sl-0203",
    "surface_id": "s-river",
-   "date": "2027-03-16",
+   "date": "2027-02-11",
    "start": "19:00:00",
    "end": "20:00:00",
    "cost": null
@@ -2911,7 +3001,7 @@
   {
    "id": "sl-0204",
    "surface_id": "s-river",
-   "date": "2027-03-16",
+   "date": "2027-02-11",
    "start": "20:00:00",
    "end": "21:00:00",
    "cost": null
@@ -2919,7 +3009,7 @@
   {
    "id": "sl-0205",
    "surface_id": "s-river",
-   "date": "2027-03-18",
+   "date": "2027-02-16",
    "start": "17:00:00",
    "end": "18:00:00",
    "cost": null
@@ -2927,7 +3017,7 @@
   {
    "id": "sl-0206",
    "surface_id": "s-river",
-   "date": "2027-03-18",
+   "date": "2027-02-16",
    "start": "18:00:00",
    "end": "19:00:00",
    "cost": null
@@ -2935,7 +3025,7 @@
   {
    "id": "sl-0207",
    "surface_id": "s-river",
-   "date": "2027-03-18",
+   "date": "2027-02-16",
    "start": "19:00:00",
    "end": "20:00:00",
    "cost": null
@@ -2943,7 +3033,7 @@
   {
    "id": "sl-0208",
    "surface_id": "s-river",
-   "date": "2027-03-18",
+   "date": "2027-02-16",
    "start": "20:00:00",
    "end": "21:00:00",
    "cost": null
@@ -2951,7 +3041,7 @@
   {
    "id": "sl-0209",
    "surface_id": "s-river",
-   "date": "2027-03-23",
+   "date": "2027-02-18",
    "start": "17:00:00",
    "end": "18:00:00",
    "cost": null
@@ -2959,7 +3049,7 @@
   {
    "id": "sl-0210",
    "surface_id": "s-river",
-   "date": "2027-03-23",
+   "date": "2027-02-18",
    "start": "18:00:00",
    "end": "19:00:00",
    "cost": null
@@ -2967,7 +3057,7 @@
   {
    "id": "sl-0211",
    "surface_id": "s-river",
-   "date": "2027-03-23",
+   "date": "2027-02-18",
    "start": "19:00:00",
    "end": "20:00:00",
    "cost": null
@@ -2975,7 +3065,7 @@
   {
    "id": "sl-0212",
    "surface_id": "s-river",
-   "date": "2027-03-23",
+   "date": "2027-02-18",
    "start": "20:00:00",
    "end": "21:00:00",
    "cost": null
@@ -2983,7 +3073,7 @@
   {
    "id": "sl-0213",
    "surface_id": "s-river",
-   "date": "2027-03-25",
+   "date": "2027-02-23",
    "start": "17:00:00",
    "end": "18:00:00",
    "cost": null
@@ -2991,7 +3081,7 @@
   {
    "id": "sl-0214",
    "surface_id": "s-river",
-   "date": "2027-03-25",
+   "date": "2027-02-23",
    "start": "18:00:00",
    "end": "19:00:00",
    "cost": null
@@ -2999,7 +3089,7 @@
   {
    "id": "sl-0215",
    "surface_id": "s-river",
-   "date": "2027-03-25",
+   "date": "2027-02-23",
    "start": "19:00:00",
    "end": "20:00:00",
    "cost": null
@@ -3007,7 +3097,7 @@
   {
    "id": "sl-0216",
    "surface_id": "s-river",
-   "date": "2027-03-25",
+   "date": "2027-02-23",
    "start": "20:00:00",
    "end": "21:00:00",
    "cost": null
@@ -3015,295 +3105,295 @@
   {
    "id": "sl-0217",
    "surface_id": "s-river",
-   "date": "2027-01-10",
-   "start": "08:00:00",
-   "end": "09:00:00",
+   "date": "2027-02-25",
+   "start": "17:00:00",
+   "end": "18:00:00",
    "cost": null
   },
   {
    "id": "sl-0218",
    "surface_id": "s-river",
-   "date": "2027-01-10",
-   "start": "09:00:00",
-   "end": "10:00:00",
+   "date": "2027-02-25",
+   "start": "18:00:00",
+   "end": "19:00:00",
    "cost": null
   },
   {
    "id": "sl-0219",
    "surface_id": "s-river",
-   "date": "2027-01-10",
-   "start": "10:00:00",
-   "end": "11:00:00",
+   "date": "2027-02-25",
+   "start": "19:00:00",
+   "end": "20:00:00",
    "cost": null
   },
   {
    "id": "sl-0220",
    "surface_id": "s-river",
-   "date": "2027-01-10",
-   "start": "11:00:00",
-   "end": "12:00:00",
+   "date": "2027-02-25",
+   "start": "20:00:00",
+   "end": "21:00:00",
    "cost": null
   },
   {
    "id": "sl-0221",
    "surface_id": "s-river",
-   "date": "2027-01-10",
-   "start": "12:00:00",
-   "end": "13:00:00",
+   "date": "2027-03-02",
+   "start": "17:00:00",
+   "end": "18:00:00",
    "cost": null
   },
   {
    "id": "sl-0222",
    "surface_id": "s-river",
-   "date": "2027-01-10",
-   "start": "13:00:00",
-   "end": "14:00:00",
+   "date": "2027-03-02",
+   "start": "18:00:00",
+   "end": "19:00:00",
    "cost": null
   },
   {
    "id": "sl-0223",
    "surface_id": "s-river",
-   "date": "2027-01-17",
-   "start": "08:00:00",
-   "end": "09:00:00",
+   "date": "2027-03-02",
+   "start": "19:00:00",
+   "end": "20:00:00",
    "cost": null
   },
   {
    "id": "sl-0224",
    "surface_id": "s-river",
-   "date": "2027-01-17",
-   "start": "09:00:00",
-   "end": "10:00:00",
+   "date": "2027-03-02",
+   "start": "20:00:00",
+   "end": "21:00:00",
    "cost": null
   },
   {
    "id": "sl-0225",
    "surface_id": "s-river",
-   "date": "2027-01-17",
-   "start": "10:00:00",
-   "end": "11:00:00",
+   "date": "2027-03-04",
+   "start": "17:00:00",
+   "end": "18:00:00",
    "cost": null
   },
   {
    "id": "sl-0226",
    "surface_id": "s-river",
-   "date": "2027-01-17",
-   "start": "11:00:00",
-   "end": "12:00:00",
+   "date": "2027-03-04",
+   "start": "18:00:00",
+   "end": "19:00:00",
    "cost": null
   },
   {
    "id": "sl-0227",
    "surface_id": "s-river",
-   "date": "2027-01-17",
-   "start": "12:00:00",
-   "end": "13:00:00",
+   "date": "2027-03-04",
+   "start": "19:00:00",
+   "end": "20:00:00",
    "cost": null
   },
   {
    "id": "sl-0228",
    "surface_id": "s-river",
-   "date": "2027-01-17",
-   "start": "13:00:00",
-   "end": "14:00:00",
+   "date": "2027-03-04",
+   "start": "20:00:00",
+   "end": "21:00:00",
    "cost": null
   },
   {
    "id": "sl-0229",
    "surface_id": "s-river",
-   "date": "2027-01-24",
-   "start": "08:00:00",
-   "end": "09:00:00",
+   "date": "2027-03-09",
+   "start": "17:00:00",
+   "end": "18:00:00",
    "cost": null
   },
   {
    "id": "sl-0230",
    "surface_id": "s-river",
-   "date": "2027-01-24",
-   "start": "09:00:00",
-   "end": "10:00:00",
+   "date": "2027-03-09",
+   "start": "18:00:00",
+   "end": "19:00:00",
    "cost": null
   },
   {
    "id": "sl-0231",
    "surface_id": "s-river",
-   "date": "2027-01-24",
-   "start": "10:00:00",
-   "end": "11:00:00",
+   "date": "2027-03-09",
+   "start": "19:00:00",
+   "end": "20:00:00",
    "cost": null
   },
   {
    "id": "sl-0232",
    "surface_id": "s-river",
-   "date": "2027-01-24",
-   "start": "11:00:00",
-   "end": "12:00:00",
+   "date": "2027-03-09",
+   "start": "20:00:00",
+   "end": "21:00:00",
    "cost": null
   },
   {
    "id": "sl-0233",
    "surface_id": "s-river",
-   "date": "2027-01-24",
-   "start": "12:00:00",
-   "end": "13:00:00",
+   "date": "2027-03-11",
+   "start": "17:00:00",
+   "end": "18:00:00",
    "cost": null
   },
   {
    "id": "sl-0234",
    "surface_id": "s-river",
-   "date": "2027-01-24",
-   "start": "13:00:00",
-   "end": "14:00:00",
+   "date": "2027-03-11",
+   "start": "18:00:00",
+   "end": "19:00:00",
    "cost": null
   },
   {
    "id": "sl-0235",
    "surface_id": "s-river",
-   "date": "2027-01-31",
-   "start": "08:00:00",
-   "end": "09:00:00",
+   "date": "2027-03-11",
+   "start": "19:00:00",
+   "end": "20:00:00",
    "cost": null
   },
   {
    "id": "sl-0236",
    "surface_id": "s-river",
-   "date": "2027-01-31",
-   "start": "09:00:00",
-   "end": "10:00:00",
+   "date": "2027-03-11",
+   "start": "20:00:00",
+   "end": "21:00:00",
    "cost": null
   },
   {
    "id": "sl-0237",
    "surface_id": "s-river",
-   "date": "2027-01-31",
-   "start": "10:00:00",
-   "end": "11:00:00",
+   "date": "2027-03-16",
+   "start": "17:00:00",
+   "end": "18:00:00",
    "cost": null
   },
   {
    "id": "sl-0238",
    "surface_id": "s-river",
-   "date": "2027-01-31",
-   "start": "11:00:00",
-   "end": "12:00:00",
+   "date": "2027-03-16",
+   "start": "18:00:00",
+   "end": "19:00:00",
    "cost": null
   },
   {
    "id": "sl-0239",
    "surface_id": "s-river",
-   "date": "2027-01-31",
-   "start": "12:00:00",
-   "end": "13:00:00",
+   "date": "2027-03-16",
+   "start": "19:00:00",
+   "end": "20:00:00",
    "cost": null
   },
   {
    "id": "sl-0240",
    "surface_id": "s-river",
-   "date": "2027-01-31",
-   "start": "13:00:00",
-   "end": "14:00:00",
+   "date": "2027-03-16",
+   "start": "20:00:00",
+   "end": "21:00:00",
    "cost": null
   },
   {
    "id": "sl-0241",
    "surface_id": "s-river",
-   "date": "2027-02-07",
-   "start": "08:00:00",
-   "end": "09:00:00",
+   "date": "2027-03-18",
+   "start": "17:00:00",
+   "end": "18:00:00",
    "cost": null
   },
   {
    "id": "sl-0242",
    "surface_id": "s-river",
-   "date": "2027-02-07",
-   "start": "09:00:00",
-   "end": "10:00:00",
+   "date": "2027-03-18",
+   "start": "18:00:00",
+   "end": "19:00:00",
    "cost": null
   },
   {
    "id": "sl-0243",
    "surface_id": "s-river",
-   "date": "2027-02-07",
-   "start": "10:00:00",
-   "end": "11:00:00",
+   "date": "2027-03-18",
+   "start": "19:00:00",
+   "end": "20:00:00",
    "cost": null
   },
   {
    "id": "sl-0244",
    "surface_id": "s-river",
-   "date": "2027-02-07",
-   "start": "11:00:00",
-   "end": "12:00:00",
+   "date": "2027-03-18",
+   "start": "20:00:00",
+   "end": "21:00:00",
    "cost": null
   },
   {
    "id": "sl-0245",
    "surface_id": "s-river",
-   "date": "2027-02-07",
-   "start": "12:00:00",
-   "end": "13:00:00",
+   "date": "2027-03-23",
+   "start": "17:00:00",
+   "end": "18:00:00",
    "cost": null
   },
   {
    "id": "sl-0246",
    "surface_id": "s-river",
-   "date": "2027-02-07",
-   "start": "13:00:00",
-   "end": "14:00:00",
+   "date": "2027-03-23",
+   "start": "18:00:00",
+   "end": "19:00:00",
    "cost": null
   },
   {
    "id": "sl-0247",
    "surface_id": "s-river",
-   "date": "2027-02-14",
-   "start": "08:00:00",
-   "end": "09:00:00",
+   "date": "2027-03-23",
+   "start": "19:00:00",
+   "end": "20:00:00",
    "cost": null
   },
   {
    "id": "sl-0248",
    "surface_id": "s-river",
-   "date": "2027-02-14",
-   "start": "09:00:00",
-   "end": "10:00:00",
+   "date": "2027-03-23",
+   "start": "20:00:00",
+   "end": "21:00:00",
    "cost": null
   },
   {
    "id": "sl-0249",
    "surface_id": "s-river",
-   "date": "2027-02-14",
-   "start": "10:00:00",
-   "end": "11:00:00",
+   "date": "2027-03-25",
+   "start": "17:00:00",
+   "end": "18:00:00",
    "cost": null
   },
   {
    "id": "sl-0250",
    "surface_id": "s-river",
-   "date": "2027-02-14",
-   "start": "11:00:00",
-   "end": "12:00:00",
+   "date": "2027-03-25",
+   "start": "18:00:00",
+   "end": "19:00:00",
    "cost": null
   },
   {
    "id": "sl-0251",
    "surface_id": "s-river",
-   "date": "2027-02-14",
-   "start": "12:00:00",
-   "end": "13:00:00",
+   "date": "2027-03-25",
+   "start": "19:00:00",
+   "end": "20:00:00",
    "cost": null
   },
   {
    "id": "sl-0252",
    "surface_id": "s-river",
-   "date": "2027-02-14",
-   "start": "13:00:00",
-   "end": "14:00:00",
+   "date": "2027-03-25",
+   "start": "20:00:00",
+   "end": "21:00:00",
    "cost": null
   },
   {
    "id": "sl-0253",
    "surface_id": "s-river",
-   "date": "2027-02-21",
+   "date": "2027-01-10",
    "start": "08:00:00",
    "end": "09:00:00",
    "cost": null
@@ -3311,7 +3401,7 @@
   {
    "id": "sl-0254",
    "surface_id": "s-river",
-   "date": "2027-02-21",
+   "date": "2027-01-10",
    "start": "09:00:00",
    "end": "10:00:00",
    "cost": null
@@ -3319,7 +3409,7 @@
   {
    "id": "sl-0255",
    "surface_id": "s-river",
-   "date": "2027-02-21",
+   "date": "2027-01-10",
    "start": "10:00:00",
    "end": "11:00:00",
    "cost": null
@@ -3327,7 +3417,7 @@
   {
    "id": "sl-0256",
    "surface_id": "s-river",
-   "date": "2027-02-21",
+   "date": "2027-01-10",
    "start": "11:00:00",
    "end": "12:00:00",
    "cost": null
@@ -3335,7 +3425,7 @@
   {
    "id": "sl-0257",
    "surface_id": "s-river",
-   "date": "2027-02-21",
+   "date": "2027-01-10",
    "start": "12:00:00",
    "end": "13:00:00",
    "cost": null
@@ -3343,7 +3433,7 @@
   {
    "id": "sl-0258",
    "surface_id": "s-river",
-   "date": "2027-02-21",
+   "date": "2027-01-10",
    "start": "13:00:00",
    "end": "14:00:00",
    "cost": null
@@ -3351,7 +3441,7 @@
   {
    "id": "sl-0259",
    "surface_id": "s-river",
-   "date": "2027-02-28",
+   "date": "2027-01-17",
    "start": "08:00:00",
    "end": "09:00:00",
    "cost": null
@@ -3359,7 +3449,7 @@
   {
    "id": "sl-0260",
    "surface_id": "s-river",
-   "date": "2027-02-28",
+   "date": "2027-01-17",
    "start": "09:00:00",
    "end": "10:00:00",
    "cost": null
@@ -3367,7 +3457,7 @@
   {
    "id": "sl-0261",
    "surface_id": "s-river",
-   "date": "2027-02-28",
+   "date": "2027-01-17",
    "start": "10:00:00",
    "end": "11:00:00",
    "cost": null
@@ -3375,7 +3465,7 @@
   {
    "id": "sl-0262",
    "surface_id": "s-river",
-   "date": "2027-02-28",
+   "date": "2027-01-17",
    "start": "11:00:00",
    "end": "12:00:00",
    "cost": null
@@ -3383,7 +3473,7 @@
   {
    "id": "sl-0263",
    "surface_id": "s-river",
-   "date": "2027-02-28",
+   "date": "2027-01-17",
    "start": "12:00:00",
    "end": "13:00:00",
    "cost": null
@@ -3391,7 +3481,7 @@
   {
    "id": "sl-0264",
    "surface_id": "s-river",
-   "date": "2027-02-28",
+   "date": "2027-01-17",
    "start": "13:00:00",
    "end": "14:00:00",
    "cost": null
@@ -3399,7 +3489,7 @@
   {
    "id": "sl-0265",
    "surface_id": "s-river",
-   "date": "2027-03-07",
+   "date": "2027-01-24",
    "start": "08:00:00",
    "end": "09:00:00",
    "cost": null
@@ -3407,7 +3497,7 @@
   {
    "id": "sl-0266",
    "surface_id": "s-river",
-   "date": "2027-03-07",
+   "date": "2027-01-24",
    "start": "09:00:00",
    "end": "10:00:00",
    "cost": null
@@ -3415,7 +3505,7 @@
   {
    "id": "sl-0267",
    "surface_id": "s-river",
-   "date": "2027-03-07",
+   "date": "2027-01-24",
    "start": "10:00:00",
    "end": "11:00:00",
    "cost": null
@@ -3423,7 +3513,7 @@
   {
    "id": "sl-0268",
    "surface_id": "s-river",
-   "date": "2027-03-07",
+   "date": "2027-01-24",
    "start": "11:00:00",
    "end": "12:00:00",
    "cost": null
@@ -3431,7 +3521,7 @@
   {
    "id": "sl-0269",
    "surface_id": "s-river",
-   "date": "2027-03-07",
+   "date": "2027-01-24",
    "start": "12:00:00",
    "end": "13:00:00",
    "cost": null
@@ -3439,7 +3529,7 @@
   {
    "id": "sl-0270",
    "surface_id": "s-river",
-   "date": "2027-03-07",
+   "date": "2027-01-24",
    "start": "13:00:00",
    "end": "14:00:00",
    "cost": null
@@ -3447,7 +3537,7 @@
   {
    "id": "sl-0271",
    "surface_id": "s-river",
-   "date": "2027-03-14",
+   "date": "2027-01-31",
    "start": "08:00:00",
    "end": "09:00:00",
    "cost": null
@@ -3455,7 +3545,7 @@
   {
    "id": "sl-0272",
    "surface_id": "s-river",
-   "date": "2027-03-14",
+   "date": "2027-01-31",
    "start": "09:00:00",
    "end": "10:00:00",
    "cost": null
@@ -3463,7 +3553,7 @@
   {
    "id": "sl-0273",
    "surface_id": "s-river",
-   "date": "2027-03-14",
+   "date": "2027-01-31",
    "start": "10:00:00",
    "end": "11:00:00",
    "cost": null
@@ -3471,7 +3561,7 @@
   {
    "id": "sl-0274",
    "surface_id": "s-river",
-   "date": "2027-03-14",
+   "date": "2027-01-31",
    "start": "11:00:00",
    "end": "12:00:00",
    "cost": null
@@ -3479,7 +3569,7 @@
   {
    "id": "sl-0275",
    "surface_id": "s-river",
-   "date": "2027-03-14",
+   "date": "2027-01-31",
    "start": "12:00:00",
    "end": "13:00:00",
    "cost": null
@@ -3487,7 +3577,7 @@
   {
    "id": "sl-0276",
    "surface_id": "s-river",
-   "date": "2027-03-14",
+   "date": "2027-01-31",
    "start": "13:00:00",
    "end": "14:00:00",
    "cost": null
@@ -3495,7 +3585,7 @@
   {
    "id": "sl-0277",
    "surface_id": "s-river",
-   "date": "2027-03-21",
+   "date": "2027-02-07",
    "start": "08:00:00",
    "end": "09:00:00",
    "cost": null
@@ -3503,7 +3593,7 @@
   {
    "id": "sl-0278",
    "surface_id": "s-river",
-   "date": "2027-03-21",
+   "date": "2027-02-07",
    "start": "09:00:00",
    "end": "10:00:00",
    "cost": null
@@ -3511,7 +3601,7 @@
   {
    "id": "sl-0279",
    "surface_id": "s-river",
-   "date": "2027-03-21",
+   "date": "2027-02-07",
    "start": "10:00:00",
    "end": "11:00:00",
    "cost": null
@@ -3519,7 +3609,7 @@
   {
    "id": "sl-0280",
    "surface_id": "s-river",
-   "date": "2027-03-21",
+   "date": "2027-02-07",
    "start": "11:00:00",
    "end": "12:00:00",
    "cost": null
@@ -3527,7 +3617,7 @@
   {
    "id": "sl-0281",
    "surface_id": "s-river",
-   "date": "2027-03-21",
+   "date": "2027-02-07",
    "start": "12:00:00",
    "end": "13:00:00",
    "cost": null
@@ -3535,7 +3625,7 @@
   {
    "id": "sl-0282",
    "surface_id": "s-river",
-   "date": "2027-03-21",
+   "date": "2027-02-07",
    "start": "13:00:00",
    "end": "14:00:00",
    "cost": null
@@ -3543,7 +3633,7 @@
   {
    "id": "sl-0283",
    "surface_id": "s-river",
-   "date": "2027-03-28",
+   "date": "2027-02-14",
    "start": "08:00:00",
    "end": "09:00:00",
    "cost": null
@@ -3551,7 +3641,7 @@
   {
    "id": "sl-0284",
    "surface_id": "s-river",
-   "date": "2027-03-28",
+   "date": "2027-02-14",
    "start": "09:00:00",
    "end": "10:00:00",
    "cost": null
@@ -3559,7 +3649,7 @@
   {
    "id": "sl-0285",
    "surface_id": "s-river",
-   "date": "2027-03-28",
+   "date": "2027-02-14",
    "start": "10:00:00",
    "end": "11:00:00",
    "cost": null
@@ -3567,7 +3657,7 @@
   {
    "id": "sl-0286",
    "surface_id": "s-river",
-   "date": "2027-03-28",
+   "date": "2027-02-14",
    "start": "11:00:00",
    "end": "12:00:00",
    "cost": null
@@ -3575,7 +3665,7 @@
   {
    "id": "sl-0287",
    "surface_id": "s-river",
-   "date": "2027-03-28",
+   "date": "2027-02-14",
    "start": "12:00:00",
    "end": "13:00:00",
    "cost": null
@@ -3583,591 +3673,591 @@
   {
    "id": "sl-0288",
    "surface_id": "s-river",
-   "date": "2027-03-28",
+   "date": "2027-02-14",
    "start": "13:00:00",
    "end": "14:00:00",
    "cost": null
   },
   {
    "id": "sl-0289",
-   "surface_id": "s-east",
-   "date": "2027-01-06",
-   "start": "18:00:00",
-   "end": "19:00:00",
+   "surface_id": "s-river",
+   "date": "2027-02-21",
+   "start": "08:00:00",
+   "end": "09:00:00",
    "cost": null
   },
   {
    "id": "sl-0290",
-   "surface_id": "s-east",
-   "date": "2027-01-06",
-   "start": "19:00:00",
-   "end": "20:00:00",
+   "surface_id": "s-river",
+   "date": "2027-02-21",
+   "start": "09:00:00",
+   "end": "10:00:00",
    "cost": null
   },
   {
    "id": "sl-0291",
-   "surface_id": "s-east",
-   "date": "2027-01-06",
-   "start": "20:00:00",
-   "end": "21:00:00",
+   "surface_id": "s-river",
+   "date": "2027-02-21",
+   "start": "10:00:00",
+   "end": "11:00:00",
    "cost": null
   },
   {
    "id": "sl-0292",
-   "surface_id": "s-east",
-   "date": "2027-01-13",
-   "start": "18:00:00",
-   "end": "19:00:00",
+   "surface_id": "s-river",
+   "date": "2027-02-21",
+   "start": "11:00:00",
+   "end": "12:00:00",
    "cost": null
   },
   {
    "id": "sl-0293",
-   "surface_id": "s-east",
-   "date": "2027-01-13",
-   "start": "19:00:00",
-   "end": "20:00:00",
+   "surface_id": "s-river",
+   "date": "2027-02-21",
+   "start": "12:00:00",
+   "end": "13:00:00",
    "cost": null
   },
   {
    "id": "sl-0294",
-   "surface_id": "s-east",
-   "date": "2027-01-13",
-   "start": "20:00:00",
-   "end": "21:00:00",
+   "surface_id": "s-river",
+   "date": "2027-02-21",
+   "start": "13:00:00",
+   "end": "14:00:00",
    "cost": null
   },
   {
    "id": "sl-0295",
-   "surface_id": "s-east",
-   "date": "2027-01-20",
-   "start": "18:00:00",
-   "end": "19:00:00",
+   "surface_id": "s-river",
+   "date": "2027-02-28",
+   "start": "08:00:00",
+   "end": "09:00:00",
    "cost": null
   },
   {
    "id": "sl-0296",
-   "surface_id": "s-east",
-   "date": "2027-01-20",
-   "start": "19:00:00",
-   "end": "20:00:00",
+   "surface_id": "s-river",
+   "date": "2027-02-28",
+   "start": "09:00:00",
+   "end": "10:00:00",
    "cost": null
   },
   {
    "id": "sl-0297",
-   "surface_id": "s-east",
-   "date": "2027-01-20",
-   "start": "20:00:00",
-   "end": "21:00:00",
+   "surface_id": "s-river",
+   "date": "2027-02-28",
+   "start": "10:00:00",
+   "end": "11:00:00",
    "cost": null
   },
   {
    "id": "sl-0298",
-   "surface_id": "s-east",
-   "date": "2027-01-27",
-   "start": "18:00:00",
-   "end": "19:00:00",
+   "surface_id": "s-river",
+   "date": "2027-02-28",
+   "start": "11:00:00",
+   "end": "12:00:00",
    "cost": null
   },
   {
    "id": "sl-0299",
-   "surface_id": "s-east",
-   "date": "2027-01-27",
-   "start": "19:00:00",
-   "end": "20:00:00",
+   "surface_id": "s-river",
+   "date": "2027-02-28",
+   "start": "12:00:00",
+   "end": "13:00:00",
    "cost": null
   },
   {
    "id": "sl-0300",
-   "surface_id": "s-east",
-   "date": "2027-01-27",
-   "start": "20:00:00",
-   "end": "21:00:00",
+   "surface_id": "s-river",
+   "date": "2027-02-28",
+   "start": "13:00:00",
+   "end": "14:00:00",
    "cost": null
   },
   {
    "id": "sl-0301",
-   "surface_id": "s-east",
-   "date": "2027-02-03",
-   "start": "18:00:00",
-   "end": "19:00:00",
+   "surface_id": "s-river",
+   "date": "2027-03-07",
+   "start": "08:00:00",
+   "end": "09:00:00",
    "cost": null
   },
   {
    "id": "sl-0302",
-   "surface_id": "s-east",
-   "date": "2027-02-03",
-   "start": "19:00:00",
-   "end": "20:00:00",
+   "surface_id": "s-river",
+   "date": "2027-03-07",
+   "start": "09:00:00",
+   "end": "10:00:00",
    "cost": null
   },
   {
    "id": "sl-0303",
-   "surface_id": "s-east",
-   "date": "2027-02-03",
-   "start": "20:00:00",
-   "end": "21:00:00",
+   "surface_id": "s-river",
+   "date": "2027-03-07",
+   "start": "10:00:00",
+   "end": "11:00:00",
    "cost": null
   },
   {
    "id": "sl-0304",
-   "surface_id": "s-east",
-   "date": "2027-02-10",
-   "start": "18:00:00",
-   "end": "19:00:00",
+   "surface_id": "s-river",
+   "date": "2027-03-07",
+   "start": "11:00:00",
+   "end": "12:00:00",
    "cost": null
   },
   {
    "id": "sl-0305",
-   "surface_id": "s-east",
-   "date": "2027-02-10",
-   "start": "19:00:00",
-   "end": "20:00:00",
+   "surface_id": "s-river",
+   "date": "2027-03-07",
+   "start": "12:00:00",
+   "end": "13:00:00",
    "cost": null
   },
   {
    "id": "sl-0306",
-   "surface_id": "s-east",
-   "date": "2027-02-10",
-   "start": "20:00:00",
-   "end": "21:00:00",
+   "surface_id": "s-river",
+   "date": "2027-03-07",
+   "start": "13:00:00",
+   "end": "14:00:00",
    "cost": null
   },
   {
    "id": "sl-0307",
-   "surface_id": "s-east",
-   "date": "2027-02-17",
-   "start": "18:00:00",
-   "end": "19:00:00",
+   "surface_id": "s-river",
+   "date": "2027-03-14",
+   "start": "08:00:00",
+   "end": "09:00:00",
    "cost": null
   },
   {
    "id": "sl-0308",
-   "surface_id": "s-east",
-   "date": "2027-02-17",
-   "start": "19:00:00",
-   "end": "20:00:00",
+   "surface_id": "s-river",
+   "date": "2027-03-14",
+   "start": "09:00:00",
+   "end": "10:00:00",
    "cost": null
   },
   {
    "id": "sl-0309",
-   "surface_id": "s-east",
-   "date": "2027-02-17",
-   "start": "20:00:00",
-   "end": "21:00:00",
+   "surface_id": "s-river",
+   "date": "2027-03-14",
+   "start": "10:00:00",
+   "end": "11:00:00",
    "cost": null
   },
   {
    "id": "sl-0310",
-   "surface_id": "s-east",
-   "date": "2027-02-24",
-   "start": "18:00:00",
-   "end": "19:00:00",
+   "surface_id": "s-river",
+   "date": "2027-03-14",
+   "start": "11:00:00",
+   "end": "12:00:00",
    "cost": null
   },
   {
    "id": "sl-0311",
-   "surface_id": "s-east",
-   "date": "2027-02-24",
-   "start": "19:00:00",
-   "end": "20:00:00",
+   "surface_id": "s-river",
+   "date": "2027-03-14",
+   "start": "12:00:00",
+   "end": "13:00:00",
    "cost": null
   },
   {
    "id": "sl-0312",
-   "surface_id": "s-east",
-   "date": "2027-02-24",
-   "start": "20:00:00",
-   "end": "21:00:00",
+   "surface_id": "s-river",
+   "date": "2027-03-14",
+   "start": "13:00:00",
+   "end": "14:00:00",
    "cost": null
   },
   {
    "id": "sl-0313",
-   "surface_id": "s-east",
-   "date": "2027-03-03",
-   "start": "18:00:00",
-   "end": "19:00:00",
+   "surface_id": "s-river",
+   "date": "2027-03-21",
+   "start": "08:00:00",
+   "end": "09:00:00",
    "cost": null
   },
   {
    "id": "sl-0314",
-   "surface_id": "s-east",
-   "date": "2027-03-03",
-   "start": "19:00:00",
-   "end": "20:00:00",
+   "surface_id": "s-river",
+   "date": "2027-03-21",
+   "start": "09:00:00",
+   "end": "10:00:00",
    "cost": null
   },
   {
    "id": "sl-0315",
-   "surface_id": "s-east",
-   "date": "2027-03-03",
-   "start": "20:00:00",
-   "end": "21:00:00",
+   "surface_id": "s-river",
+   "date": "2027-03-21",
+   "start": "10:00:00",
+   "end": "11:00:00",
    "cost": null
   },
   {
    "id": "sl-0316",
-   "surface_id": "s-east",
-   "date": "2027-03-10",
-   "start": "18:00:00",
-   "end": "19:00:00",
+   "surface_id": "s-river",
+   "date": "2027-03-21",
+   "start": "11:00:00",
+   "end": "12:00:00",
    "cost": null
   },
   {
    "id": "sl-0317",
-   "surface_id": "s-east",
-   "date": "2027-03-10",
-   "start": "19:00:00",
-   "end": "20:00:00",
+   "surface_id": "s-river",
+   "date": "2027-03-21",
+   "start": "12:00:00",
+   "end": "13:00:00",
    "cost": null
   },
   {
    "id": "sl-0318",
-   "surface_id": "s-east",
-   "date": "2027-03-10",
-   "start": "20:00:00",
-   "end": "21:00:00",
+   "surface_id": "s-river",
+   "date": "2027-03-21",
+   "start": "13:00:00",
+   "end": "14:00:00",
    "cost": null
   },
   {
    "id": "sl-0319",
-   "surface_id": "s-east",
-   "date": "2027-03-17",
-   "start": "18:00:00",
-   "end": "19:00:00",
+   "surface_id": "s-river",
+   "date": "2027-03-28",
+   "start": "08:00:00",
+   "end": "09:00:00",
    "cost": null
   },
   {
    "id": "sl-0320",
-   "surface_id": "s-east",
-   "date": "2027-03-17",
-   "start": "19:00:00",
-   "end": "20:00:00",
+   "surface_id": "s-river",
+   "date": "2027-03-28",
+   "start": "09:00:00",
+   "end": "10:00:00",
    "cost": null
   },
   {
    "id": "sl-0321",
-   "surface_id": "s-east",
-   "date": "2027-03-17",
-   "start": "20:00:00",
-   "end": "21:00:00",
+   "surface_id": "s-river",
+   "date": "2027-03-28",
+   "start": "10:00:00",
+   "end": "11:00:00",
    "cost": null
   },
   {
    "id": "sl-0322",
-   "surface_id": "s-east",
-   "date": "2027-03-24",
-   "start": "18:00:00",
-   "end": "19:00:00",
+   "surface_id": "s-river",
+   "date": "2027-03-28",
+   "start": "11:00:00",
+   "end": "12:00:00",
    "cost": null
   },
   {
    "id": "sl-0323",
-   "surface_id": "s-east",
-   "date": "2027-03-24",
-   "start": "19:00:00",
-   "end": "20:00:00",
+   "surface_id": "s-river",
+   "date": "2027-03-28",
+   "start": "12:00:00",
+   "end": "13:00:00",
    "cost": null
   },
   {
    "id": "sl-0324",
-   "surface_id": "s-east",
-   "date": "2027-03-24",
-   "start": "20:00:00",
-   "end": "21:00:00",
+   "surface_id": "s-river",
+   "date": "2027-03-28",
+   "start": "13:00:00",
+   "end": "14:00:00",
    "cost": null
   },
   {
    "id": "sl-0325",
    "surface_id": "s-east",
-   "date": "2027-01-09",
-   "start": "14:00:00",
-   "end": "15:00:00",
+   "date": "2027-01-06",
+   "start": "18:00:00",
+   "end": "19:00:00",
    "cost": null
   },
   {
    "id": "sl-0326",
    "surface_id": "s-east",
-   "date": "2027-01-09",
-   "start": "15:00:00",
-   "end": "16:00:00",
+   "date": "2027-01-06",
+   "start": "19:00:00",
+   "end": "20:00:00",
    "cost": null
   },
   {
    "id": "sl-0327",
    "surface_id": "s-east",
-   "date": "2027-01-09",
-   "start": "16:00:00",
-   "end": "17:00:00",
+   "date": "2027-01-06",
+   "start": "20:00:00",
+   "end": "21:00:00",
    "cost": null
   },
   {
    "id": "sl-0328",
    "surface_id": "s-east",
-   "date": "2027-01-09",
-   "start": "17:00:00",
-   "end": "18:00:00",
+   "date": "2027-01-13",
+   "start": "18:00:00",
+   "end": "19:00:00",
    "cost": null
   },
   {
    "id": "sl-0329",
    "surface_id": "s-east",
-   "date": "2027-01-16",
-   "start": "14:00:00",
-   "end": "15:00:00",
+   "date": "2027-01-13",
+   "start": "19:00:00",
+   "end": "20:00:00",
    "cost": null
   },
   {
    "id": "sl-0330",
    "surface_id": "s-east",
-   "date": "2027-01-16",
-   "start": "15:00:00",
-   "end": "16:00:00",
+   "date": "2027-01-13",
+   "start": "20:00:00",
+   "end": "21:00:00",
    "cost": null
   },
   {
    "id": "sl-0331",
    "surface_id": "s-east",
-   "date": "2027-01-16",
-   "start": "16:00:00",
-   "end": "17:00:00",
+   "date": "2027-01-20",
+   "start": "18:00:00",
+   "end": "19:00:00",
    "cost": null
   },
   {
    "id": "sl-0332",
    "surface_id": "s-east",
-   "date": "2027-01-16",
-   "start": "17:00:00",
-   "end": "18:00:00",
+   "date": "2027-01-20",
+   "start": "19:00:00",
+   "end": "20:00:00",
    "cost": null
   },
   {
    "id": "sl-0333",
    "surface_id": "s-east",
-   "date": "2027-01-23",
-   "start": "14:00:00",
-   "end": "15:00:00",
+   "date": "2027-01-20",
+   "start": "20:00:00",
+   "end": "21:00:00",
    "cost": null
   },
   {
    "id": "sl-0334",
    "surface_id": "s-east",
-   "date": "2027-01-23",
-   "start": "15:00:00",
-   "end": "16:00:00",
+   "date": "2027-01-27",
+   "start": "18:00:00",
+   "end": "19:00:00",
    "cost": null
   },
   {
    "id": "sl-0335",
    "surface_id": "s-east",
-   "date": "2027-01-23",
-   "start": "16:00:00",
-   "end": "17:00:00",
+   "date": "2027-01-27",
+   "start": "19:00:00",
+   "end": "20:00:00",
    "cost": null
   },
   {
    "id": "sl-0336",
    "surface_id": "s-east",
-   "date": "2027-01-23",
-   "start": "17:00:00",
-   "end": "18:00:00",
+   "date": "2027-01-27",
+   "start": "20:00:00",
+   "end": "21:00:00",
    "cost": null
   },
   {
    "id": "sl-0337",
    "surface_id": "s-east",
-   "date": "2027-01-30",
-   "start": "14:00:00",
-   "end": "15:00:00",
+   "date": "2027-02-03",
+   "start": "18:00:00",
+   "end": "19:00:00",
    "cost": null
   },
   {
    "id": "sl-0338",
    "surface_id": "s-east",
-   "date": "2027-01-30",
-   "start": "15:00:00",
-   "end": "16:00:00",
+   "date": "2027-02-03",
+   "start": "19:00:00",
+   "end": "20:00:00",
    "cost": null
   },
   {
    "id": "sl-0339",
    "surface_id": "s-east",
-   "date": "2027-01-30",
-   "start": "16:00:00",
-   "end": "17:00:00",
+   "date": "2027-02-03",
+   "start": "20:00:00",
+   "end": "21:00:00",
    "cost": null
   },
   {
    "id": "sl-0340",
    "surface_id": "s-east",
-   "date": "2027-01-30",
-   "start": "17:00:00",
-   "end": "18:00:00",
+   "date": "2027-02-10",
+   "start": "18:00:00",
+   "end": "19:00:00",
    "cost": null
   },
   {
    "id": "sl-0341",
    "surface_id": "s-east",
-   "date": "2027-02-06",
-   "start": "14:00:00",
-   "end": "15:00:00",
+   "date": "2027-02-10",
+   "start": "19:00:00",
+   "end": "20:00:00",
    "cost": null
   },
   {
    "id": "sl-0342",
    "surface_id": "s-east",
-   "date": "2027-02-06",
-   "start": "15:00:00",
-   "end": "16:00:00",
+   "date": "2027-02-10",
+   "start": "20:00:00",
+   "end": "21:00:00",
    "cost": null
   },
   {
    "id": "sl-0343",
    "surface_id": "s-east",
-   "date": "2027-02-06",
-   "start": "16:00:00",
-   "end": "17:00:00",
+   "date": "2027-02-17",
+   "start": "18:00:00",
+   "end": "19:00:00",
    "cost": null
   },
   {
    "id": "sl-0344",
    "surface_id": "s-east",
-   "date": "2027-02-06",
-   "start": "17:00:00",
-   "end": "18:00:00",
+   "date": "2027-02-17",
+   "start": "19:00:00",
+   "end": "20:00:00",
    "cost": null
   },
   {
    "id": "sl-0345",
    "surface_id": "s-east",
-   "date": "2027-02-13",
-   "start": "14:00:00",
-   "end": "15:00:00",
+   "date": "2027-02-17",
+   "start": "20:00:00",
+   "end": "21:00:00",
    "cost": null
   },
   {
    "id": "sl-0346",
    "surface_id": "s-east",
-   "date": "2027-02-13",
-   "start": "15:00:00",
-   "end": "16:00:00",
+   "date": "2027-02-24",
+   "start": "18:00:00",
+   "end": "19:00:00",
    "cost": null
   },
   {
    "id": "sl-0347",
    "surface_id": "s-east",
-   "date": "2027-02-13",
-   "start": "16:00:00",
-   "end": "17:00:00",
+   "date": "2027-02-24",
+   "start": "19:00:00",
+   "end": "20:00:00",
    "cost": null
   },
   {
    "id": "sl-0348",
    "surface_id": "s-east",
-   "date": "2027-02-13",
-   "start": "17:00:00",
-   "end": "18:00:00",
+   "date": "2027-02-24",
+   "start": "20:00:00",
+   "end": "21:00:00",
    "cost": null
   },
   {
    "id": "sl-0349",
    "surface_id": "s-east",
-   "date": "2027-02-20",
-   "start": "14:00:00",
-   "end": "15:00:00",
+   "date": "2027-03-03",
+   "start": "18:00:00",
+   "end": "19:00:00",
    "cost": null
   },
   {
    "id": "sl-0350",
    "surface_id": "s-east",
-   "date": "2027-02-20",
-   "start": "15:00:00",
-   "end": "16:00:00",
+   "date": "2027-03-03",
+   "start": "19:00:00",
+   "end": "20:00:00",
    "cost": null
   },
   {
    "id": "sl-0351",
    "surface_id": "s-east",
-   "date": "2027-02-20",
-   "start": "16:00:00",
-   "end": "17:00:00",
+   "date": "2027-03-03",
+   "start": "20:00:00",
+   "end": "21:00:00",
    "cost": null
   },
   {
    "id": "sl-0352",
    "surface_id": "s-east",
-   "date": "2027-02-20",
-   "start": "17:00:00",
-   "end": "18:00:00",
+   "date": "2027-03-10",
+   "start": "18:00:00",
+   "end": "19:00:00",
    "cost": null
   },
   {
    "id": "sl-0353",
    "surface_id": "s-east",
-   "date": "2027-02-27",
-   "start": "14:00:00",
-   "end": "15:00:00",
+   "date": "2027-03-10",
+   "start": "19:00:00",
+   "end": "20:00:00",
    "cost": null
   },
   {
    "id": "sl-0354",
    "surface_id": "s-east",
-   "date": "2027-02-27",
-   "start": "15:00:00",
-   "end": "16:00:00",
+   "date": "2027-03-10",
+   "start": "20:00:00",
+   "end": "21:00:00",
    "cost": null
   },
   {
    "id": "sl-0355",
    "surface_id": "s-east",
-   "date": "2027-02-27",
-   "start": "16:00:00",
-   "end": "17:00:00",
+   "date": "2027-03-17",
+   "start": "18:00:00",
+   "end": "19:00:00",
    "cost": null
   },
   {
    "id": "sl-0356",
    "surface_id": "s-east",
-   "date": "2027-02-27",
-   "start": "17:00:00",
-   "end": "18:00:00",
+   "date": "2027-03-17",
+   "start": "19:00:00",
+   "end": "20:00:00",
    "cost": null
   },
   {
    "id": "sl-0357",
    "surface_id": "s-east",
-   "date": "2027-03-06",
-   "start": "14:00:00",
-   "end": "15:00:00",
+   "date": "2027-03-17",
+   "start": "20:00:00",
+   "end": "21:00:00",
    "cost": null
   },
   {
    "id": "sl-0358",
    "surface_id": "s-east",
-   "date": "2027-03-06",
-   "start": "15:00:00",
-   "end": "16:00:00",
+   "date": "2027-03-24",
+   "start": "18:00:00",
+   "end": "19:00:00",
    "cost": null
   },
   {
    "id": "sl-0359",
    "surface_id": "s-east",
-   "date": "2027-03-06",
-   "start": "16:00:00",
-   "end": "17:00:00",
+   "date": "2027-03-24",
+   "start": "19:00:00",
+   "end": "20:00:00",
    "cost": null
   },
   {
    "id": "sl-0360",
    "surface_id": "s-east",
-   "date": "2027-03-06",
-   "start": "17:00:00",
-   "end": "18:00:00",
+   "date": "2027-03-24",
+   "start": "20:00:00",
+   "end": "21:00:00",
    "cost": null
   },
   {
    "id": "sl-0361",
    "surface_id": "s-east",
-   "date": "2027-03-13",
+   "date": "2027-01-09",
    "start": "14:00:00",
    "end": "15:00:00",
    "cost": null
@@ -4175,7 +4265,7 @@
   {
    "id": "sl-0362",
    "surface_id": "s-east",
-   "date": "2027-03-13",
+   "date": "2027-01-09",
    "start": "15:00:00",
    "end": "16:00:00",
    "cost": null
@@ -4183,7 +4273,7 @@
   {
    "id": "sl-0363",
    "surface_id": "s-east",
-   "date": "2027-03-13",
+   "date": "2027-01-09",
    "start": "16:00:00",
    "end": "17:00:00",
    "cost": null
@@ -4191,7 +4281,7 @@
   {
    "id": "sl-0364",
    "surface_id": "s-east",
-   "date": "2027-03-13",
+   "date": "2027-01-09",
    "start": "17:00:00",
    "end": "18:00:00",
    "cost": null
@@ -4199,7 +4289,7 @@
   {
    "id": "sl-0365",
    "surface_id": "s-east",
-   "date": "2027-03-20",
+   "date": "2027-01-16",
    "start": "14:00:00",
    "end": "15:00:00",
    "cost": null
@@ -4207,7 +4297,7 @@
   {
    "id": "sl-0366",
    "surface_id": "s-east",
-   "date": "2027-03-20",
+   "date": "2027-01-16",
    "start": "15:00:00",
    "end": "16:00:00",
    "cost": null
@@ -4215,7 +4305,7 @@
   {
    "id": "sl-0367",
    "surface_id": "s-east",
-   "date": "2027-03-20",
+   "date": "2027-01-16",
    "start": "16:00:00",
    "end": "17:00:00",
    "cost": null
@@ -4223,7 +4313,7 @@
   {
    "id": "sl-0368",
    "surface_id": "s-east",
-   "date": "2027-03-20",
+   "date": "2027-01-16",
    "start": "17:00:00",
    "end": "18:00:00",
    "cost": null
@@ -4231,7 +4321,7 @@
   {
    "id": "sl-0369",
    "surface_id": "s-east",
-   "date": "2027-03-27",
+   "date": "2027-01-23",
    "start": "14:00:00",
    "end": "15:00:00",
    "cost": null
@@ -4239,7 +4329,7 @@
   {
    "id": "sl-0370",
    "surface_id": "s-east",
-   "date": "2027-03-27",
+   "date": "2027-01-23",
    "start": "15:00:00",
    "end": "16:00:00",
    "cost": null
@@ -4247,13 +4337,301 @@
   {
    "id": "sl-0371",
    "surface_id": "s-east",
-   "date": "2027-03-27",
+   "date": "2027-01-23",
    "start": "16:00:00",
    "end": "17:00:00",
    "cost": null
   },
   {
    "id": "sl-0372",
+   "surface_id": "s-east",
+   "date": "2027-01-23",
+   "start": "17:00:00",
+   "end": "18:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0373",
+   "surface_id": "s-east",
+   "date": "2027-01-30",
+   "start": "14:00:00",
+   "end": "15:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0374",
+   "surface_id": "s-east",
+   "date": "2027-01-30",
+   "start": "15:00:00",
+   "end": "16:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0375",
+   "surface_id": "s-east",
+   "date": "2027-01-30",
+   "start": "16:00:00",
+   "end": "17:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0376",
+   "surface_id": "s-east",
+   "date": "2027-01-30",
+   "start": "17:00:00",
+   "end": "18:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0377",
+   "surface_id": "s-east",
+   "date": "2027-02-06",
+   "start": "14:00:00",
+   "end": "15:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0378",
+   "surface_id": "s-east",
+   "date": "2027-02-06",
+   "start": "15:00:00",
+   "end": "16:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0379",
+   "surface_id": "s-east",
+   "date": "2027-02-06",
+   "start": "16:00:00",
+   "end": "17:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0380",
+   "surface_id": "s-east",
+   "date": "2027-02-06",
+   "start": "17:00:00",
+   "end": "18:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0381",
+   "surface_id": "s-east",
+   "date": "2027-02-13",
+   "start": "14:00:00",
+   "end": "15:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0382",
+   "surface_id": "s-east",
+   "date": "2027-02-13",
+   "start": "15:00:00",
+   "end": "16:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0383",
+   "surface_id": "s-east",
+   "date": "2027-02-13",
+   "start": "16:00:00",
+   "end": "17:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0384",
+   "surface_id": "s-east",
+   "date": "2027-02-13",
+   "start": "17:00:00",
+   "end": "18:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0385",
+   "surface_id": "s-east",
+   "date": "2027-02-20",
+   "start": "14:00:00",
+   "end": "15:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0386",
+   "surface_id": "s-east",
+   "date": "2027-02-20",
+   "start": "15:00:00",
+   "end": "16:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0387",
+   "surface_id": "s-east",
+   "date": "2027-02-20",
+   "start": "16:00:00",
+   "end": "17:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0388",
+   "surface_id": "s-east",
+   "date": "2027-02-20",
+   "start": "17:00:00",
+   "end": "18:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0389",
+   "surface_id": "s-east",
+   "date": "2027-02-27",
+   "start": "14:00:00",
+   "end": "15:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0390",
+   "surface_id": "s-east",
+   "date": "2027-02-27",
+   "start": "15:00:00",
+   "end": "16:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0391",
+   "surface_id": "s-east",
+   "date": "2027-02-27",
+   "start": "16:00:00",
+   "end": "17:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0392",
+   "surface_id": "s-east",
+   "date": "2027-02-27",
+   "start": "17:00:00",
+   "end": "18:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0393",
+   "surface_id": "s-east",
+   "date": "2027-03-06",
+   "start": "14:00:00",
+   "end": "15:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0394",
+   "surface_id": "s-east",
+   "date": "2027-03-06",
+   "start": "15:00:00",
+   "end": "16:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0395",
+   "surface_id": "s-east",
+   "date": "2027-03-06",
+   "start": "16:00:00",
+   "end": "17:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0396",
+   "surface_id": "s-east",
+   "date": "2027-03-06",
+   "start": "17:00:00",
+   "end": "18:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0397",
+   "surface_id": "s-east",
+   "date": "2027-03-13",
+   "start": "14:00:00",
+   "end": "15:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0398",
+   "surface_id": "s-east",
+   "date": "2027-03-13",
+   "start": "15:00:00",
+   "end": "16:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0399",
+   "surface_id": "s-east",
+   "date": "2027-03-13",
+   "start": "16:00:00",
+   "end": "17:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0400",
+   "surface_id": "s-east",
+   "date": "2027-03-13",
+   "start": "17:00:00",
+   "end": "18:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0401",
+   "surface_id": "s-east",
+   "date": "2027-03-20",
+   "start": "14:00:00",
+   "end": "15:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0402",
+   "surface_id": "s-east",
+   "date": "2027-03-20",
+   "start": "15:00:00",
+   "end": "16:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0403",
+   "surface_id": "s-east",
+   "date": "2027-03-20",
+   "start": "16:00:00",
+   "end": "17:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0404",
+   "surface_id": "s-east",
+   "date": "2027-03-20",
+   "start": "17:00:00",
+   "end": "18:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0405",
+   "surface_id": "s-east",
+   "date": "2027-03-27",
+   "start": "14:00:00",
+   "end": "15:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0406",
+   "surface_id": "s-east",
+   "date": "2027-03-27",
+   "start": "15:00:00",
+   "end": "16:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0407",
+   "surface_id": "s-east",
+   "date": "2027-03-27",
+   "start": "16:00:00",
+   "end": "17:00:00",
+   "cost": null
+  },
+  {
+   "id": "sl-0408",
    "surface_id": "s-east",
    "date": "2027-03-27",
    "start": "17:00:00",

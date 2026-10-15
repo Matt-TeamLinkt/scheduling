@@ -238,6 +238,7 @@ def league_40() -> League:
         # North: Saturday mornings on both rinks, 75-minute slots (fits every division).
         SlotPattern("s-north-1", (SAT,), time(7), time(13, 15), 75),
         SlotPattern("s-north-2", (SAT,), time(7), time(13, 15), 75),
+        SlotPattern("s-north-1", (SUN,), time(7), time(10, 45), 75),
         # Riverside: two weeknights and Sunday mornings, 60-minute slots.
         SlotPattern("s-river", (TUE, THU), time(17), time(21), 60),
         SlotPattern("s-river", (SUN,), time(8), time(14), 60),
