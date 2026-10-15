@@ -5,5 +5,7 @@ import { defineConfig } from "vite";
 // the built files from web/dist.
 export default defineConfig({
   plugins: [react()],
+  // Preview builds (VITE_DEMO=1) ship as one script so they can be inlined into a page.
+  build: { rollupOptions: { output: { inlineDynamicImports: process.env.VITE_DEMO === "1" } } },
   server: { proxy: { "/api": "http://localhost:8000" } },
 });

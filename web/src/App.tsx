@@ -120,6 +120,13 @@ export function App() {
           </>
         )}
       </header>
+      {import.meta.env.VITE_DEMO === "1" && (
+        <div className="demo-bar">
+          Preview with sample leagues. The schedules, fairness reports and explanations were made by the real
+          scheduling engine. Drag checks here are a simplified version, and importing your own files needs the full app.
+          Nothing you do here is saved.
+        </div>
+      )}
       <main className="main">
         {!route.seasonId && <Home />}
         {ctx && route.tab === "setup" && <Setup {...ctx} />}

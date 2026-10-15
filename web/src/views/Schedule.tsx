@@ -16,6 +16,13 @@ export function Schedule({ season, setSeason, toast }: Ctx) {
   const dates = useMemo(() => [...new Set(lg.slots.map((s) => s.date))].sort(), [lg.slots]);
   const [day, setDay] = useState<string>(() => season.events[0]?.start.slice(0, 10) ?? dates[0] ?? "");
   useEffect(() => { if (!dates.includes(day) && dates.length) setDay(dates[0]); }, [dates, day]);
+  // After a schedule is generated, show the first day that has games.
+  const firstGameDay = season.events.reduce<string | null>((m, e) => (!m || e.start < m ? e.start : m), null)?.slice(0, 10);
+  const hadGames = useRef(season.events.length > 0);
+  useEffect(() => {
+    if (!hadGames.current && firstGameDay) setDay(firstGameDay);
+    hadGames.current = season.events.length > 0;
+  }, [firstGameDay, season.events.length]);
 
   if (!lg.teams.length || !lg.slots.length) {
     return (

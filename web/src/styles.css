@@ -144,3 +144,6 @@ td.flag { color: rgb(160, 104, 10); font-weight: 600; }
 .ranked .list-row { cursor: grab; }
 .rank-n { width: 22px; height: 22px; border-radius: 7px; background: var(--tl-blue-soft); color: var(--tl-blue);
   font-size: 11px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; flex: none; }
+
+.demo-bar { flex: none; background: var(--tl-blue-tint); color: var(--tl-fg-2); font-size: 12px; line-height: 16px;
+  padding: 8px 16px; border-bottom: 1px solid var(--tl-divider); }
