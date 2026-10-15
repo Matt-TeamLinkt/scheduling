@@ -1,1 +1,0 @@
-{"root":["./src/App.tsx","./src/api.ts","./src/format.ts","./src/main.tsx","./src/ui.tsx","./src/views/Fairness.tsx","./src/views/GenerateDialog.tsx","./src/views/Home.tsx","./src/views/ImportDialog.tsx","./src/views/Publish.tsx","./src/views/Schedule.tsx","./src/views/Setup.tsx","./vite.config.ts"],"version":"5.9.3"}
