@@ -290,18 +290,25 @@ class ModelBuilder:
 
     def team_capacity(self) -> dict[str, tuple[int, int]]:
         """team -> (games it needs, most it could possibly play). A team plays at most
-        max_games_per_day on each day it has any legal spot, so that's a hard ceiling."""
+        max_games_per_day on each day it has any legal spot (less any games already fixed
+        on that day), so that's a hard ceiling."""
         days: dict[str, set[date]] = defaultdict(set)
         need: Counter[str] = Counter()
+        taken: Counter[tuple[str, date]] = Counter()
         for g in self.games:
             if g.fixed is not None:
+                if g.away_team_id is not None:
+                    for t in g.team_ids:
+                        taken[(t, g.fixed.start.date())] += 1
                 continue
             for t in g.team_ids:
                 need[t] += 1
                 days[t].update(s.day for s in self.cands[g.id])
-        return {
-            t: (n, len(days[t]) * self.ix.team_rules(t).max_games_per_day) for t, n in need.items()
-        }
+        out = {}
+        for t, n in need.items():
+            per_day = self.ix.team_rules(t).max_games_per_day
+            out[t] = (n, sum(max(0, per_day - taken[(t, d)]) for d in days[t]))
+        return out
 
     def placed_upper_bound(self) -> int:
         """No schedule can place more free games than this (cheap, often exact)."""
