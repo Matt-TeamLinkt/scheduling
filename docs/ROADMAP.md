@@ -53,4 +53,16 @@ Referee and official assignment, facility cost tracking, multi-league organizati
 - [x] Phase 1.5 Hard-constraint checker plus setup checks, with one test group per constraint.
 - [x] Phase 1.6 Forgiving CSV/Excel import for teams (with coach columns), coaches and time slots (`engine/src/scheduling_engine/importer/`). Families/siblings import comes with rosters in Phase 4.
 
-**Phase 1 complete.** Next: Phase 2, the CP-SAT solver.
+**Phase 1 complete.**
+
+- [x] Phase 2.1 Matchups: round robin to games-per-team target, home/away balanced within one.
+- [x] Phase 2.2 CP-SAT placement with all 7 hard rules; fit-first then fairness; greedy draft; proven ceiling.
+- [x] Phase 2.3 Five ranked fairness goals (plain-language labels, rank → weight).
+- [x] Phase 2.4 Fairness report with outlier flags.
+- [x] Phase 2.5 Locking and partial regeneration (division / date range).
+- [x] Phase 2.6 Explanations: capacity check, why games didn't fit, fixes verified by re-solving.
+- [x] Phase 2.7 Quality benchmark (`bench/history.csv`).
+
+**Phase 2 complete.** Design: `docs/ENGINE.md`. Open engine work: fairness on very tight leagues (nightmare), team/coach preferred days and times (needs a model field), rainout makeups (Phase 5).
+
+Next: Phase 3, the scheduler experience. First step: `api/` (FastAPI around the engine, background solve jobs with progress) and `web/` (React + TypeScript) with import → generate → board.
