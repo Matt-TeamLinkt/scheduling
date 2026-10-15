@@ -19,7 +19,7 @@ from .plan import (
     skipped,
     summarize,
 )
-from .values import key, split_people, tidy_name
+from .values import division_name, key, split_people, tidy_name
 
 TEAM_FIELDS = [
     Field("team", "team name", ("team", "team name", "name", "squad", "team names"), True),
@@ -155,7 +155,7 @@ def preview_teams(league: League, data: bytes, filename: str) -> ImportPreview:
                 )
             )
             continue
-        div_name = tidy_name(div_name)
+        div_name = division_name(div_name)
 
         div = divisions.get(key(div_name))
         if div is None:

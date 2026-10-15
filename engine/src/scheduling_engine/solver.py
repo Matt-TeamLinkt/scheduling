@@ -452,17 +452,17 @@ def run(league: League, games: list[Game], opts: SolveOptions, notes: list[str])
         code = sv1.solve(
             b.m, _Watcher(placed_expr, ceiling, Phase.PLACING, t0, opts.on_progress, True)
         )
-        if code not in (cp_model.OPTIMAL, cp_model.FEASIBLE):
-            return SolveResult(
-                Status.NO_SCHEDULE,
-                [],
-                [g.matchup for g in games if g.matchup],
-                clock.perf_counter() - t0,
-                notes,
-                stats,
+        if code in (cp_model.OPTIMAL, cp_model.FEASIBLE):
+            best_placed = int(sv1.value(placed_expr))
+            values = {k: sv1.boolean_value(v) for k, v in b.x.items()}
+        else:
+            # Out of time before the solver found anything (a big league on a short time
+            # limit). The draft is legal, so it's still a schedule; never return nothing.
+            code, best_placed, values = cp_model.FEASIBLE, len(draft), draft_values
+            notes.append(
+                "Time ran out while fitting the last few games. Try the thorough "
+                "setting to fit more."
             )
-        best_placed = int(sv1.value(placed_expr))
-        values = {k: sv1.boolean_value(v) for k, v in b.x.items()}
     proven = code == cp_model.OPTIMAL or best_placed >= ceiling
 
     # Phase 2: same number of games, as fair as possible.

@@ -191,3 +191,13 @@ def test_greedy_draft_never_breaks_a_rule(name: str) -> None:
     ]
     assert validate(lg, events) == []
     assert len(draft) >= 0.95 * len(ms)
+
+
+@pytest.mark.slow
+def test_short_time_limit_still_returns_the_draft() -> None:
+    """Even with too little time for CP-SAT, the scheduler gets a legal schedule."""
+    lg = fixtures.nightmare()
+    r = solve(lg, options=SolveOptions(time_limit_s=3, workers=4))
+    assert r.status != Status.NO_SCHEDULE
+    assert len(r.events) >= 0.95 * 240
+    assert validate(lg, r.events) == []

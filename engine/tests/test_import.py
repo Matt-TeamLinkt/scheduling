@@ -450,3 +450,21 @@ def test_parse_minutes(raw: object, expect: int | None) -> None:
 )
 def test_split_people(raw: str, expect: list[str]) -> None:
     assert split_people(raw) == expect
+
+
+@pytest.mark.parametrize(
+    ("raw", "expect"),
+    [
+        ("u-11", "U11"),
+        ("U 11", "U11"),
+        ("Under 11", "U11"),
+        ("u9", "U9"),
+        ("peewee aa", "Peewee AA"),
+        ("atom b1", "Atom B1"),
+        ("Atom A1", "Atom A1"),
+    ],
+)
+def test_division_names_are_tidied(raw: str, expect: str) -> None:
+    from scheduling_engine.importer.values import division_name
+
+    assert division_name(raw) == expect

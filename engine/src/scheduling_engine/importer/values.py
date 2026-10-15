@@ -56,6 +56,18 @@ def tidy_name(s: str) -> str:
     return s
 
 
+def division_name(s: str) -> str:
+    """Age groups written any way ('u-11', 'U 11', 'Under 11') become 'U11'; anything
+    else is just tidied."""
+    m = re.fullmatch(r"(?:u|under)\s*-?\s*(\d{1,2})", s.strip(), re.IGNORECASE)
+    if m:
+        return f"U{m.group(1)}"
+    # Competitive levels stay in capitals: "peewee aa" -> "Peewee AA", "atom b1" -> "Atom B1"
+    return " ".join(
+        w.upper() if re.fullmatch(r"[a-dA-D]{1,3}\d?", w) else w for w in tidy_name(s).split(" ")
+    )
+
+
 def split_people(s: str) -> list[str]:
     """'Sam Diaz / Priya Nair', 'A & B', 'A and B', 'A; B' -> separate names.
     'Ramsey, Alex' is one person, reordered to 'Alex Ramsey'. A comma only splits
