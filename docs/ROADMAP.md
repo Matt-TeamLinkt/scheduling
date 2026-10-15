@@ -65,4 +65,11 @@ Referee and official assignment, facility cost tracking, multi-league organizati
 
 **Phase 2 complete.** Design: `docs/ENGINE.md`. Open engine work: fairness on very tight leagues (nightmare), team/coach preferred days and times (needs a model field), rainout makeups (Phase 5).
 
-Next: Phase 3, the scheduler experience. First step: `api/` (FastAPI around the engine, background solve jobs with progress) and `web/` (React + TypeScript) with import → generate → board.
+- [x] Phase 3.1 API: versioned seasons (undo/redo), import preview/apply, generate jobs with progress, live move check, move/lock, explain + one-click fixes, publish with change log, copy setup to a new season.
+- [x] Phase 3.2 Change log between schedules (`engine/changes.py`), with the teams affected.
+- [x] Phase 3.3 Web app: Home, Setup (imports, rules with advanced toggle, blackouts, copy setup), Schedule (generate with ranked priorities, date board with drag and drop and live green/red checks, lock, by-team view, didn't-fit panel), Fairness, Publish, undo/redo.
+- [x] Phase 3.4 End-to-end test (`web/e2e/flow.mjs`) covering sample → generate → drag → undo → lock → fairness → publish → import.
+
+Still open in Phase 3: a week and month overview (the board shows one day), a by-venue list view, editing teams and slots one at a time in the UI (today: import or sample), deleting things with an undoable confirmation, user accounts and sign-in (single-scheduler for now), and running the e2e test in CI.
+
+Next: Phase 4, families and coaches (public mobile schedule pages, iCal feeds, notifying only affected teams from the change log, coach conflict requests).

@@ -15,25 +15,26 @@ export function ImportDialog({ season, kind, onClose, onDone }: {
   const input = useRef<HTMLInputElement>(null);
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<ImportPreview | null>(null);
-  const [busy, setBusy] = useState(false);
+  const [busy, setBusy] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const choose = async (f: File) => {
     setFile(f);
     setError(null);
-    setBusy(true);
+    setBusy("Reading your file…");
     try { setPreview(await api.importFile(season.id, kind, f, false)); }
     catch (e) { setError((e as ApiError).message); }
-    finally { setBusy(false); }
+    finally { setBusy(null); }
   };
   const apply = async () => {
     if (!file) return;
-    setBusy(true);
+    setBusy("Importing…");
     try {
       const r = await api.importFile(season.id, kind, file, true);
-      if (r.season) onDone(r.season, r.summary.replace("We'll add", "Added"));
+      if (r.season) onDone(r.season, r.summary.replace("We'll add", "Added").replace("will be left out", "were left out")
+        .replace("need a quick look", "may need a quick look").replace("needs a quick look", "may need a quick look"));
     } catch (e) { setError((e as ApiError).message); }
-    finally { setBusy(false); }
+    finally { setBusy(null); }
   };
 
   const levels = [
@@ -46,7 +47,7 @@ export function ImportDialog({ season, kind, onClose, onDone }: {
     <Modal wide title={KINDS[kind].title} subtitle={KINDS[kind].hint} onClose={onClose}
       footer={<>
         <button className="btn btn-ghost" onClick={onClose}>Cancel</button>
-        <button className="btn btn-primary" disabled={!preview?.can_import || busy} onClick={apply}>Import</button>
+        <button className="btn btn-primary" disabled={!preview?.can_import || !!busy} onClick={apply}>Import</button>
       </>}>
       <input ref={input} type="file" accept=".csv,.xlsx,.xlsm,.txt" hidden
         onChange={(e) => e.target.files?.[0] && choose(e.target.files[0])} />
@@ -57,7 +58,7 @@ export function ImportDialog({ season, kind, onClose, onDone }: {
         <div style={{ marginTop: 6, fontWeight: 500 }}>{file ? file.name : "Choose a CSV or Excel file"}</div>
         <div className="muted small">or drop it here. Nothing changes until you press Import.</div>
       </div>
-      {busy && <p className="muted">Reading your file…</p>}
+      {busy && <p className="muted">{busy}</p>}
       {error && <Note tone="bad">{error}</Note>}
       {preview && (
         <>

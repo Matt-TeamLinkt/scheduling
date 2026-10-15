@@ -184,7 +184,9 @@ def create_app(db_url: str | None = None) -> FastAPI:
         problems = check_setup(snap.league)
         capacity = (
             capacity_check(snap.league)
-            if not any(p.severity == Severity.ERROR for p in problems)
+            if snap.league.slots
+            and snap.league.teams
+            and not any(p.severity == Severity.ERROR for p in problems)
             else []
         )
         return {

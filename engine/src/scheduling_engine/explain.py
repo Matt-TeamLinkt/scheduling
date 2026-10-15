@@ -134,6 +134,8 @@ def _where_division_fits(b: ModelBuilder, div_id: str) -> str:
 def _why_nowhere(b: ModelBuilder, g: Game, n: int) -> str:
     ix = b.ix
     div = ix.divisions[g.division_id].name
+    if not ix.league.slots:
+        return f"{_plural(n, div + ' game')} can't be scheduled yet: add your time slots first."
     long_enough = [s for s in ix.league.slots if s.minutes >= g.minutes]
     if not long_enough:
         longest = max((s.minutes for s in ix.league.slots), default=0)

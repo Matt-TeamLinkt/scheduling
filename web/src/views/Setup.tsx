@@ -125,7 +125,7 @@ export function Setup({ season, setSeason, toast }: Ctx) {
                 </tr>
                 {draft.divisions.map((d) => (
                   <tr key={d.id}>
-                    <td style={{ fontWeight: 500 }}>{d.name} <span className="muted small">{lg.teams.filter((t) => t.division_id === d.id).length} teams</span></td>
+                    <td style={{ fontWeight: 500 }}>{d.name} <span className="muted small">{plural(lg.teams.filter((t) => t.division_id === d.id).length, "team")}</span></td>
                     {fields.map((f) => (
                       <td key={f.key}>
                         <RuleInput f={f} value={show(f, d.rules[f.key])} placeholder={show(f, draft.rules[f.key])}

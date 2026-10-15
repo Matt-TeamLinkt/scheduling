@@ -110,7 +110,9 @@ try {
   await page.getByText(/We'll add 7 teams/).waitFor();
   await page.screenshot({ path: `${shots}/5-import-preview.png` });
   await page.getByRole("dialog").getByRole("button", { name: "Import" }).click();
-  await page.getByText(/7 teams in 3 divisions/).waitFor();
+  await page.getByRole("dialog").waitFor({ state: "detached" });
+  await page.locator(".card", { hasText: "7 teams in 3 divisions" }).waitFor();
+  if (!(await page.locator("td", { hasText: /^U11/ }).count())) fail("expected a U11 division row in Rules");
   step("imported a messy teams file with a preview");
   await page.screenshot({ path: `${shots}/6-setup.png`, fullPage: true });
 
