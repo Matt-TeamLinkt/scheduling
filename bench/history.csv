@@ -5,3 +5,6 @@ when,commit,label,fixture,seconds,status,games,unplaced,violations,short_of_targ
 2026-10-15T00:35:12,e692fb4,greedy draft + round/week alignment,small_8,0.6,best,28,0,0,0,1,0,0,14,nan,0,0.0,0,0
 2026-10-15T00:36:13,e692fb4,greedy draft + round/week alignment,league_40,60.3,good,240,0,0,0,0,2,49,22,3,5,4137.2,112,17
 2026-10-15T00:37:13,e692fb4,greedy draft + round/week alignment,nightmare,60.3,good,240,0,0,0,0,4,68,31,1,63,4724.6,161,83
+2026-10-23T21:16:15,8ae6fd8,coach unavailable times (H8) and preferred-times goal,small_8,0.6,best,28,0,0,0,1,0,0,14,nan,0,0.0,0,0
+2026-10-23T21:17:15,8ae6fd8,coach unavailable times (H8) and preferred-times goal,league_40,60.5,good,240,0,0,0,0,2,25,16,2,2,3740.9,85,5
+2026-10-23T21:18:16,8ae6fd8,coach unavailable times (H8) and preferred-times goal,nightmare,60.4,good,240,0,0,0,0,4,58,28,1,73,4661.8,159,100
