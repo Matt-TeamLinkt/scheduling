@@ -66,7 +66,8 @@ def _event(ix: LeagueIndex, m: Matchup, slot_id: str, start: datetime) -> Event:
 def open_spots(
     league: League, events: Sequence[Event], m: Matchup, with_problems: bool = False
 ) -> list[SpotChoice]:
-    """Every spot where `m` can go without breaking a rule, best first.
+    """Every spot where `m` can go without breaking a rule, best first. The best spot
+    on each of the best few days is marked `suggested` and comes first.
 
     With `with_problems`, also the spots that break a rule (after all the legal ones,
     fewest problems first), each with the rule messages, for when nothing legal is left
@@ -109,8 +110,22 @@ def open_spots(
             choice.problems = list(dict.fromkeys(v.message for v in broken))
             out.append(choice)
     out.sort(key=lambda c: (len(c.problems), c.score, c.start, c.slot_id))
-    for c in out[:SUGGESTED]:
-        c.suggested = not c.problems
+    # Suggest the best spot on each of the best few days, so the choices differ.
+    days: set[date] = set()
+    for c in out:
+        if len(days) == SUGGESTED or c.problems:
+            break
+        if c.start.date() not in days:
+            days.add(c.start.date())
+            c.suggested = True
+    picked = [c for c in out if c.suggested]
+    for c in out:
+        if len(picked) == SUGGESTED or c.problems:
+            break
+        if not c.suggested:
+            c.suggested = True
+            picked.append(c)
+    out.sort(key=lambda c: (not c.suggested, len(c.problems), c.score, c.start, c.slot_id))
     return out
 
 
@@ -156,10 +171,15 @@ def _score(ix: LeagueIndex, e: Event, team_days: dict[str, list[date]]) -> SpotC
     venue = ix.surfaces[ix.slots[e.slot_id].surface_id].venue_id
     if home is not None:
         if venue == home:
-            good.append(f"At {ix.team_name(e.home_team_id)}'s home venue.")
+            good.append(f"At {_owner(ix.team_name(e.home_team_id))} home venue.")
         else:
             score += 5
     return SpotChoice(e.slot_id, e.start, e.minutes, e.units, score, good, watch)
+
+
+def _owner(name: str) -> str:
+    """'Hawks U11' -> "Hawks U11's", 'Falcons' -> "Falcons'"."""
+    return f"{name}'" if name.endswith("s") else f"{name}'s"
 
 
 def _times(n: int) -> str:

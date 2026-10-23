@@ -34,6 +34,10 @@ export interface GameEvent {
   away_team_id: string | null; slot_id: string; start: string; minutes: number; units: number; locked: boolean;
 }
 export interface Matchup { id: string; division_id: string; home_team_id: string; away_team_id: string; round: number }
+export interface SpotChoice {
+  slot_id: string; start: string; minutes: number; units: number; score: number;
+  good: string[]; watch: string[]; suggested: boolean; problems: string[];
+}
 export interface Goal { id: string; label: string }
 
 export interface Season {
@@ -114,7 +118,7 @@ export const api = {
     return call<ImportPreview>("POST", `/seasons/${id}/import/${kind}`, fd);
   },
   generate: (id: string, body: { priorities?: string[]; seconds?: number; fresh?: boolean;
-    scope?: { division_ids?: string[] | null; start?: string | null; end?: string | null } }) =>
+    scope?: { division_ids?: string[] | null; start?: string | null; end?: string | null }; matchups_only?: boolean }) =>
     call<{ job_id: string }>("POST", `/seasons/${id}/generate`, body),
   job: (jobId: string) => call<Job>("GET", `/jobs/${jobId}`),
   check: (id: string, event_id: string, slot_id: string, start: string) =>
@@ -122,6 +126,9 @@ export const api = {
   move: (id: string, event_id: string, slot_id: string, start: string) =>
     call<Season>("POST", `/seasons/${id}/move`, { event_id, slot_id, start }),
   lock: (id: string, eid: string, locked: boolean) => call<Season>("POST", `/seasons/${id}/events/${eid}/lock`, { locked }),
+  spots: (id: string, mid: string, withProblems = false) =>
+    call<SpotChoice[]>("GET", `/seasons/${id}/unplaced/${mid}/spots?with_problems=${withProblems}`),
+  unschedule: (id: string, eid: string) => call<Season>("POST", `/seasons/${id}/events/${eid}/unschedule`),
   undo: (id: string) => call<Season>("POST", `/seasons/${id}/undo`),
   redo: (id: string) => call<Season>("POST", `/seasons/${id}/redo`),
   report: (id: string) => call<Report>("GET", `/seasons/${id}/report`),

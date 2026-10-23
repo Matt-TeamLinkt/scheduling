@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { Ctx } from "../App";
-import { api, ApiError, waitForJob, type Explanation, type GameEvent, type Season, type Slot } from "../api";
+import { api, ApiError, waitForJob, type Explanation, type GameEvent, type Matchup, type Season, type Slot, type SpotChoice } from "../api";
 import { divisionColor, fmtDay, fmtTime, Lookup, minutes, plural } from "../format";
 import { Icon, Modal, Note, Progress } from "../ui";
 import { GenerateDialog } from "./GenerateDialog";
@@ -13,6 +13,18 @@ export function Schedule({ season, setSeason, toast }: Ctx) {
   const [generating, setGenerating] = useState(false);
   const [view, setView] = useState<"date" | "team">("date");
   const [division, setDivision] = useState("");
+  // A game from the "Needs a spot" list that's being placed, and where it can go.
+  const [picked, setPicked] = useState<string | null>(null);
+  const [spots, setSpots] = useState<SpotChoice[] | null>(null);
+  const [dragId, setDragId] = useState<string | null>(null);
+  useEffect(() => { if (picked && !season.unplaced.some((m) => m.id === picked)) setPicked(null); }, [picked, season.unplaced]);
+  useEffect(() => {
+    setSpots(null);
+    if (!picked) return;
+    let live = true;
+    api.spots(season.id, picked, true).then((r) => live && setSpots(r)).catch(() => live && setSpots([]));
+    return () => { live = false; };
+  }, [picked, season.id, season.version]);
   const dates = useMemo(() => [...new Set(lg.slots.map((s) => s.date))].sort(), [lg.slots]);
   const [day, setDay] = useState<string>(() => season.events[0]?.start.slice(0, 10) ?? dates[0] ?? "");
   useEffect(() => { if (!dates.includes(day) && dates.length) setDay(dates[0]); }, [dates, day]);
@@ -51,16 +63,17 @@ export function Schedule({ season, setSeason, toast }: Ctx) {
           )}
           <div className="spacer" />
           <span className="muted small">{plural(season.events.length, "game")} scheduled
-            {season.unplaced.length > 0 && <> · <span style={{ color: "var(--tl-warning)", fontWeight: 600 }}>{season.unplaced.length} didn't fit</span></>}
+            {season.unplaced.length > 0 && <> · <span style={{ color: "var(--tl-warning)", fontWeight: 600 }}>{season.unplaced.length} need a spot</span></>}
           </span>
         </div>
         {view === "date" ? (
-          <DateView {...{ season, setSeason, toast, look, day, setDay, dates, division }} />
+          <DateView {...{ season, setSeason, toast, look, day, setDay, dates, division, picked, spots, dragId, setDragId }} />
         ) : (
           <TeamView {...{ season, setSeason, toast, look }} />
         )}
       </div>
-      <Side {...{ season, setSeason, toast }} />
+      <Side {...{ season, setSeason, toast, look, picked, setPicked, spots, setDragId }}
+        showDay={(d) => { setView("date"); setDay(d); }} />
       {generating && (
         <GenerateDialog season={season} onClose={() => setGenerating(false)}
           onDone={(s, summary) => { setGenerating(false); setSeason(s); toast(summary); }} />
@@ -71,8 +84,9 @@ export function Schedule({ season, setSeason, toast }: Ctx) {
 
 // ── by date: surfaces as columns, time running down ─────────────────────────
 
-function DateView({ season, setSeason, toast, look, day, setDay, dates, division }: Pick<Ctx, "season" | "setSeason" | "toast"> & {
+function DateView({ season, setSeason, toast, look, day, setDay, dates, division, picked, spots, dragId, setDragId }: Pick<Ctx, "season" | "setSeason" | "toast"> & {
   look: Lookup; day: string; setDay: (d: string) => void; dates: string[]; division: string;
+  picked: string | null; spots: SpotChoice[] | null; dragId: string | null; setDragId: (id: string | null) => void;
 }) {
   const lg = season.league;
   const daySlots = lg.slots.filter((s) => s.date === day);
@@ -83,37 +97,58 @@ function DateView({ season, setSeason, toast, look, day, setDay, dates, division
   const idx = dates.indexOf(day);
   const blackout = lg.blackouts.find((b) => b.scope === "league" && b.start_date <= day && day <= b.end_date);
 
-  const [dragId, setDragId] = useState<string | null>(null);
   const [over, setOver] = useState<string | null>(null);
   const checks = useRef(new Map<string, { ok: boolean; problems: string[] }>());
   const [, force] = useState(0);
-  const [pending, setPending] = useState<{ event: GameEvent; slot: Slot; problems: string[] } | null>(null);
+  const [pending, setPending] = useState<{ event: GameEvent | Matchup; slot: Slot; problems: string[] } | null>(null);
   useEffect(() => { checks.current.clear(); }, [season.version]);
 
-  const startOf = (s: Slot) => `${s.date}T${s.start}`;
-  const check = async (eventId: string, s: Slot) => {
-    const k = `${eventId}|${s.id}`;
+  // Where the picked game can go on this day: slot id -> its best spot there.
+  const spotIn = useMemo(() => {
+    const m = new Map<string, SpotChoice>();
+    for (const c of spots ?? []) {
+      const had = m.get(c.slot_id);
+      if (!had || (had.problems.length && !c.problems.length)) m.set(c.slot_id, c);
+    }
+    return m;
+  }, [spots]);
+  const spotDays = useMemo(() => new Set((spots ?? []).filter((c) => !c.problems.length).map((c) => c.start.slice(0, 10))), [spots]);
+
+  const startFor = (id: string, s: Slot) => {
+    const c = id === picked ? spotIn.get(s.id) : undefined;
+    return c ? c.start : `${s.date}T${s.start}`;
+  };
+  const check = async (id: string, s: Slot) => {
+    const k = `${id}|${s.id}`;
     if (checks.current.has(k)) return checks.current.get(k)!;
-    const r = await api.check(season.id, eventId, s.id, startOf(s));
+    const r = await api.check(season.id, id, s.id, startFor(id, s));
     checks.current.set(k, r);
     force((n) => n + 1);
     return r;
   };
-  const doMove = async (event: GameEvent, s: Slot) => {
+  const doMove = async (item: GameEvent | Matchup, s: Slot) => {
+    const waiting = !("slot_id" in item);
+    const start = startFor(item.id, s);
     try {
-      const next = await api.move(season.id, event.id, s.id, startOf(s));
+      const next = await api.move(season.id, item.id, s.id, start);
       setSeason(next);
-      toast(`Moved ${look.matchup(event)} to ${fmtDay(s.date)} ${fmtTime(s.start)}. Undo with Ctrl+Z.`);
+      toast(`${waiting ? "Placed" : "Moved"} ${look.matchup(item)} on ${fmtDay(s.date)} at ${fmtTime(start)}. Undo with Ctrl+Z.`);
     } catch (e) { toast((e as ApiError).message); }
   };
   const drop = async (s: Slot) => {
-    const event = season.events.find((e) => e.id === dragId);
+    const item = season.events.find((e) => e.id === dragId) ?? season.unplaced.find((m) => m.id === dragId);
     setOver(null);
     setDragId(null);
-    if (!event || (event.slot_id === s.id && event.start === startOf(s))) return;
-    const r = await check(event.id, s);
-    if (r.ok) doMove(event, s);
-    else setPending({ event, slot: s, problems: r.problems });
+    if (!item || ("slot_id" in item && item.slot_id === s.id && item.start === startFor(item.id, s))) return;
+    const r = await check(item.id, s);
+    if (r.ok) doMove(item, s);
+    else setPending({ event: item, slot: s, problems: r.problems });
+  };
+  const offBoard = async (e: GameEvent) => {
+    try {
+      setSeason(await api.unschedule(season.id, e.id));
+      toast(`Took ${look.matchup(e)} off the schedule. It's in the "Needs a spot" list.`);
+    } catch (err) { toast((err as ApiError).message); }
   };
   const lock = async (e: GameEvent) => {
     try { setSeason(await api.lock(season.id, e.id, !e.locked)); } catch (err) { toast((err as ApiError).message); }
@@ -126,8 +161,8 @@ function DateView({ season, setSeason, toast, look, day, setDay, dates, division
         {dates.map((d) => {
           const bo = lg.blackouts.some((b) => b.scope === "league" && b.start_date <= d && d <= b.end_date);
           return (
-            <button key={d} className={`day-chip${d === day ? " on" : ""}${bo ? " blackout" : ""}`} onClick={() => setDay(d)}
-              title={bo ? "Blackout date" : `${season.events.filter((e) => e.start.startsWith(d)).length} games`}>
+            <button key={d} className={`day-chip${d === day ? " on" : ""}${bo ? " blackout" : ""}${spotDays.has(d) ? " has-spot" : ""}`} onClick={() => setDay(d)}
+              title={bo ? "Blackout date" : spotDays.has(d) ? "The game you picked can go on this day" : `${season.events.filter((e) => e.start.startsWith(d)).length} games`}>
               {fmtDay(d)}
             </button>
           );
@@ -136,7 +171,11 @@ function DateView({ season, setSeason, toast, look, day, setDay, dates, division
       </div>
       <div className="grid-scroll">
         {blackout && <div style={{ marginBottom: 12 }}><Note tone="bad" icon="block">Blackout: {blackout.note || "no games this day"}.</Note></div>}
-        <p className="muted small" style={{ marginBottom: 10 }}>Drag a game to move it. While you drag, green means it fits there and red means it would break a rule.</p>
+        <p className="muted small" style={{ marginBottom: 10 }}>
+          {picked && spots
+            ? `Placing ${look.matchup(season.unplaced.find((m) => m.id === picked) ?? { home_team_id: "", away_team_id: null })}. Green outlines are open spots; starred ones are suggested. Click one to put the game there.`
+            : "Drag a game to move it. While you drag, green means it fits there and red means it would break a rule."}
+        </p>
         <div className="cols">
           <div className="gutter" style={{ height: height + 36 }}>
             {Array.from({ length: (hi - lo) / 60 + 1 }, (_, i) => (
@@ -151,13 +190,19 @@ function DateView({ season, setSeason, toast, look, day, setDay, dates, division
                   const games = season.events.filter((e) => e.slot_id === s.id);
                   const k = dragId ? checks.current.get(`${dragId}|${s.id}`) : undefined;
                   const cls = over === s.id ? (k ? (k.ok ? " ok" : " bad") : " over") : "";
+                  const sp = picked ? spotIn.get(s.id) : undefined;
+                  const target = sp && !sp.problems.length ? (sp.suggested ? " spot best" : " spot") : "";
+                  const item = picked ? season.unplaced.find((m) => m.id === picked) : undefined;
                   return (
-                    <div key={s.id} className={`slot${games.length ? "" : " empty"}${cls}`} title={k && !k.ok ? k.problems.join("\n") : undefined}
+                    <div key={s.id} className={`slot${games.length ? "" : " empty"}${cls}${target}`}
+                      title={k && !k.ok ? k.problems.join("\n") : sp ? [...sp.good, ...sp.watch, ...sp.problems].join("\n") : undefined}
+                      onClick={target && item ? () => doMove(item, s) : undefined}
                       style={{ top: (minutes(s.start) - lo) * PX_PER_MIN + 2, height: (minutes(s.end) - minutes(s.start)) * PX_PER_MIN - 4 }}
                       onDragOver={(e) => e.preventDefault()}
                       onDragEnter={(e) => { e.preventDefault(); setOver(s.id); if (dragId) check(dragId, s); }}
                       onDrop={(e) => { e.preventDefault(); drop(s); }}>
-                      {games.length === 0 && <span>{fmtTime(s.start)}–{fmtTime(s.end)} · open</span>}
+                      {target && <span className="spot-tag"><Icon name={sp?.suggested ? "star" : "add"} style={{ fontSize: 14 }} />{sp?.suggested ? "Suggested" : "Open"} · {fmtTime(sp!.start)}</span>}
+                      {games.length === 0 && !target && <span>{fmtTime(s.start)}–{fmtTime(s.end)} · open</span>}
                       {games.map((g) => (
                         <div key={g.id} className={`game${g.locked ? " locked" : ""}`} draggable={!g.locked}
                           onDragStart={(e) => { e.dataTransfer.effectAllowed = "move"; setDragId(g.id); }}
@@ -170,9 +215,16 @@ function DateView({ season, setSeason, toast, look, day, setDay, dates, division
                             <span className="spacer" />
                             <button className="icon-btn" style={{ width: 20, height: 20 }} aria-label={g.locked ? "Unlock game" : "Lock game"}
                               title={g.locked ? "Locked: generating again won't move it. Click to unlock." : "Lock this game so generating again won't move it"}
-                              onClick={() => lock(g)}>
+                              onClick={(ev) => { ev.stopPropagation(); lock(g); }}>
                               <Icon name={g.locked ? "lock" : "lock_open"} style={{ fontSize: 14, color: g.locked ? "var(--tl-blue)" : undefined }} />
                             </button>
+                            {!g.locked && g.away_team_id && (
+                              <button className="icon-btn" style={{ width: 20, height: 20 }} aria-label="Take off the schedule"
+                                title="Take this game off the schedule. It goes to the Needs a spot list so you can place it somewhere else."
+                                onClick={(ev) => { ev.stopPropagation(); offBoard(g); }}>
+                                <Icon name="remove_circle_outline" style={{ fontSize: 14 }} />
+                              </button>
+                            )}
                           </div>
                           <div className="who">{look.team(g.home_team_id)}</div>
                           {g.away_team_id && <div className="who" style={{ fontWeight: 500 }}>vs {look.team(g.away_team_id)}</div>}
@@ -187,7 +239,7 @@ function DateView({ season, setSeason, toast, look, day, setDay, dates, division
         </div>
       </div>
       {pending && (
-        <Modal title="This move breaks a rule" subtitle={`${look.matchup(pending.event)} → ${look.place(pending.slot.id)}, ${fmtDay(pending.slot.date)} ${fmtTime(pending.slot.start)}`}
+        <Modal title="This move breaks a rule" subtitle={`${look.matchup(pending.event)} → ${look.place(pending.slot.id)}, ${fmtDay(pending.slot.date)} ${fmtTime(startFor(pending.event.id, pending.slot))}`}
           onClose={() => setPending(null)}
           footer={<>
             <button className="btn btn-ghost" onClick={() => setPending(null)}>Cancel</button>
@@ -251,16 +303,28 @@ function TeamView({ season, setSeason, toast, look }: Pick<Ctx, "season" | "setS
   );
 }
 
-// ── side panel: games that didn't fit, with fixes ───────────────────────────
+// ── side panel: games that need a spot, where they can go, and fixes ─────────
 
-function Side({ season, setSeason, toast }: Pick<Ctx, "season" | "setSeason" | "toast">) {
+function Side({ season, setSeason, toast, look, picked, setPicked, spots, setDragId, showDay }: Pick<Ctx, "season" | "setSeason" | "toast"> & {
+  look: Lookup; picked: string | null; setPicked: (id: string | null) => void; spots: SpotChoice[] | null;
+  setDragId: (id: string | null) => void; showDay: (day: string) => void;
+}) {
+  const lg = season.league;
   const [ex, setEx] = useState<Explanation | null>(null);
   const [applying, setApplying] = useState<string | null>(null);
   const [progress, setProgress] = useState(0);
+  const [filter, setFilter] = useState("");
+  const [showAll, setShowAll] = useState(false);
+  // Explanations only make sense after generating, not for matchups built to place by hand.
+  // Right after a generate they load by themselves; otherwise on request (they take a few seconds).
+  const explainable = season.unplaced.length > 0 && season.events.length > 0;
+  const justGenerated = /^(Generated|Rescheduled|Placed games that didn't fit)/.test(season.last_action);
+  const [asked, setAsked] = useState(false);
+  useEffect(() => { setEx(null); setAsked(false); }, [season.id, season.version]);
+  const wantEx = explainable && (justGenerated || asked);
   useEffect(() => {
-    setEx(null);
-    if (season.unplaced.length) api.explain(season.id).then(setEx).catch(() => setEx(null));
-  }, [season.id, season.version, season.unplaced.length]);
+    if (wantEx) api.explain(season.id).then(setEx).catch(() => setEx(null));
+  }, [season.id, season.version, wantEx]);
 
   const apply = async (index: number, message: string) => {
     setApplying(message);
@@ -273,8 +337,17 @@ function Side({ season, setSeason, toast }: Pick<Ctx, "season" | "setSeason" | "
     } catch (e) { toast((e as ApiError).message); }
     finally { setApplying(null); }
   };
+  const place = async (m: Matchup, c: SpotChoice) => {
+    try {
+      setSeason(await api.move(season.id, m.id, c.slot_id, c.start));
+      toast(`Placed ${look.matchup(m)} on ${fmtDay(c.start)} at ${fmtTime(c.start)}. Undo with Ctrl+Z.`);
+    } catch (e) { toast((e as ApiError).message); }
+  };
 
   const locked = season.events.filter((e) => e.locked).length;
+  const waiting = season.unplaced.filter((m) => !filter || m.division_id === filter);
+  const shown = showAll ? waiting : waiting.slice(0, 8);
+  const current = season.unplaced.find((m) => m.id === picked);
   return (
     <aside className="board-side">
       <div>
@@ -287,8 +360,40 @@ function Side({ season, setSeason, toast }: Pick<Ctx, "season" | "setSeason" | "
       </div>
       {season.unplaced.length > 0 && (
         <div className="stack">
-          <h2>{plural(season.unplaced.length, "game")} didn't fit</h2>
-          {!ex && <p className="muted small">Working out why…</p>}
+          <h2>{season.unplaced.length === 1 ? "1 game needs a spot" : `${season.unplaced.length} games need a spot`}</h2>
+          <p className="muted small">Pick a game to see the best places for it, or drag it onto the board.</p>
+          {season.unplaced.length > 8 && (
+            <select className="input" value={filter} onChange={(e) => setFilter(e.target.value)} aria-label="Division">
+              <option value="">All divisions</option>
+              {lg.divisions.filter((d) => season.unplaced.some((m) => m.division_id === d.id)).map((d) => <option key={d.id} value={d.id}>{d.name}</option>)}
+            </select>
+          )}
+          <div className="tray">
+            {shown.map((m) => (
+              <div key={m.id} className="stack" style={{ gap: 8 }}>
+              <button className={`tray-item${picked === m.id ? " on" : ""}`} draggable
+                onDragStart={(e) => { e.dataTransfer.effectAllowed = "move"; setDragId(m.id); }}
+                onDragEnd={() => setDragId(null)}
+                onClick={() => setPicked(picked === m.id ? null : m.id)} aria-pressed={picked === m.id}>
+                <span className="dot" style={{ background: divisionColor(lg, m.division_id) }} />
+                <span className="tray-who">{look.matchup(m)}</span>
+                <span className="muted small">{look.division(m.division_id)}</span>
+              </button>
+              {picked === m.id && <SpotList m={m} spots={spots} look={look} place={place} showDay={showDay} />}
+              </div>
+            ))}
+          </div>
+          {waiting.length > 8 && (
+            <button className="btn btn-ghost btn-sm" onClick={() => setShowAll(!showAll)}>{showAll ? "Show fewer" : `Show all ${waiting.length}`}</button>
+          )}
+          {current && !shown.includes(current) && <SpotList m={current} spots={spots} look={look} place={place} showDay={showDay} />}
+        </div>
+      )}
+      {explainable && (
+        <div className="stack">
+          <h2>{justGenerated ? "Why games didn't fit" : "Not enough room?"}</h2>
+          {!wantEx && <button className="btn btn-ghost btn-sm" style={{ alignSelf: "flex-start" }} onClick={() => setAsked(true)}>Find changes that make room</button>}
+          {wantEx && !ex && <p className="muted small">Working out why…</p>}
           {ex?.findings.map((f, i) => <Note key={i} tone="warn">{f}</Note>)}
           {ex && ex.suggestions.length > 0 && <h3 style={{ marginTop: 8 }}>Ways to fix it</h3>}
           {ex?.suggestions.map((s) => (
@@ -301,5 +406,51 @@ function Side({ season, setSeason, toast }: Pick<Ctx, "season" | "setSeason" | "
         </div>
       )}
     </aside>
+  );
+}
+
+function SpotList({ m, spots, look, place, showDay }: {
+  m: Matchup; spots: SpotChoice[] | null; look: Lookup; place: (m: Matchup, c: SpotChoice) => void; showDay: (d: string) => void;
+}) {
+  if (!spots) return <p className="muted small">Finding open spots for {look.matchup(m)}…</p>;
+  const legal = spots.filter((c) => !c.problems.length);
+  const best = legal.filter((c) => c.suggested);
+  const misses = spots.filter((c) => c.problems.length).slice(0, 3);
+  return (
+    <div className="stack" aria-label="Where it can go">
+      {legal.length > 0 ? (
+        <>
+          <p className="muted small">Best spots. {plural(legal.length, "open spot")} in the season; they're outlined in green on the board.</p>
+          {best.map((c) => (
+            <div key={c.slot_id + c.start} className="card spot-card">
+              <div className="row"><Icon name="star" style={{ fontSize: 18, color: "var(--tl-blue)" }} /><b>{fmtDay(c.start)} at {fmtTime(c.start)}</b></div>
+              <div className="muted small">{look.place(c.slot_id)}</div>
+              {c.good.map((g, i) => <div key={i} className="row small"><Icon name="check" style={{ fontSize: 16, color: "var(--tl-success)" }} />{g}</div>)}
+              {c.watch.map((w, i) => <div key={i} className="row small muted"><Icon name="info" style={{ fontSize: 16 }} />{w}</div>)}
+              <div className="row" style={{ marginTop: 6 }}>
+                <button className="btn btn-soft btn-sm" onClick={() => place(m, c)}>Place here</button>
+                <button className="btn btn-ghost btn-sm" onClick={() => showDay(c.start.slice(0, 10))}>Show on board</button>
+              </div>
+            </div>
+          ))}
+        </>
+      ) : (
+        <>
+          <Note tone="warn">No open spot works for {look.matchup(m)} right now. Here are the closest options and the rule each one breaks.</Note>
+          {misses.map((c) => (
+            <div key={c.slot_id + c.start} className="card spot-card">
+              <b>{fmtDay(c.start)} at {fmtTime(c.start)}</b>
+              <div className="muted small">{look.place(c.slot_id)}</div>
+              {c.problems.map((p, i) => <div key={i} className="row small" style={{ color: "var(--tl-error)" }}><Icon name="error" style={{ fontSize: 16 }} />{p}</div>)}
+              <div className="row" style={{ marginTop: 6 }}>
+                <button className="btn btn-warn btn-sm" onClick={() => place(m, c)}>Place anyway</button>
+                <button className="btn btn-ghost btn-sm" onClick={() => showDay(c.start.slice(0, 10))}>Show on board</button>
+              </div>
+            </div>
+          ))}
+          {!misses.length && <p className="muted small">There's no time slot long enough for this game. Add time on the Setup tab.</p>}
+        </>
+      )}
+    </div>
   );
 }

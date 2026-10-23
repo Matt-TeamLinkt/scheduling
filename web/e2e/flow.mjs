@@ -77,6 +77,18 @@ try {
     }
   } else step("no open slot on the first day to drag into (skipped)");
 
+  // 4. Take a game off the schedule, then put it back from "Needs a spot"
+  await page.getByRole("button", { name: "Take off the schedule" }).first().click();
+  await page.getByText("1 game needs a spot").waitFor();
+  await page.locator(".tray-item").first().click();
+  await page.locator(".spot-card").first().waitFor();
+  step(`took a game off; ${await page.locator(".slot.spot").count()} open spots outlined on this day`);
+  await page.screenshot({ path: `${shots}/2-needs-a-spot.png` });
+  await page.locator(".spot-card").first().getByRole("button", { name: /Place (here|anyway)/ }).click();
+  await page.locator(".toast", { hasText: /^Placed/ }).waitFor();
+  await page.getByText("1 game needs a spot").waitFor({ state: "detached" });
+  step("placed it again from the suggested spots");
+
   // 5. Lock a game
   await page.getByRole("button", { name: "Lock game" }).first().click();
   await page.getByRole("button", { name: "Unlock game" }).first().waitFor();

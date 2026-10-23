@@ -147,3 +147,18 @@ td.flag { color: rgb(160, 104, 10); font-weight: 600; }
 
 .demo-bar { flex: none; background: var(--tl-blue-tint); color: var(--tl-fg-2); font-size: 12px; line-height: 16px;
   padding: 8px 16px; border-bottom: 1px solid var(--tl-divider); }
+
+/* "Needs a spot" tray and spot highlighting */
+.btn-sm { padding: 4px 10px; font-size: 12px; min-height: 0; }
+.tray { display: flex; flex-direction: column; gap: 4px; }
+.tray-item { display: grid; grid-template-columns: 10px 1fr; column-gap: 8px; align-items: center; text-align: left; width: 100%;
+  background: #fff; border: 1px solid var(--tl-divider); border-radius: 8px; padding: 6px 10px; cursor: grab; font: inherit; color: var(--tl-fg); }
+.tray-item:hover { border-color: var(--tl-border); }
+.tray-item.on { border-color: var(--tl-blue); background: var(--tl-blue-soft); }
+.tray-item .dot { width: 8px; height: 8px; border-radius: 50%; grid-row: span 2; }
+.tray-item .tray-who { font-size: 13px; font-weight: 600; }
+.spot-card { padding: 10px 12px; display: flex; flex-direction: column; gap: 4px; }
+.slot.spot { border-color: var(--tl-success); border-style: solid; background: rgba(48, 164, 108, .06); cursor: pointer; }
+.slot.spot.best { border-width: 2px; background: rgba(48, 164, 108, .12); }
+.slot .spot-tag { display: inline-flex; align-items: center; gap: 3px; font-size: 11px; font-weight: 600; color: var(--tl-success); }
+.day-chip.has-spot { border-color: var(--tl-success); }

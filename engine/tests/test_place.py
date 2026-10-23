@@ -41,7 +41,11 @@ def test_best_spots_are_marked_and_first(season: tuple[League, list[Event]]) -> 
     marked = [c for c in spots if c.suggested]
     assert len(marked) == min(SUGGESTED, len(spots))
     assert spots[: len(marked)] == marked
-    assert [c.score for c in spots] == sorted(c.score for c in spots)
+    rest = spots[len(marked) :]
+    assert [c.score for c in rest] == sorted(c.score for c in rest)
+    assert max(c.score for c in marked) <= min(c.score for c in rest) or len(
+        {c.start.date() for c in marked}
+    ) == len(marked), "a worse spot is only suggested to offer a different day"
 
 
 def test_reasons_are_plain_language(season: tuple[League, list[Event]]) -> None:

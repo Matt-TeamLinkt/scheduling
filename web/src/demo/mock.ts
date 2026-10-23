@@ -53,6 +53,56 @@ const endMin = (e: GameEvent) => minutes(e.start) + e.minutes;
 const sameDay = (a: GameEvent, b: GameEvent) => a.start.slice(0, 10) === b.start.slice(0, 10);
 const overlap = (a: GameEvent, b: GameEvent) => sameDay(a, b) && minutes(a.start) < endMin(b) && minutes(b.start) < endMin(a);
 
+function asEvent(lg: League, m: Matchup, slotId: string, start: string): GameEvent {
+  const pick = (t: string) => {
+    const team = lg.teams.find((x) => x.id === t);
+    const d = lg.divisions.find((x) => x.id === team?.division_id);
+    return { minutes: team?.rules.game_minutes ?? d?.rules.game_minutes ?? lg.rules.game_minutes, units: team?.rules.units ?? d?.rules.units ?? lg.rules.units };
+  };
+  const a = pick(m.home_team_id), b = pick(m.away_team_id);
+  const sl = lg.slots.find((x) => x.id === slotId)!;
+  const size = a.units && b.units ? Math.max(a.units, b.units) : lg.surfaces.find((x) => x.id === sl.surface_id)!.units;
+  return { id: m.id, kind: "game", division_id: m.division_id, home_team_id: m.home_team_id, away_team_id: m.away_team_id,
+    slot_id: slotId, start: start.slice(0, 19), minutes: Math.max(a.minutes, b.minutes), units: size, locked: false };
+}
+
+/** Simplified version of the engine's open_spots(): legal spots first, best few days suggested. */
+function spots(lg: League, events: GameEvent[], m: Matchup, withProblems: boolean) {
+  const dayNum = (iso: string) => Math.floor(Date.parse(iso.slice(0, 10)) / 86400000);
+  const outs = [];
+  for (const sl of lg.slots) {
+    const len = asEvent(lg, m, sl.id, `${sl.date}T${sl.start}`).minutes;
+    for (let t = minutes(sl.start); t + len <= minutes(sl.end); t += len) {
+      const start = `${sl.date}T${String(Math.floor(t / 60)).padStart(2, "0")}:${String(t % 60).padStart(2, "0")}:00`;
+      const e = asEvent(lg, m, sl.id, start);
+      const problems = check(lg, [...events, e], e);
+      if (problems.length && !withProblems) continue;
+      let score = 0;
+      const good: string[] = [], watch: string[] = [];
+      let closest: [number, string] | null = null;
+      for (const tid of [m.home_team_id, m.away_team_id]) {
+        const gaps = events.filter((x) => x.home_team_id === tid || x.away_team_id === tid).map((x) => Math.abs(dayNum(x.start) - dayNum(start)));
+        if (gaps.length) {
+          const g = Math.min(...gaps);
+          score += Math.max(0, 7 - g) * 10;
+          if (!closest || g < closest[0]) closest = [g, tid];
+        }
+      }
+      if (!closest) good.push("Neither team has another game yet.");
+      else if (closest[0] >= 5) good.push(`Both teams get at least ${closest[0]} days between games.`);
+      else watch.push(`${teamName(lg, closest[1])} have another game ${closest[0] === 0 ? "the same day" : `${closest[0]} days away`}.`);
+      outs.push({ slot_id: sl.id, start, minutes: e.minutes, units: e.units, score, good, watch, suggested: false, problems });
+    }
+  }
+  outs.sort((a, b) => a.problems.length - b.problems.length || a.score - b.score || a.start.localeCompare(b.start));
+  const days = new Set<string>();
+  for (const c of outs) {
+    if (days.size === 3 || c.problems.length) break;
+    if (!days.has(c.start.slice(0, 10))) { days.add(c.start.slice(0, 10)); c.suggested = true; }
+  }
+  return outs.sort((a, b) => Number(b.suggested) - Number(a.suggested));
+}
+
 function rules(lg: League, teamId: string) {
   const t = lg.teams.find((x) => x.id === teamId);
   const d = lg.divisions.find((x) => x.id === t?.division_id);
@@ -145,6 +195,8 @@ function out(s: SeasonState, message: string | null = null) {
 class HttpError extends Error { constructor(public status: number, msg: string) { super(msg); } }
 
 function route(method: string, path: string, body: Record<string, unknown> | null): unknown {
+  const [bare, query = ""] = path.split("?");
+  path = bare;
   const p = path.split("/").filter(Boolean); // ["seasons", id, ...]
   if (path === "/samples") return SAMPLES.map((s) => ({ id: s.id, description: s.description }));
   if (path === "/seasons" && method === "GET") {
@@ -196,22 +248,41 @@ function route(method: string, path: string, body: Record<string, unknown> | nul
     case "generate":
       return startJob(() => {
         if (!s.sample) return { summary: "This preview can only generate the sample leagues. Add teams and slots in the full app.", placed: 0 };
+        if (body?.matchups_only) {
+          const all: Matchup[] = [...s.sample.events.map((e) => ({ id: e.id, division_id: e.division_id, home_team_id: e.home_team_id, away_team_id: e.away_team_id!, round: 0 })), ...s.sample.unplaced];
+          commit(s, { action: "Built the matchups", events: [], unplaced: all });
+          return { summary: `Built ${all.length} games. Place them from the "Needs a spot" list; the best spots are marked for you.` };
+        }
         if (v.events.length && !body?.fresh) return { summary: "This is already the best schedule the engine found for this sample." };
         const smp = s.sample;
         commit(s, { action: "Generated the schedule", events: clone(smp.events), unplaced: clone(smp.unplaced), report: smp.report });
         return { summary: smp.unplaced.length ? `${smp.events.length} games scheduled. ${smp.unplaced.length} didn't fit; see why and how to fix it.` : `All ${smp.events.length} games scheduled.` };
       });
     case "check": case "move": {
-      const old = v.events.find((e) => e.id === body?.event_id)!;
       const slot = v.league.slots.find((x) => x.id === body?.slot_id)!;
-      const moved: GameEvent = { ...old, slot_id: slot.id, start: String(body?.start).slice(0, 19) };
-      const events = v.events.map((e) => (e.id === old.id ? moved : e));
+      const waiting = v.unplaced.find((m) => m.id === body?.event_id);
+      const old = v.events.find((e) => e.id === body?.event_id);
+      const moved: GameEvent = waiting ? asEvent(v.league, waiting, slot.id, String(body?.start))
+        : { ...old!, slot_id: slot.id, start: String(body?.start).slice(0, 19) };
+      const events = waiting ? [...v.events, moved] : v.events.map((e) => (e.id === moved.id ? moved : e));
       const problems = check(v.league, events, moved);
       if (action === "check") return { ok: !problems.length, problems };
-      commit(s, { action: `Moved ${describe(v.league, moved)}`, events });
+      if (waiting) commit(s, { action: `Placed ${describe(v.league, moved)}`, events, unplaced: v.unplaced.filter((m) => m.id !== waiting.id) });
+      else commit(s, { action: `Moved ${describe(v.league, moved)}`, events });
       return { ...out(s), problems };
     }
+    case "unplaced": {
+      const m = v.unplaced.find((x) => x.id === p[3]);
+      if (!m) throw new HttpError(404, "That game isn't waiting for a spot.");
+      return spots(v.league, v.events, m, query.includes("with_problems=true"));
+    }
     case "events": {
+      if (p[4] === "unschedule") {
+        const e = v.events.find((x) => x.id === p[3])!;
+        commit(s, { action: `Took ${describe(v.league, e)} off the schedule`, events: v.events.filter((x) => x.id !== e.id),
+          unplaced: [...v.unplaced, { id: e.id, division_id: e.division_id, home_team_id: e.home_team_id, away_team_id: e.away_team_id!, round: 0 }] });
+        return out(s);
+      }
       const locked = Boolean(body?.locked);
       const events = v.events.map((e) => (e.id === p[3] ? { ...e, locked } : e));
       const e = events.find((x) => x.id === p[3])!;

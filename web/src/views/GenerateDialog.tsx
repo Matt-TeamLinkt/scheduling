@@ -9,6 +9,7 @@ export function GenerateDialog({ season, onClose, onDone }: {
   const [thorough, setThorough] = useState(true);
   const hasSchedule = season.events.length > 0;
   const [fresh, setFresh] = useState(!hasSchedule);
+  const [matchupsOnly, setMatchupsOnly] = useState(false);
   const [advanced, setAdvanced] = useState(false);
   const [division, setDivision] = useState("");
   const [from, setFrom] = useState("");
@@ -31,7 +32,7 @@ export function GenerateDialog({ season, onClose, onDone }: {
       const scope = !fresh && advanced && (division || from || to)
         ? { division_ids: division ? [division] : null, start: from || null, end: to || null } : undefined;
       const { job_id } = await api.generate(season.id, {
-        priorities: order.map((g) => g.id), seconds: thorough ? 60 : 20, fresh, scope,
+        priorities: order.map((g) => g.id), seconds: thorough ? 60 : 20, fresh, scope, matchups_only: matchupsOnly,
       });
       const done = await waitForJob(job_id, setJob);
       if (done.state === "failed") return setError(done.message);
@@ -59,20 +60,32 @@ export function GenerateDialog({ season, onClose, onDone }: {
       subtitle="Every hard rule is always respected. Rank what matters most when there's a trade-off."
       footer={<>
         <button className="btn btn-ghost" onClick={onClose}>Cancel</button>
-        <button className="btn btn-primary" onClick={run}><Icon name="auto_awesome" style={{ fontSize: 18 }} />Generate</button>
+        <button className="btn btn-primary" onClick={run}><Icon name="auto_awesome" style={{ fontSize: 18 }} />{matchupsOnly ? "Build matchups" : "Generate"}</button>
       </>}>
-      {hasSchedule && (
-        <div className="stack">
+      <div className="stack">
+        {hasSchedule ? (
+          <>
+            <label className="row" style={{ cursor: "pointer" }}>
+              <input type="radio" checked={!fresh && !matchupsOnly} onChange={() => { setFresh(false); setMatchupsOnly(false); }} />
+              <span><b>Improve the current schedule.</b> <span className="muted">Same matchups. Locked games stay where they are.</span></span>
+            </label>
+            <label className="row" style={{ cursor: "pointer" }}>
+              <input type="radio" checked={fresh && !matchupsOnly} onChange={() => { setFresh(true); setMatchupsOnly(false); }} />
+              <span><b>Start over.</b> <span className="muted">New matchups from your teams. Use this after adding or removing teams.</span></span>
+            </label>
+          </>
+        ) : (
           <label className="row" style={{ cursor: "pointer" }}>
-            <input type="radio" checked={!fresh} onChange={() => setFresh(false)} />
-            <span><b>Improve the current schedule.</b> <span className="muted">Same matchups. Locked games stay where they are.</span></span>
+            <input type="radio" checked={!matchupsOnly} onChange={() => setMatchupsOnly(false)} />
+            <span><b>Build the whole schedule.</b> <span className="muted">Matchups, dates, times and places.</span></span>
           </label>
-          <label className="row" style={{ cursor: "pointer" }}>
-            <input type="radio" checked={fresh} onChange={() => setFresh(true)} />
-            <span><b>Start over.</b> <span className="muted">New matchups from your teams. Use this after adding or removing teams.</span></span>
-          </label>
-        </div>
-      )}
+        )}
+        <label className="row" style={{ cursor: "pointer" }}>
+          <input type="radio" checked={matchupsOnly} onChange={() => setMatchupsOnly(true)} />
+          <span><b>Build matchups only.</b> <span className="muted">Decide who plays whom, then you place each game yourself. The best spots are suggested.{hasSchedule ? " This clears the current schedule; undo brings it back." : ""}</span></span>
+        </label>
+      </div>
+      {!matchupsOnly && <>
       <div>
         <h3 style={{ marginBottom: 6 }}>What matters most</h3>
         <p className="muted small" style={{ marginBottom: 8 }}>Drag to reorder. The top one wins when two goals pull different ways.</p>
@@ -93,7 +106,8 @@ export function GenerateDialog({ season, onClose, onDone }: {
         <label className="row" style={{ cursor: "pointer" }}><input type="radio" checked={thorough} onChange={() => setThorough(true)} />Thorough (about a minute)</label>
         <label className="row" style={{ cursor: "pointer" }}><input type="radio" checked={!thorough} onChange={() => setThorough(false)} />Quick (about 20 seconds)</label>
       </div>
-      {hasSchedule && !fresh && (
+      </>}
+      {hasSchedule && !fresh && !matchupsOnly && (
         <div>
           <label className="row small muted" style={{ cursor: "pointer", gap: 6 }}>
             <input type="checkbox" checked={advanced} onChange={(e) => setAdvanced(e.target.checked)} />
