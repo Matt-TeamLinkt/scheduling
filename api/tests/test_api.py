@@ -226,3 +226,22 @@ def test_lock_a_day_week_venue_or_division(client: TestClient) -> None:
     assert all(e["locked"] for e in s["events"] if e["division_id"] == div)
     s = client.post(f"/api/seasons/{sid}/undo").json()
     assert s["message"].startswith("Undid: Locked")
+
+
+def test_deleting_setup_keeps_the_schedule_consistent(client: TestClient) -> None:
+    s = generated(client)
+    sid = s["id"]
+    lg = s["league"]
+    gone = lg["teams"][0]["id"]
+    lg2 = lg | {"teams": lg["teams"][1:]}
+    s = client.put(f"/api/seasons/{sid}/league", json={"league": lg2, "action": "Deleted a team"})
+    s = s.json()
+    assert s["message"] == "7 games were removed with the teams."
+    assert not any(gone in (e["home_team_id"], e["away_team_id"]) for e in s["events"])
+    day = s["events"][0]["start"][:10]
+    lg3 = s["league"] | {"slots": [x for x in s["league"]["slots"] if x["date"] != day]}
+    s = client.put(f"/api/seasons/{sid}/league", json={"league": lg3, "action": "Removed a day"})
+    s = s.json()
+    assert "Needs a spot" in s["message"] and s["unplaced"]
+    league = League.model_validate(s["league"])
+    assert validate(league, [Event.model_validate(e) for e in s["events"]]) == []

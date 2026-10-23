@@ -16,6 +16,7 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from scheduling_engine import Event, League, Severity, Sport, check_setup, fixtures, validate
+from scheduling_engine.edit import fit_to_setup
 from scheduling_engine.explain import Suggestion, capacity_check, explain
 from scheduling_engine.goals import DEFAULT_PRIORITIES, GOAL_LABELS, Goal
 from scheduling_engine.importer import (
@@ -184,10 +185,11 @@ def create_app(db_url: str | None = None) -> FastAPI:
 
     @app.put("/api/seasons/{sid}/league")
     def change_setup(sid: str, body: SetupChange) -> dict[str, Any]:
-        snap_or_404(sid)
+        snap = snap_or_404(sid)
+        events, waiting, notes = fit_to_setup(body.league, snap.events, snap.unplaced)
         with store.lock(sid):
-            store.commit(sid, body.action, league=body.league)
-        return season_out(sid)
+            store.commit(sid, body.action, league=body.league, events=events, unplaced=waiting)
+        return season_out(sid, " ".join(notes) or None)
 
     @app.get("/api/seasons/{sid}/setup-check")
     def setup_check(sid: str) -> dict[str, Any]:
