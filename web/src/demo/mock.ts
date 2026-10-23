@@ -239,9 +239,21 @@ function route(method: string, path: string, body: Record<string, unknown> | nul
 
   switch (action) {
     case undefined: return out(s);
-    case "league":
-      commit(s, { action: String(body?.action ?? "Changed the season setup"), league: body?.league as League });
-      return out(s);
+    case "league": {
+      // Same as the engine's fit_to_setup: deleted teams cancel games, deleted time sends them to Needs a spot.
+      const lg = body?.league as League;
+      const team = new Set(lg.teams.map((t) => t.id));
+      const slot = new Set(lg.slots.map((x) => x.id));
+      const teamsOk = (a: string, b: string | null) => team.has(a) && (!b || team.has(b));
+      const back = v.events.filter((e) => teamsOk(e.home_team_id, e.away_team_id) && !slot.has(e.slot_id) && e.away_team_id)
+        .map((e) => ({ id: e.id, division_id: e.division_id, home_team_id: e.home_team_id, away_team_id: e.away_team_id!, round: 0 }));
+      const events = v.events.filter((e) => teamsOk(e.home_team_id, e.away_team_id) && slot.has(e.slot_id));
+      const cancelled = v.events.length - events.length - back.length;
+      commit(s, { action: String(body?.action ?? "Changed the season setup"), league: lg, events,
+        unplaced: [...v.unplaced.filter((m) => teamsOk(m.home_team_id, m.away_team_id)), ...back] });
+      const notes = [cancelled ? `${cancelled} games were removed with the teams.` : "", back.length ? `${back.length} games were in time that's no longer available. They are in the Needs a spot list.` : ""];
+      return out(s, notes.filter(Boolean).join(" ") || null);
+    }
     case "setup-check": return { problems: [], capacity: s.sample?.capacity ?? [] };
     case "import": throw new HttpError(400, "Importing your own files needs the full app. In this preview, start from one of the sample leagues.");
     case "clone": throw new HttpError(400, "Copying a setup needs the full app.");

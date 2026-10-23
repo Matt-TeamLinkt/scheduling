@@ -78,19 +78,24 @@ try {
   } else step("no open slot on the first day to drag into (skipped)");
 
   // 4. Take a game off the schedule, then put it back from "Needs a spot"
+  const waiting = async () => Number((await page.locator(".board-bar .muted").innerText()).match(/(\d+) needs? a spot/)?.[1] ?? 0);
+  const before = await waiting();
   await page.getByRole("button", { name: "Take off the schedule" }).first().click();
-  await page.getByText("1 game needs a spot").waitFor();
-  await page.locator(".tray-item").first().click();
+  const off = await page.locator(".toast", { hasText: /^Took / }).innerText();
+  const which = off.match(/^Took (.+?) off the schedule/)[1];
+  await page.waitForFunction((n) => document.querySelector(".board-bar .muted")?.textContent?.includes(`${n} need`), before + 1);
+  await page.locator(".tray-item", { hasText: which }).click();
   await page.locator(".spot-card").first().waitFor();
-  step(`took a game off; ${await page.locator(".slot.spot").count()} open spots outlined on this day`);
+  step(`took ${which} off; ${await page.locator(".slot.spot").count()} open spots outlined on this day`);
   await page.screenshot({ path: `${shots}/2-needs-a-spot.png` });
   await page.locator(".spot-card").first().getByRole("button", { name: /Place (here|anyway)/ }).click();
   await page.locator(".toast", { hasText: /^Placed/ }).waitFor();
-  await page.getByText("1 game needs a spot").waitFor({ state: "detached" });
+  for (let i = 0; i < 50 && (await waiting()) !== before; i++) await page.waitForTimeout(100);
+  if ((await waiting()) !== before) fail("the game didn't leave the Needs a spot list");
   step("placed it again from the suggested spots");
 
   // 5. Lock a game
-  await page.getByRole("button", { name: "Lock game" }).first().click();
+  await page.getByRole("button", { name: "Lock game", exact: true }).first().click();
   await page.getByRole("button", { name: "Unlock game" }).first().waitFor();
   step("locked a game");
 
@@ -127,6 +132,20 @@ try {
   if (!(await page.locator("td", { hasText: /^U11/ }).count())) fail("expected a U11 division row in Rules");
   step("imported a messy teams file with a preview");
   await page.screenshot({ path: `${shots}/6-setup.png`, fullPage: true });
+
+  // 10. Add a venue, weekly time and a team by hand
+  await page.getByRole("button", { name: "Add a venue" }).click();
+  await page.getByRole("dialog").getByLabel("Venue name").fill("E2E Park");
+  await page.getByRole("dialog").getByRole("button", { name: "Add venue" }).click();
+  await page.locator(".toast", { hasText: /^Added E2E Park/ }).waitFor();
+  await page.locator(".venue", { hasText: "E2E Park" }).getByRole("button", { name: "Add time" }).click();
+  await page.getByRole("dialog").getByRole("button", { name: /^Add \d+ dates/ }).click();
+  await page.locator(".toast", { hasText: /^Added Saturdays/ }).waitFor();
+  await page.getByRole("button", { name: "Add a team" }).click();
+  await page.getByRole("dialog").getByLabel("Team name").fill("E2E Eagles");
+  await page.getByRole("dialog").getByRole("button", { name: "Add team" }).click();
+  await page.locator(".card", { hasText: "8 teams in 3 divisions" }).waitFor();
+  step("added a venue, Saturday time and a team by hand");
 
   if (errors.length) fail(`page errors: ${errors.join("; ")}`);
   console.log("✓ end-to-end flow passed");

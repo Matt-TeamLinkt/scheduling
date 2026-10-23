@@ -162,3 +162,10 @@ td.flag { color: rgb(160, 104, 10); font-weight: 600; }
 .slot.spot.best { border-width: 2px; background: rgba(48, 164, 108, .12); }
 .slot .spot-tag { display: inline-flex; align-items: center; gap: 3px; font-size: 11px; font-weight: 600; color: var(--tl-success); }
 .day-chip.has-spot { border-color: var(--tl-success); }
+
+/* Setup editors */
+.venue { border: 1px solid var(--tl-divider); border-radius: 12px; padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; }
+.surface { border-top: 1px solid var(--tl-divider); padding-top: 8px; display: flex; flex-direction: column; gap: 4px; }
+.pattern { padding: 2px 0; }
+.link { border: 0; background: none; padding: 0; font: inherit; cursor: pointer; text-decoration: underline; text-underline-offset: 2px; }
+.chip-x { border: 0; background: none; padding: 0; margin-left: 2px; cursor: pointer; display: inline-flex; color: inherit; }
