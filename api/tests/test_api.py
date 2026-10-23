@@ -170,3 +170,34 @@ def test_report_explain_and_clone(client: TestClient) -> None:
 def test_missing_season(client: TestClient) -> None:
     r = client.get("/api/seasons/nope")
     assert r.status_code == 404 and r.json()["detail"] == "That season doesn't exist."
+
+
+def test_matchups_only_then_place_by_hand(client: TestClient) -> None:
+    s = client.post("/api/seasons", json={"name": "Spring", "sample": "small_8"}).json()
+    sid = s["id"]
+    job = client.post(f"/api/seasons/{sid}/generate", json={"matchups_only": True}).json()
+    j = wait(client, job["job_id"])
+    assert j["state"] == "done" and "Needs a spot" in j["result"]["summary"]
+    s = client.get(f"/api/seasons/{sid}").json()
+    assert s["events"] == [] and len(s["unplaced"]) == 28
+    assert s["last_action"] == "Built the matchups"
+
+    mid = s["unplaced"][0]["id"]
+    spots = client.get(f"/api/seasons/{sid}/unplaced/{mid}/spots").json()
+    assert spots and spots[0]["suggested"] and spots[0]["problems"] == []
+    best = spots[0]
+    to_best = {"event_id": mid, "slot_id": best["slot_id"], "start": best["start"]}
+    ok = client.post(f"/api/seasons/{sid}/check", json=to_best).json()
+    assert ok == {"ok": True, "problems": []}
+    s = client.post(f"/api/seasons/{sid}/move", json=to_best).json()
+    assert len(s["events"]) == 1 and len(s["unplaced"]) == 27
+    assert s["last_action"].startswith("Placed ")
+
+    # Back to the tray, and undo brings it back to the schedule.
+    s = client.post(f"/api/seasons/{sid}/events/{mid}/unschedule").json()
+    assert s["events"] == [] and len(s["unplaced"]) == 28
+    assert s["last_action"].startswith("Took ")
+    s = client.post(f"/api/seasons/{sid}/undo").json()
+    assert len(s["events"]) == 1
+
+    assert client.get(f"/api/seasons/{sid}/unplaced/nope/spots").status_code == 404

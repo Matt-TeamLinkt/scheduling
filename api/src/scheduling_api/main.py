@@ -26,6 +26,8 @@ from scheduling_engine.importer import (
     preview_teams,
 )
 from scheduling_engine.index import LeagueIndex
+from scheduling_engine.matchups import Matchup, make_matchups
+from scheduling_engine.place import event_for, open_spots
 from scheduling_engine.regen import Scope, reschedule
 from scheduling_engine.report import fairness_report
 from scheduling_engine.solver import SolveOptions, SolveResult, Status, solve
@@ -68,6 +70,7 @@ class GenerateIn(BaseModel):
     seconds: float = 60
     fresh: bool = False  # True = start over: new matchups, ignore the current schedule
     scope: ScopeIn | None = None
+    matchups_only: bool = False  # decide who plays whom; the scheduler places every game
 
 
 class MoveIn(BaseModel):
@@ -236,7 +239,13 @@ def create_app(db_url: str | None = None) -> FastAPI:
                     workers=WORKERS,
                     on_progress=job.on_progress,
                 )
-                if body.fresh or not snap.events:
+                if body.matchups_only:
+                    matchups, mnotes = make_matchups(snap.league)
+                    result = SolveResult(
+                        Status.GOOD, [], matchups, 0.0, [n.message for n in mnotes]
+                    )
+                    action = "Built the matchups"
+                elif body.fresh or not snap.events:
                     result = solve(snap.league, options=opts)
                     action = "Generated the schedule"
                 else:
@@ -285,8 +294,17 @@ def create_app(db_url: str | None = None) -> FastAPI:
         moved, events = _moved(snap, body)
         problems = [v.message for v in validate(snap.league, events) if moved.id in v.event_ids]
         ix = LeagueIndex(snap.league)
+        from_tray = any(m.id == moved.id for m in snap.unplaced)
         with store.lock(sid):
-            store.commit(sid, f"Moved {ix.describe(moved)}", events=events)
+            if from_tray:
+                store.commit(
+                    sid,
+                    f"Placed {ix.describe(moved)}",
+                    events=events,
+                    unplaced=[m for m in snap.unplaced if m.id != moved.id],
+                )
+            else:
+                store.commit(sid, f"Moved {ix.describe(moved)}", events=events)
         out = season_out(sid)
         out["problems"] = problems
         return out
@@ -303,6 +321,33 @@ def create_app(db_url: str | None = None) -> FastAPI:
         verb = "Locked" if body.locked else "Unlocked"
         with store.lock(sid):
             store.commit(sid, f"{verb} {LeagueIndex(snap.league).describe(e)}", events=events)
+        return season_out(sid)
+
+    @app.get("/api/seasons/{sid}/unplaced/{mid}/spots")
+    def spots(sid: str, mid: str, with_problems: bool = False) -> list[dict[str, Any]]:
+        snap = snap_or_404(sid)
+        m = next((x for x in snap.unplaced if x.id == mid), None)
+        if m is None:
+            raise HTTPException(404, "That game isn't waiting for a spot.")
+        return [
+            asdict(c) | {"start": c.start.isoformat()}
+            for c in open_spots(snap.league, snap.events, m, with_problems=with_problems)
+        ]
+
+    @app.post("/api/seasons/{sid}/events/{eid}/unschedule")
+    def unschedule(sid: str, eid: str) -> dict[str, Any]:
+        snap = snap_or_404(sid)
+        e = next((x for x in snap.events if x.id == eid), None)
+        if e is None or e.away_team_id is None:
+            raise HTTPException(404, "That game isn't in the schedule.")
+        back = Matchup(e.id, e.division_id, e.home_team_id, e.away_team_id, 0)
+        with store.lock(sid):
+            store.commit(
+                sid,
+                f"Took {LeagueIndex(snap.league).describe(e)} off the schedule",
+                events=[x for x in snap.events if x.id != eid],
+                unplaced=[*snap.unplaced, back],
+            )
         return season_out(sid)
 
     @app.post("/api/seasons/{sid}/undo")
@@ -481,7 +526,12 @@ def _finish(
         }
     store.commit(sid, action, events=result.events, unplaced=result.unplaced)
     placed = len(result.events)
-    if result.unplaced:
+    if not placed and result.unplaced:
+        summary = (
+            f"Built {len(result.unplaced)} games. Place them from the "
+            '"Needs a spot" list; the best spots are marked for you.'
+        )
+    elif result.unplaced:
         summary = (
             f"{placed} games scheduled. {len(result.unplaced)} didn't fit; see why "
             "and how to fix it."
@@ -498,13 +548,20 @@ def _finish(
 
 
 def _moved(snap: Snapshot, body: MoveIn) -> tuple[Event, list[Event]]:
+    """The game at its new spot, and the whole schedule with it there. The game can be
+    on the schedule already or waiting for a spot."""
     ix = LeagueIndex(snap.league)
-    old = next((e for e in snap.events if e.id == body.event_id), None)
-    if old is None:
-        raise HTTPException(404, "That game isn't in the schedule.")
     slot = ix.slots.get(body.slot_id)
     if slot is None:
         raise HTTPException(404, "That time slot doesn't exist.")
+    start = body.start.replace(tzinfo=None)
+    waiting = next((m for m in snap.unplaced if m.id == body.event_id), None)
+    if waiting is not None:
+        new = event_for(snap.league, waiting, slot.id, start)
+        return new, [*snap.events, new]
+    old = next((e for e in snap.events if e.id == body.event_id), None)
+    if old is None:
+        raise HTTPException(404, "That game isn't in the schedule.")
     rules = [ix.team_rules(t) for t in old.team_ids]
     units_rule = [r.units for r in rules]
     units = (
@@ -512,9 +569,7 @@ def _moved(snap: Snapshot, body: MoveIn) -> tuple[Event, list[Event]]:
         if None not in units_rule
         else ix.surfaces[slot.surface_id].units
     )
-    moved = old.model_copy(
-        update={"slot_id": slot.id, "start": body.start.replace(tzinfo=None), "units": units}
-    )
+    moved = old.model_copy(update={"slot_id": slot.id, "start": start, "units": units})
     return moved, [moved if e.id == old.id else e for e in snap.events]
 
 
