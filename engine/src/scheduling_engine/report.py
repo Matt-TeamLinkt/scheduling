@@ -46,6 +46,27 @@ class TeamLine:
 class Flag:
     message: str
     team_ids: tuple[str, ...] = ()
+    kind: str = ""  # groups flags for the "what stands out" notes
+
+
+@dataclass
+class DivisionLine:
+    """One division at a glance: ranges across its teams, and a one-line verdict."""
+
+    name: str
+    teams: int
+    games: int  # games in the division, each counted once
+    target: int
+    fewest_games: int
+    most_games: int
+    home_away_worst: int
+    early_late_fewest: int
+    early_late_most: int
+    back_to_back_days: int
+    longest_gap_days: int
+    quickest_rematch_days: int | None
+    flags: int
+    verdict: str
 
 
 @dataclass
@@ -54,6 +75,8 @@ class FairnessReport:
     family_clashes: list[str]
     flags: list[Flag]
     metrics: dict[str, float] = field(default_factory=dict)
+    divisions: list[DivisionLine] = field(default_factory=list)
+    highlights: list[str] = field(default_factory=list)  # "what stands out", plain words
 
     @property
     def summary(self) -> str:
@@ -147,11 +170,14 @@ def fairness_report(league: League, events: Sequence[Event]) -> FairnessReport:
                     f"{c.name} would rather coach {wants}; {len(out)} of their "
                     f"{len(theirs)} games are at other times.",
                     tuple(c.team_ids),
+                    "coach",
                 )
             )
     metrics = _metrics(lines, clashes, len(events))
     metrics["coach_pref_misses"] = misses
-    return FairnessReport(lines, clashes, flags, metrics)
+    return FairnessReport(
+        lines, clashes, flags, metrics, _divisions(lines, flags), _highlights(lines, flags)
+    )
 
 
 def _family_clashes(league: League, ix: LeagueIndex, events: Sequence[Event]) -> list[str]:
@@ -181,11 +207,19 @@ def _flags(lines: list[TeamLine], clashes: list[str]) -> list[Flag]:
         for t in ts:
             if t.games < t.target:
                 flags.append(
-                    Flag(f"{t.name} play {t.games} games; the target is {t.target}.", (t.team_id,))
+                    Flag(
+                        f"{t.name} play {t.games} games; the target is {t.target}.",
+                        (t.team_id,),
+                        "short",
+                    )
                 )
             if abs(t.home - t.away) >= 2:
                 flags.append(
-                    Flag(f"{t.name} have {t.home} home and {t.away} away games.", (t.team_id,))
+                    Flag(
+                        f"{t.name} have {t.home} home and {t.away} away games.",
+                        (t.team_id,),
+                        "home_away",
+                    )
                 )
             if t.early_or_late >= avg_bad + 2:
                 flags.append(
@@ -193,17 +227,23 @@ def _flags(lines: list[TeamLine], clashes: list[str]) -> list[Flag]:
                         f"{t.name} have {t.early_or_late} early or late games; the {div} average "
                         f"is {avg_bad:.1f}.",
                         (t.team_id,),
+                        "early_late",
                     )
                 )
             if t.longest_gap_days >= 21:
                 flags.append(
-                    Flag(f"{t.name} go {t.longest_gap_days} days without a game.", (t.team_id,))
+                    Flag(
+                        f"{t.name} go {t.longest_gap_days} days without a game.",
+                        (t.team_id,),
+                        "long_gap",
+                    )
                 )
             if t.back_to_back_days >= 3:
                 flags.append(
                     Flag(
                         f"{t.name} play on back-to-back days {t.back_to_back_days} times.",
                         (t.team_id,),
+                        "back_to_back",
                     )
                 )
             if t.quickest_rematch_days is not None and t.quickest_rematch_days < 7:
@@ -212,10 +252,101 @@ def _flags(lines: list[TeamLine], clashes: list[str]) -> list[Flag]:
                         f"{t.name} play the same opponent twice within "
                         f"{t.quickest_rematch_days} days.",
                         (t.team_id,),
+                        "rematch",
                     )
                 )
-    flags += [Flag(c) for c in clashes]
+    flags += [Flag(c, (), "family") for c in clashes]
     return flags
+
+
+def _divisions(lines: list[TeamLine], flags: list[Flag]) -> list[DivisionLine]:
+    out: list[DivisionLine] = []
+    by_div: dict[str, list[TeamLine]] = defaultdict(list)
+    for t in lines:
+        by_div[t.division].append(t)
+    for div, ts in by_div.items():
+        ids = {t.team_id for t in ts}
+        n_flags = sum(1 for f in flags if set(f.team_ids) & ids)
+        games = [t.games for t in ts]
+        bad = [t.early_or_late for t in ts]
+        rematches = [t.quickest_rematch_days for t in ts if t.quickest_rematch_days is not None]
+        worst = max(abs(t.home - t.away) for t in ts)
+        target = max(t.target for t in ts)
+        line = DivisionLine(
+            name=div,
+            teams=len(ts),
+            games=sum(t.home for t in ts),
+            target=target,
+            fewest_games=min(games),
+            most_games=max(games),
+            home_away_worst=worst,
+            early_late_fewest=min(bad),
+            early_late_most=max(bad),
+            back_to_back_days=sum(t.back_to_back_days for t in ts),
+            longest_gap_days=max(t.longest_gap_days for t in ts),
+            quickest_rematch_days=min(rematches, default=None),
+            flags=n_flags,
+            verdict="",
+        )
+        line.verdict = _verdict(line)
+        out.append(line)
+    return out
+
+
+def _verdict(d: DivisionLine) -> str:
+    """'Every team plays 12 games, home and away within 1, 0 to 2 early or late games.'"""
+    if d.fewest_games == d.most_games:
+        games = f"Every team plays {d.most_games} {'game' if d.most_games == 1 else 'games'}"
+    else:
+        games = f"Teams play {d.fewest_games} to {d.most_games} games"
+    if d.fewest_games < d.target:
+        games += f" (target {d.target})"
+    balance = (
+        "home and away even"
+        if d.home_away_worst == 0
+        else (f"home and away within {d.home_away_worst}")
+    )
+    if d.early_late_fewest == d.early_late_most:
+        times = f"{d.early_late_most} early or late each"
+    else:
+        times = f"{d.early_late_fewest} to {d.early_late_most} early or late games each"
+    return f"{games}, {balance}, {times}."
+
+
+WHAT_STANDS_OUT = {
+    "short": "{n} play fewer games than the target.",
+    "home_away": "{n} have home and away games out of balance.",
+    "early_late": "{n} have more early or late games than their division average.",
+    "long_gap": "{n} go three weeks or more without a game.",
+    "back_to_back": "{n} play on back-to-back days three or more times.",
+    "rematch": "{n} play the same opponent twice within a week.",
+}
+
+
+def _highlights(lines: list[TeamLine], flags: list[Flag]) -> list[str]:
+    """The flags grouped into a few sentences, most serious first."""
+    out: list[str] = []
+    for kind, text in WHAT_STANDS_OUT.items():
+        teams = {t for f in flags if f.kind == kind for t in f.team_ids}
+        if teams:
+            n = len(teams)
+            out.append(text.format(n="1 team" if n == 1 else f"{n} teams"))
+    families = sum(1 for f in flags if f.kind == "family")
+    if families:
+        out.append(
+            "1 family has kids playing at the same time."
+            if families == 1
+            else f"{families} times, a family has kids playing at the same time."
+        )
+    coaches = sum(1 for f in flags if f.kind == "coach")
+    if coaches:
+        n = coaches
+        out.append(
+            f"{n} {'coach has' if n == 1 else 'coaches have'} games outside the times they prefer."
+        )
+    if not out and lines:
+        out.append("Every team gets about the same deal. Nothing stands out.")
+    return out
 
 
 def _metrics(lines: list[TeamLine], clashes: list[str], n_events: int) -> dict[str, float]:

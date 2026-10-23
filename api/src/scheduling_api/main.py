@@ -12,12 +12,13 @@ from pathlib import Path
 from typing import Annotated, Any
 
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, Response
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from scheduling_engine import Event, League, Severity, Sport, check_setup, fixtures, validate
 from scheduling_engine.edit import fit_to_setup
 from scheduling_engine.explain import Suggestion, capacity_check, explain
+from scheduling_engine.export import schedule_workbook
 from scheduling_engine.goals import DEFAULT_PRIORITIES, GOAL_LABELS, Goal
 from scheduling_engine.importer import (
     ImportPreview,
@@ -32,6 +33,7 @@ from scheduling_engine.place import event_for, open_spots
 from scheduling_engine.regen import Scope, reschedule
 from scheduling_engine.report import fairness_report
 from scheduling_engine.solver import SolveOptions, SolveResult, Status, solve
+from scheduling_engine.summary import events_summary
 
 from .jobs import Job, Jobs
 from .store import NotFound, Snapshot, Store
@@ -424,7 +426,39 @@ def create_app(db_url: str | None = None) -> FastAPI:
             "flags": [asdict(f) for f in rep.flags],
             "family_clashes": rep.family_clashes,
             "metrics": rep.metrics,
+            "divisions": [asdict(d) for d in rep.divisions],
+            "highlights": rep.highlights,
         }
+
+    @app.get("/api/seasons/{sid}/summary")
+    def summary(sid: str) -> list[dict[str, Any]]:
+        snap = snap_or_404(sid)
+        published = _published_events(store, sid)
+        return [
+            asdict(r) for r in events_summary(snap.league, snap.events, published, snap.unplaced)
+        ]
+
+    @app.get("/api/seasons/{sid}/export.xlsx")
+    def export(sid: str, which: str = "draft") -> Response:
+        snap = snap_or_404(sid)
+        info = store.info(sid)
+        published = _published_events(store, sid)
+        if which == "published":
+            if info.published is None:
+                raise HTTPException(400, "Nothing has been published yet.")
+            pub = store.snapshot(sid, info.published)
+            data = schedule_workbook(
+                pub.league, pub.events, (), pub.events, f"{info.name} (published)"
+            )
+        else:
+            title = f"{info.name} (draft)" if info.current != info.published else info.name
+            data = schedule_workbook(snap.league, snap.events, snap.unplaced, published, title)
+        safe = "".join(ch if ch.isalnum() or ch in " -_" else "" for ch in info.name).strip()
+        return Response(
+            data,
+            media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            headers={"Content-Disposition": f'attachment; filename="{safe or "schedule"}.xlsx"'},
+        )
 
     @app.get("/api/seasons/{sid}/explain")
     def explain_route(sid: str) -> dict[str, Any]:
@@ -638,6 +672,11 @@ def _group_words(ix: LeagueIndex, g: LockManyIn) -> str:
         monday = g.week_of - timedelta(days=g.week_of.weekday())
         parts.append(f"in the week of {monday:%b} {monday.day}")
     return " ".join(parts)
+
+
+def _published_events(store: Store, sid: str) -> list[Event]:
+    info = store.info(sid)
+    return [] if info.published is None else store.snapshot(sid, info.published).events
 
 
 def _shift_league(lg: League, new_start: date) -> League:

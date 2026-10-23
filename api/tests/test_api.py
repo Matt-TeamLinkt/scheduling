@@ -245,3 +245,22 @@ def test_deleting_setup_keeps_the_schedule_consistent(client: TestClient) -> Non
     assert "Needs a spot" in s["message"] and s["unplaced"]
     league = League.model_validate(s["league"])
     assert validate(league, [Event.model_validate(e) for e in s["events"]]) == []
+
+
+def test_summary_and_spreadsheet(client: TestClient) -> None:
+    s = generated(client)
+    sid = s["id"]
+    rows = client.get(f"/api/seasons/{sid}/summary").json()
+    assert len(rows) == 8 and all(r["unpublished_games"] == r["games"] == 7 for r in rows)
+    client.post(f"/api/seasons/{sid}/publish")
+    rows = client.get(f"/api/seasons/{sid}/summary").json()
+    assert all(r["published_games"] == 7 and r["unpublished_games"] == 0 for r in rows)
+
+    r = client.get(f"/api/seasons/{sid}/export.xlsx")
+    assert r.status_code == 200 and r.content[:2] == b"PK"
+    assert 'filename="Spring.xlsx"' in r.headers["content-disposition"]
+    assert client.get(f"/api/seasons/{sid}/export.xlsx?which=published").status_code == 200
+
+    rep = client.get(f"/api/seasons/{sid}/report").json()
+    assert rep["divisions"][0]["verdict"].startswith("Every team plays 7 games")
+    assert rep["highlights"]
