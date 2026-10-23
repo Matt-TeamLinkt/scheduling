@@ -73,3 +73,28 @@ Referee and official assignment, facility cost tracking, multi-league organizati
 Still open in Phase 3: a week and month overview (the board shows one day), a by-venue list view, editing teams and slots one at a time in the UI (today: import or sample), deleting things with an undoable confirmation, user accounts and sign-in (single-scheduler for now), and running the e2e test in CI.
 
 **2026-10-15 · Phase 4 (families and coaches) skipped for now** at the product owner's request. The change log already records which teams each change affects, so notifications can be added later without rework.
+
+## Phase 3b · After the build (approved 2026-10-23)
+From the product owner's "next steps" list. Order agreed: manage the schedule after it's built first, then views and reporting, then real-world seasons, then AI help.
+
+Defaults taken while the open questions are pending: a coach's "unavailable" times are a firm rule and their preferences are soft; spreadsheet publishing starts as an Excel/CSV download; AI features wait until the Claude API cost question is answered.
+
+**Step 1 · Managing the schedule after it's built**
+- [ ] 1. "Needs a spot" tray: games that didn't fit stay as matchups; pick one and the open spots light up, best three marked "Suggested" (legal by `validate`, ranked by fairness).
+- [ ] 2. "Build matchups only": every game goes to the tray for hand placement, with the same suggestions. Also "Take off the schedule" to send a game back to the tray.
+- [ ] 3. Lock (and unlock) a whole day, week, venue or division in one undoable step.
+- [ ] 4. Add and edit teams, venues and available times in the app, not only by import.
+- [ ] 5. Coach restrictions: unavailable days and times (firm), preferred times (soft, shown in the fairness report).
+
+**Step 2 · Views and reporting**
+- [ ] 6. Week and month calendars, by-venue view, and an events summary table per team (games and practices, published and unpublished, home/away, division filter, search).
+- [ ] 7. Fuller fairness summary: per division and per team, outliers highlighted, "what stands out" notes.
+- [ ] 8. Publish to a spreadsheet (Excel download: full schedule plus a sheet per team).
+
+**Step 3 · Real-world seasons**
+- [ ] 9. Import existing games and practices (preview then apply; imported games are locked and scheduled around).
+- [ ] 10. Practice scheduling from the same facility pool.
+
+**Step 4 · AI help** (needs a decision on the Claude API cost)
+- [ ] 11. Rule setter: type a rule in plain words, confirm the rule changes it understood.
+- [ ] 12. Improvement suggestions, each verified by re-running the schedule before it's shown.
