@@ -11,6 +11,7 @@ Hard constraints (docs/ROADMAP.md):
   H5 coaches can't be in two places at once
   H6 minimum rest and max games per day, per team
   H7 age-appropriate time windows
+  H8 coaches' unavailable times
 """
 
 from __future__ import annotations
@@ -39,6 +40,7 @@ class Code(StrEnum):
     NOT_ENOUGH_REST = "not_enough_rest"  # H6
     TOO_MANY_IN_A_DAY = "too_many_in_a_day"  # H6
     OUTSIDE_TIME_WINDOW = "outside_time_window"  # H7
+    COACH_UNAVAILABLE = "coach_unavailable"  # H8
 
 
 class Violation(BaseModel):
@@ -72,6 +74,7 @@ def validate(league: League, events: Sequence[Event]) -> list[Violation]:
         out.extend(_check_slot_and_season(ix, e))
         out.extend(_check_time_window(ix, e))
         out.extend(_check_blackouts(ix, e))
+        out.extend(_check_coach_time(ix, e))
     out.extend(_check_surfaces(ix, known))
     out.extend(_check_teams(ix, known))
     out.extend(_check_coaches(ix, known))
@@ -199,6 +202,26 @@ def _check_blackouts(ix: LeagueIndex, e: Event) -> Iterable[Violation]:
                 event_ids=(e.id,),
                 team_ids=e.team_ids,
             )
+
+
+def _check_coach_time(ix: LeagueIndex, e: Event) -> Iterable[Violation]:
+    seen: set[str] = set()
+    for tid in e.team_ids:
+        for c in ix.coaches_of_team.get(tid, []):
+            if c.id in seen:
+                continue
+            for off in c.unavailable:
+                if off.covers(e.start, e.end):
+                    seen.add(c.id)
+                    yield Violation(
+                        code=Code.COACH_UNAVAILABLE,
+                        message=(
+                            f"{ix.describe(e)} is at a time {c.name} can't make ({off.describe()})."
+                        ),
+                        event_ids=(e.id,),
+                        team_ids=tuple(t for t in e.team_ids if t in c.team_ids),
+                    )
+                    break
 
 
 # ── cross-event checks ──────────────────────────────────────────────────────

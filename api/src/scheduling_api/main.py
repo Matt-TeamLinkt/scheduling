@@ -134,7 +134,11 @@ def create_app(db_url: str | None = None) -> FastAPI:
             "league": snap.league.model_dump(mode="json"),
             "events": [e.model_dump(mode="json") for e in snap.events],
             "unplaced": [asdict(m) for m in snap.unplaced],
-            "goals": [{"id": g.value, "label": GOAL_LABELS[g]} for g in DEFAULT_PRIORITIES],
+            "goals": [
+                {"id": g.value, "label": GOAL_LABELS[g]}
+                for g in DEFAULT_PRIORITIES
+                if g != Goal.COACH_TIMES or any(c.prefers for c in snap.league.coaches)
+            ],
             "message": message,
         }
 

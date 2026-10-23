@@ -19,6 +19,7 @@ from scheduling_engine import (
     League,
     RuleOverrides,
     Slot,
+    TimeOff,
     validate,
 )
 
@@ -301,6 +302,60 @@ def test_h7_too_early(hockey: League) -> None:
     div.rules = RuleOverrides(earliest_start=time(8))
     a = game(hockey, "t-u13-01", "t-u13-02", "s-north-1", SAT, "07:00")
     assert Code.OUTSIDE_TIME_WINDOW in codes(hockey, [a])
+
+
+# ── H8: coaches' unavailable times ─────────────────────────────────────────
+
+
+def _cant_make(lg: League, team: str, off: TimeOff) -> League:
+    coaches = [
+        c.model_copy(update={"unavailable": [off]}) if team in c.team_ids else c for c in lg.coaches
+    ]
+    return lg.model_copy(update={"coaches": coaches})
+
+
+def test_h8_coach_cant_make_a_weekday(hockey: League) -> None:
+    lg = _cant_make(hockey, "t-u13-02", TimeOff(weekday=TUE.weekday()))
+    a = game(lg, "t-u13-01", "t-u13-02", "s-river", TUE, "17:00", minutes=60)
+    vs = [v for v in validate(lg, [a]) if v.code == Code.COACH_UNAVAILABLE]
+    assert len(vs) == 1 and vs[0].team_ids == ("t-u13-02",)
+    assert vs[0].message.endswith("(Tuesdays).")
+
+
+def test_h8_other_days_are_fine(hockey: League) -> None:
+    lg = _cant_make(hockey, "t-u13-02", TimeOff(weekday=TUE.weekday()))
+    a = game(lg, "t-u13-01", "t-u13-02", "s-north-1", SAT, "07:00")
+    assert codes(lg, [a]) == set()
+
+
+def test_h8_part_of_a_day(hockey: League) -> None:
+    lg = _cant_make(
+        hockey, "t-u13-02", TimeOff(weekday=TUE.weekday(), start=time(17, 0), end=time(18, 0))
+    )
+    early = game(lg, "t-u13-01", "t-u13-02", "s-river", TUE, "17:00", minutes=60)
+    later = game(lg, "t-u13-01", "t-u13-02", "s-river", TUE, "18:00", id="later", minutes=60)
+    assert Code.COACH_UNAVAILABLE in codes(lg, [early])
+    assert codes(lg, [later]) == set(), "a game starting right when they're free is fine"
+
+
+def test_h8_one_date(hockey: League) -> None:
+    lg = _cant_make(hockey, "t-u13-02", TimeOff(day=SAT))
+    a = game(lg, "t-u13-01", "t-u13-02", "s-north-1", SAT, "07:00")
+    b = game(lg, "t-u13-01", "t-u13-02", "s-river", SUN, "08:00", id="sun", minutes=60)
+    assert Code.COACH_UNAVAILABLE in codes(lg, [a])
+    assert codes(lg, [b]) == set()
+
+
+def test_time_off_needs_a_day_and_both_times() -> None:
+    with pytest.raises(ValueError):
+        TimeOff()
+    with pytest.raises(ValueError):
+        TimeOff(weekday=1, day=SAT)
+    with pytest.raises(ValueError):
+        TimeOff(weekday=1, start=time(9, 0))
+    assert TimeOff(weekday=1, start=time(17, 0), end=time(19, 0)).describe() == (
+        "Tuesdays from 5:00 PM to 7:00 PM"
+    )
 
 
 # ── cross-cutting ──────────────────────────────────────────────────────────

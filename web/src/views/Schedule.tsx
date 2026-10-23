@@ -526,7 +526,7 @@ function LockDialog({ season, setSeason, toast, day, onClose }: Pick<Ctx, "seaso
           </select>
         </label>
       </div>
-      <Note>{games.length === 0 ? "No games match." : `${plural(games.length, "game")} match, ${locked} already locked.`}</Note>
+      <Note>{games.length === 0 ? "No games match." : `${plural(games.length, "game")} ${games.length === 1 ? "matches" : "match"}, ${locked} already locked.`}</Note>
     </Modal>
   );
 }

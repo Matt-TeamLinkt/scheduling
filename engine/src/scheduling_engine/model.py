@@ -131,12 +131,81 @@ class Team(Model):
     rules: RuleOverrides = RuleOverrides()
 
 
+WEEKDAY_NAMES = (
+    "Mondays",
+    "Tuesdays",
+    "Wednesdays",
+    "Thursdays",
+    "Fridays",
+    "Saturdays",
+    "Sundays",
+)
+
+
+class TimeOff(Model):
+    """A weekly time ("Tuesdays", "Tuesdays after 6 PM") or one date, all day or part
+    of it. Used for when a coach can't make it, and for when they'd rather play."""
+
+    weekday: int | None = Field(default=None, ge=0, le=6)  # 0 = Monday
+    day: date | None = None  # one date instead of every week
+    start: time | None = None  # both None = all day
+    end: time | None = None
+
+    @model_validator(mode="after")
+    def _consistent(self) -> Self:
+        if (self.weekday is None) == (self.day is None):
+            raise ValueError("set either weekday or day")
+        if (self.start is None) != (self.end is None):
+            raise ValueError("set both start and end, or neither")
+        if self.start and self.end and self.start >= self.end:
+            raise ValueError("start must be before end")
+        return self
+
+    def on(self, d: date) -> bool:
+        return d == self.day if self.day is not None else d.weekday() == self.weekday
+
+    def covers(self, start: datetime, end: datetime) -> bool:
+        """True if [start, end) overlaps this time."""
+        if not self.on(start.date()):
+            return False
+        if self.start is None or self.end is None:
+            return True
+        return start.time() < self.end and self.start < end.time()
+
+    def contains(self, start: datetime, end: datetime) -> bool:
+        """True if [start, end) is entirely inside this time."""
+        if not self.on(start.date()):
+            return False
+        if self.start is None or self.end is None:
+            return True
+        return self.start <= start.time() and end.time() <= self.end
+
+    def describe(self) -> str:
+        """'Tuesdays', 'Sat Nov 14', 'Tuesdays from 5:00 PM to 7:00 PM'."""
+        when = (
+            WEEKDAY_NAMES[self.weekday]
+            if self.weekday is not None
+            else f"{self.day:%a %b} {self.day.day}"
+            if self.day
+            else ""
+        )
+        if self.start is None or self.end is None:
+            return when
+        return f"{when} from {_clock(self.start)} to {_clock(self.end)}"
+
+
+def _clock(t: time) -> str:
+    return f"{t.hour % 12 or 12}:{t:%M} {'AM' if t.hour < 12 else 'PM'}"
+
+
 class Coach(Model):
     id: str
     name: str
     team_ids: list[str] = []
     email: str | None = None
     phone: str | None = None
+    unavailable: list[TimeOff] = []  # firm: none of their teams play then
+    prefers: list[TimeOff] = []  # soft: their teams' games should be inside these times
 
 
 class Family(Model):

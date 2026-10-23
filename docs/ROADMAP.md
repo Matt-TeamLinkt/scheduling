@@ -80,11 +80,11 @@ From the product owner's "next steps" list. Order agreed: manage the schedule af
 Defaults taken while the open questions are pending: a coach's "unavailable" times are a firm rule and their preferences are soft; spreadsheet publishing starts as an Excel/CSV download; AI features wait until the Claude API cost question is answered.
 
 **Step 1 · Managing the schedule after it's built**
-- [ ] 1. "Needs a spot" tray: games that didn't fit stay as matchups; pick one and the open spots light up, best three marked "Suggested" (legal by `validate`, ranked by fairness).
-- [ ] 2. "Build matchups only": every game goes to the tray for hand placement, with the same suggestions. Also "Take off the schedule" to send a game back to the tray.
-- [ ] 3. Lock (and unlock) a whole day, week, venue or division in one undoable step.
-- [ ] 4. Add and edit teams, venues and available times in the app, not only by import.
-- [ ] 5. Coach restrictions: unavailable days and times (firm), preferred times (soft, shown in the fairness report).
+- [x] 1. "Needs a spot" tray: games that didn't fit stay as matchups; pick one and the open spots light up, best three marked "Suggested" (legal by `validate`, ranked by fairness).
+- [x] 2. "Build matchups only": every game goes to the tray for hand placement, with the same suggestions. Also "Take off the schedule" to send a game back to the tray.
+- [x] 3. Lock (and unlock) a whole day, week, venue or division in one undoable step.
+- [x] 4. Add and edit teams, venues and available times in the app, not only by import.
+- [x] 5. Coach restrictions: unavailable days and times (firm), preferred times (soft, shown in the fairness report).
 
 **Step 2 · Views and reporting**
 - [ ] 6. Week and month calendars, by-venue view, and an events summary table per team (games and practices, published and unpublished, home/away, division filter, search).

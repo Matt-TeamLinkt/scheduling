@@ -180,7 +180,9 @@
     "t-05"
    ],
    "email": null,
-   "phone": null
+   "phone": null,
+   "unavailable": [],
+   "prefers": []
   },
   {
    "id": "c-02",
@@ -189,7 +191,9 @@
     "t-02"
    ],
    "email": null,
-   "phone": null
+   "phone": null,
+   "unavailable": [],
+   "prefers": []
   },
   {
    "id": "c-03",
@@ -198,7 +202,9 @@
     "t-03"
    ],
    "email": null,
-   "phone": null
+   "phone": null,
+   "unavailable": [],
+   "prefers": []
   },
   {
    "id": "c-04",
@@ -207,7 +213,9 @@
     "t-04"
    ],
    "email": null,
-   "phone": null
+   "phone": null,
+   "unavailable": [],
+   "prefers": []
   },
   {
    "id": "c-05",
@@ -216,7 +224,9 @@
     "t-06"
    ],
    "email": null,
-   "phone": null
+   "phone": null,
+   "unavailable": [],
+   "prefers": []
   },
   {
    "id": "c-06",
@@ -225,7 +235,9 @@
     "t-07"
    ],
    "email": null,
-   "phone": null
+   "phone": null,
+   "unavailable": [],
+   "prefers": []
   },
   {
    "id": "c-07",
@@ -234,7 +246,9 @@
     "t-08"
    ],
    "email": null,
-   "phone": null
+   "phone": null,
+   "unavailable": [],
+   "prefers": []
   }
  ],
  "families": [

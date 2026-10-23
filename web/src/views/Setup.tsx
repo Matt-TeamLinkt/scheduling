@@ -4,7 +4,7 @@ import { api, ApiError, type Blackout, type League, type RuleOverrides, type Rul
 import { fmtDay, plural } from "../format";
 import { Icon, Note } from "../ui";
 import { ImportDialog, type ImportKind } from "./ImportDialog";
-import { FacilitiesEditor, TeamsEditor } from "./SetupEditors";
+import { CoachesEditor, FacilitiesEditor, TeamsEditor } from "./SetupEditors";
 
 // Rule fields in plain language. Basic ones are always shown; the rest sit behind
 // "Show advanced settings" so a first-time user never has to think about them.
@@ -104,6 +104,7 @@ export function Setup({ season, setSeason, toast }: Ctx) {
 
       <TeamsEditor {...{ season, setSeason, toast }} />
       <FacilitiesEditor {...{ season, setSeason, toast }} />
+      <CoachesEditor {...{ season, setSeason, toast }} />
 
       {lg.divisions.length > 0 && (
         <div className="card">

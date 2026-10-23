@@ -19,7 +19,13 @@ from datetime import date, datetime, timedelta
 from .index import LeagueIndex
 from .matchups import Matchup
 from .model import Event, EventKind, League
-from .validate import _check_blackouts, _check_slot_and_season, _check_time_window, validate
+from .validate import (
+    _check_blackouts,
+    _check_coach_time,
+    _check_slot_and_season,
+    _check_time_window,
+    validate,
+)
 
 SUGGESTED = 3  # how many spots are marked "Suggested"
 
@@ -96,7 +102,11 @@ def open_spots(
             t += length
             if any(_check_slot_and_season(ix, probe)):
                 continue  # doesn't fit the slot at all: never offered
-            own = [*_check_time_window(ix, probe), *_check_blackouts(ix, probe)]
+            own = [
+                *_check_time_window(ix, probe),
+                *_check_blackouts(ix, probe),
+                *_check_coach_time(ix, probe),
+            ]
             if own and not with_problems:
                 continue
             nearby = by_surface_day[(slot.surface_id, probe.start.date())] + [

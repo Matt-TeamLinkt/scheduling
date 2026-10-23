@@ -17,6 +17,7 @@ from .model import (
     Sport,
     Surface,
     Team,
+    TimeOff,
     Venue,
 )
 from .setup_check import SetupProblem, Severity, check_setup
@@ -42,6 +43,7 @@ __all__ = [
     "Sport",
     "Surface",
     "Team",
+    "TimeOff",
     "Venue",
     "Violation",
     "check_setup",

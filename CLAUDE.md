@@ -40,18 +40,19 @@ CI (`.github/workflows/engine.yml`) runs lint, format, mypy and the full test su
 
 ## Engine conventions
 - **`validate(league, events)` is the single source of truth for hard constraints.** The solver must produce zero violations on every fixture, and the UI's drag-and-drop checks will call the same function. Don't reimplement rule checks elsewhere.
-- Every hard constraint (H1–H7 in `validate.py`) has tests that show a violation is caught *and* that the nearest legal case is not flagged.
+- Every hard constraint (H1–H8 in `validate.py`; H8 = coaches' unavailable times) has tests that show a violation is caught *and* that the nearest legal case is not flagged.
 - Messages are for volunteers: team, venue and coach names, never ids; full sentences. `test_messages_are_plain_language` enforces this.
 - Surface sizing uses capacity **units** (full rink = 2, half-ice game = 1). Overlap is checked over time per surface, not per slot.
 - Rules resolve league → division → team (`LeagueIndex.team_rules`). Overrides only set what they change.
 - Setup problems (bad references, overlapping slots, tiny divisions) come from `check_setup`. It's forgiving: it returns problems and never raises.
 - Fixtures are deterministic (seeded). `test_snapshot_matches_generator` fails if the JSON is stale.
 
-## Solver conventions (`solver.py`, `goals.py`, `greedy.py`, `explain.py`, `regen.py`)
+## Solver conventions (`solver.py`, `goals.py`, `greedy.py`, `explain.py`, `regen.py`, `place.py`)
 - Every solver output must pass `validate` with zero violations. Tests assert properties (legal, all placed), never exact schedules, because CP-SAT is multi-threaded.
 - Fitting games always beats fairness: phase 1 places, phase 2 polishes with the placed count locked. Never merge them into one weighted objective.
 - New fairness goals go in `goals.py` with a plain-language label in `GOAL_LABELS`, a unit cost in `UNIT`, and a matching measure in `report.py`. Then run the bench and save a labelled row.
 - Explanations and suggestions must be verified, never guessed: suggestion counts come from an actual re-solve.
+- Hand placement (`place.open_spots`) only offers spots that pass `validate`; spots that break a rule are listed only when asked for, after the legal ones, with the rule.
 - `league_40` must stay fully schedulable. The "impossible league" scenario (no Sunday 75-min ice) is the test case for explanations.
 ## Importer conventions (`scheduling_engine/importer/`)
 - Always two steps: `preview_teams / preview_coaches / preview_slots(league, data, filename)` returns an `ImportPreview` (summary, column matches, per-row problems); `apply_import(league, preview)` returns a **new** League. Nothing changes until apply.
@@ -65,6 +66,9 @@ CI (`.github/workflows/engine.yml`) runs lint, format, mypy and the full test su
 - Every user action that changes a season goes through `Store.commit` with a plain-language action ("Moved Falcons vs Rovers…"). That string is what undo shows ("Undid: …").
 - UI copy follows `design-system/README.md`: sentence case, no emoji, second person, no jargon ("constraint", "solver", "weight" never appear).
 - Hide depth, don't remove it: advanced rule fields and partial regeneration sit behind a checkbox.
+- Setup edits from the UI send the whole league to `PUT /league`; the API runs `edit.fit_to_setup` so the schedule never points at a deleted team or time slot.
+- Games that aren't on the schedule (didn't fit, matchups only, taken off) are `unplaced` matchups: the "Needs a spot" tray. `check`/`move` accept their ids too, so placing one is just a move.
+- The shareable preview (`VITE_DEMO=1`, `src/demo/mock.ts`) fakes the API in the browser. When you add an endpoint, add a simplified version there too.
 
 ## Running the prototype
 ```sh

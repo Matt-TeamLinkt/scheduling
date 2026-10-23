@@ -133,7 +133,25 @@ def fairness_report(league: League, events: Sequence[Event]) -> FairnessReport:
 
     clashes = _family_clashes(league, ix, events)
     flags = _flags(lines, clashes)
-    return FairnessReport(lines, clashes, flags, _metrics(lines, clashes, len(events)))
+    misses = 0
+    for c in league.coaches:
+        if not c.prefers:
+            continue
+        theirs = [e for e in events if e.away_team_id and set(e.team_ids) & set(c.team_ids)]
+        out = [e for e in theirs if not any(p.contains(e.start, e.end) for p in c.prefers)]
+        misses += len(out)
+        if out:
+            wants = " or ".join(p.describe() for p in c.prefers)
+            flags.append(
+                Flag(
+                    f"{c.name} would rather coach {wants}; {len(out)} of their "
+                    f"{len(theirs)} games are at other times.",
+                    tuple(c.team_ids),
+                )
+            )
+    metrics = _metrics(lines, clashes, len(events))
+    metrics["coach_pref_misses"] = misses
+    return FairnessReport(lines, clashes, flags, metrics)
 
 
 def _family_clashes(league: League, ix: LeagueIndex, events: Sequence[Event]) -> list[str]:

@@ -15,7 +15,12 @@ export type RuleOverrides = { [K in keyof RuleSet]?: RuleSet[K] | null };
 
 export interface Division { id: string; name: string; rules: RuleOverrides }
 export interface Team { id: string; name: string; division_id: string; home_venue_id: string | null; rules: RuleOverrides }
-export interface Coach { id: string; name: string; team_ids: string[]; email: string | null; phone: string | null }
+/** A weekly time (weekday 0 = Monday) or one date ("day"), all day or from start to end. */
+export interface TimeOff { weekday: number | null; day: string | null; start: string | null; end: string | null }
+export interface Coach {
+  id: string; name: string; team_ids: string[]; email: string | null; phone: string | null;
+  unavailable?: TimeOff[]; prefers?: TimeOff[];
+}
 export interface Venue { id: string; name: string; address: string | null }
 export interface Surface { id: string; venue_id: string; name: string; units: number; lit: boolean }
 export interface Slot { id: string; surface_id: string; date: string; start: string; end: string; cost: number | null }

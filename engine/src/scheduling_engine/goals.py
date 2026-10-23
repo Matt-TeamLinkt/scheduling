@@ -8,6 +8,7 @@ is about equally annoying to a family:
   families        one time clash for a family with kids on two teams
   repeat opponent one day short of two weeks between rematches (7 days short = 7)
   travel          10 km driven, or one home game away from the home venue
+  coach times     one game outside a coach's preferred times
 """
 
 from __future__ import annotations
@@ -34,6 +35,7 @@ class Goal(StrEnum):
     FAMILIES = "families"
     REPEAT_OPPONENT = "repeat_opponent"
     TRAVEL = "travel"
+    COACH_TIMES = "coach_times"
 
 
 GOAL_LABELS: dict[Goal, str] = {
@@ -42,6 +44,7 @@ GOAL_LABELS: dict[Goal, str] = {
     Goal.FAMILIES: "Avoid clashes for families with kids on two teams",
     Goal.REPEAT_OPPONENT: "Don't face the same opponent twice in a short time",
     Goal.TRAVEL: "Keep travel short",
+    Goal.COACH_TIMES: "Give coaches the times they prefer",
 }
 
 DEFAULT_PRIORITIES: tuple[Goal, ...] = (
@@ -50,6 +53,7 @@ DEFAULT_PRIORITIES: tuple[Goal, ...] = (
     Goal.FAMILIES,
     Goal.REPEAT_OPPONENT,
     Goal.TRAVEL,
+    Goal.COACH_TIMES,
 )
 
 # Unit costs (see module docstring) so the ranking, not the units, decides trade-offs.
@@ -59,6 +63,7 @@ UNIT = {
     Goal.FAMILIES: 6,
     Goal.REPEAT_OPPONENT: 1,
     Goal.TRAVEL: 1,
+    Goal.COACH_TIMES: 4,
 }
 REMATCH_GAP_DAYS = 14
 FAMILY_BUFFER = timedelta(minutes=30)  # time to get from one kid's game to the other's
@@ -274,6 +279,21 @@ class GoalBuilder:
                 terms.append(cost * v)
         return total(terms)
 
+    def coach_times(self) -> Expr:
+        """Games of a coach's teams outside the times that coach prefers."""
+        terms: list[Expr] = []
+        for c in self.b.ix.league.coaches:
+            if not c.prefers:
+                continue
+            for t in c.team_ids:
+                outside = [
+                    k
+                    for k in self.spots_of_team[t]
+                    if not any(p.contains(self.spot[k].start, self.spot[k].end) for p in c.prefers)
+                ]
+                terms.append(self.team_count(t, outside))
+        return total(terms)
+
     def build(self, priorities: Sequence[Goal]) -> Expr:
         w = weights(priorities)
         builders = {
@@ -282,6 +302,7 @@ class GoalBuilder:
             Goal.FAMILIES: self.families,
             Goal.REPEAT_OPPONENT: self.repeat_opponent,
             Goal.TRAVEL: self.travel,
+            Goal.COACH_TIMES: self.coach_times,
         }
         parts: list[Expr] = []
         for goal in priorities:

@@ -160,6 +160,13 @@ function check(lg: League, events: GameEvent[], moved: GameEvent): string[] {
     const clash = others.find((e) => overlap(e, moved) && c.team_ids.some((t) => (t === e.home_team_id || t === e.away_team_id) && !mine.includes(t)));
     if (clash) out.push(`${c.name} coaches in two places at once: ${describe(lg, clash)}.`);
   }
+  const wd = (new Date(moved.start.slice(0, 10) + "T12:00:00").getDay() + 6) % 7;
+  for (const c of lg.coaches) {
+    if (!c.team_ids.some((t) => t === moved.home_team_id || t === moved.away_team_id)) continue;
+    const hit = (c.unavailable ?? []).find((t) => (t.day ? t.day === moved.start.slice(0, 10) : t.weekday === wd)
+      && (!t.start || !t.end || (minutes(moved.start) < minutes(t.end) && minutes(t.start) < endMin(moved))));
+    if (hit) out.push(`${describe(lg, moved)} is at a time ${c.name} can't make.`);
+  }
   for (const b of lg.blackouts) if (blackoutHits(lg, b, moved)) out.push(`${fmtDay(moved.start)} is a blackout${b.note ? ` (${b.note})` : ""}.`);
   return out;
 }

@@ -4,7 +4,7 @@
 // "Needs a spot").
 import { useMemo, useState } from "react";
 import type { Ctx } from "../App";
-import { api, ApiError, type League, type Slot, type Team, type Venue } from "../api";
+import { api, ApiError, type Coach, type League, type Slot, type Team, type TimeOff, type Venue } from "../api";
 import { fmtDay, fmtTime, isoDate, parseDate, plural } from "../format";
 import { Icon, Modal, Note } from "../ui";
 
@@ -186,7 +186,7 @@ function TeamDialog({ lg, save, season, team, onClose }: {
 
 // ── venues and time ─────────────────────────────────────────────────────────
 
-interface Pattern { surface_id: string; day: number; start: string; end: string; slots: Slot[] }
+interface Pattern { surface_id: string; day: number; start: string; end: string; slots: Slot[]; parts: number }
 
 export function FacilitiesEditor(ctx: Pick<Ctx, "season" | "setSeason" | "toast">) {
   const lg = ctx.season.league;
@@ -199,10 +199,27 @@ export function FacilitiesEditor(ctx: Pick<Ctx, "season" | "setSeason" | "toast"
     const m = new Map<string, Pattern>();
     for (const s of [...lg.slots].sort((a, b) => a.date.localeCompare(b.date))) {
       const k = `${s.surface_id}|${weekday(s.date)}|${s.start}|${s.end}`;
-      if (!m.has(k)) m.set(k, { surface_id: s.surface_id, day: weekday(s.date), start: s.start, end: s.end, slots: [] });
+      if (!m.has(k)) m.set(k, { surface_id: s.surface_id, day: weekday(s.date), start: s.start, end: s.end, slots: [], parts: 1 });
       m.get(k)!.slots.push(s);
     }
-    return [...m.entries()].sort(([, a], [, b]) => a.day - b.day || a.start.localeCompare(b.start));
+    // Back-to-back blocks on the same dates read as one: "Saturdays 9:00 AM to 3:00 PM, in 6 slots".
+    const merged = new Map<string, Pattern>();
+    const sorted = [...m.values()].sort((a, b) => a.start.localeCompare(b.start));
+    const last = new Map<string, Pattern>();
+    for (const p of sorted) {
+      const group = `${p.surface_id}|${p.day}|${p.slots.map((s) => s.date).join(",")}`;
+      const prev = last.get(group);
+      if (prev && prev.end === p.start) {
+        prev.end = p.end;
+        prev.slots = [...prev.slots, ...p.slots];
+        prev.parts += 1;
+      } else {
+        const copy = { ...p, slots: [...p.slots] };
+        merged.set(`${group}|${p.start}`, copy);
+        last.set(group, copy);
+      }
+    }
+    return [...merged.entries()].sort(([, a], [, b]) => a.day - b.day || a.start.localeCompare(b.start));
   }, [lg.slots]);
   const gamesIn = (ids: Set<string>) => ctx.season.events.filter((e) => ids.has(e.slot_id)).length;
   const removeSlots = (slots: Slot[], action: string) => {
@@ -237,9 +254,9 @@ export function FacilitiesEditor(ctx: Pick<Ctx, "season" | "setSeason" | "toast"
                   <div key={k}>
                     <div className="row small pattern">
                       <span style={{ width: 110 }}>{p.slots.length === 1 ? fmtDay(p.slots[0].date) : EVERY[p.day]}</span>
-                      <span style={{ width: 170 }}>{fmtTime(p.start)} to {fmtTime(p.end)}</span>
+                      <span style={{ width: 240 }}>{fmtTime(p.start)} to {fmtTime(p.end)}{p.parts > 1 && <span className="muted">, in {p.parts} slots</span>}</span>
                       <button className="link muted" onClick={() => setExpanded(expanded === k ? null : k)}>
-                        {p.slots.length === 1 ? "1 date" : `${p.slots.length} dates, ${fmtDay(p.slots[0].date)} to ${fmtDay(p.slots[p.slots.length - 1].date)}`}
+                        {p.slots.length / p.parts === 1 ? "1 date" : `${p.slots.length / p.parts} dates, ${fmtDay(p.slots[0].date)} to ${fmtDay(p.slots[p.slots.length / p.parts - 1].date)}`}
                       </button>
                       <span className="spacer" />
                       <button className="icon-btn" style={{ width: 28, height: 28 }} aria-label="Remove this time"
@@ -249,10 +266,10 @@ export function FacilitiesEditor(ctx: Pick<Ctx, "season" | "setSeason" | "toast"
                     </div>
                     {expanded === k && (
                       <div className="row wrap" style={{ gap: 6, margin: "4px 0 8px" }}>
-                        {p.slots.map((s) => (
+                        {p.slots.slice(0, p.slots.length / p.parts).map((s) => (
                           <span key={s.id} className="chip">{fmtDay(s.date)}
                             <button className="chip-x" aria-label={`Remove ${fmtDay(s.date)}`}
-                              onClick={() => removeSlots([s], `Removed ${fmtDay(s.date)} ${fmtTime(s.start)} at ${sf.name}`)}>
+                              onClick={() => removeSlots(p.slots.filter((x) => x.date === s.date), `Removed ${fmtDay(s.date)} ${fmtTime(p.start)} to ${fmtTime(p.end)} at ${sf.name}`)}>
                               <Icon name="close" style={{ fontSize: 14 }} />
                             </button>
                           </span>
@@ -405,5 +422,119 @@ function TimeDialog({ lg, save, surfaceId, onClose }: { lg: League; save: Save; 
         : overlapping.length ? <Note tone="warn">{where} already has time then on {overlapping.slice(0, 3).map(fmtDay).join(", ")}{overlapping.length > 3 ? ` and ${overlapping.length - 3} more` : ""}.</Note>
         : <Note>{dates.length ? `${plural(dates.length, "date")}, ${Math.round((dates.length * minutesLong) / 6) / 10} hours in all.` : "Pick at least one day of the week."}</Note>}
     </Modal>
+  );
+}
+
+// ── coaches: times they can't make (firm) and times they'd rather coach (soft) ─
+
+export function describeTime(t: TimeOff): string {
+  const when = t.day ? fmtDay(t.day) : EVERY[t.weekday ?? 0];
+  return t.start && t.end ? `${when} from ${fmtTime(t.start)} to ${fmtTime(t.end)}` : when;
+}
+
+export function CoachesEditor(ctx: Pick<Ctx, "season" | "setSeason" | "toast">) {
+  const lg = ctx.season.league;
+  const save = useSave(ctx);
+  const [editing, setEditing] = useState<Coach | null>(null);
+  const [open, setOpen] = useState(false);
+  if (!lg.coaches.length) return null;
+  const teamNames = (c: Coach) => c.team_ids.map((t) => lg.teams.find((x) => x.id === t)?.name ?? "").filter(Boolean).join(", ");
+  const withTimes = lg.coaches.filter((c) => c.unavailable?.length || c.prefers?.length).length;
+  return (
+    <div className="card">
+      <div className="card-head">
+        <h2 style={{ flex: 1 }}>Coaches' times</h2>
+        <button className="btn btn-ghost btn-sm" onClick={() => setOpen(!open)}>{open ? "Hide coaches" : `Show all ${plural(lg.coaches.length, "coach", "coaches")}`}</button>
+      </div>
+      <p className="muted small">
+        Add times a coach can't make, and the schedule will never put their teams there. Times they'd rather coach are honoured when there's room.
+        {withTimes ? ` ${plural(withTimes, "coach", "coaches")} ${withTimes === 1 ? "has" : "have"} times set.` : ""}
+      </p>
+      {open && (
+        <table className="data" style={{ marginTop: 8 }}>
+          <thead><tr><th>Coach</th><th>Teams</th><th>Can't make</th><th>Would rather coach</th><th></th></tr></thead>
+          <tbody>
+            {lg.coaches.map((c) => (
+              <tr key={c.id}>
+                <td style={{ fontWeight: 500 }}>{c.name}</td>
+                <td className="muted">{teamNames(c)}</td>
+                <td>{(c.unavailable ?? []).map(describeTime).join("; ")}</td>
+                <td>{(c.prefers ?? []).map(describeTime).join("; ")}</td>
+                <td style={{ width: 40 }}><button className="icon-btn" aria-label={`Edit ${c.name}`} onClick={() => setEditing(c)}><Icon name="edit" style={{ fontSize: 18 }} /></button></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+      {editing && <CoachDialog {...{ lg, save }} coach={editing} onClose={() => setEditing(null)} />}
+    </div>
+  );
+}
+
+function CoachDialog({ lg, save, coach, onClose }: { lg: League; save: Save; coach: Coach; onClose: () => void }) {
+  const [off, setOff] = useState<TimeOff[]>(coach.unavailable ?? []);
+  const [prefers, setPrefers] = useState<TimeOff[]>(coach.prefers ?? []);
+  const submit = async () => {
+    const coaches = lg.coaches.map((c) => (c.id === coach.id ? { ...c, unavailable: off, prefers } : c));
+    if (await save({ ...lg, coaches }, `Changed ${coach.name}'s times`)) onClose();
+  };
+  return (
+    <Modal title={coach.name} onClose={onClose} wide
+      footer={<>
+        <button className="btn btn-ghost" onClick={onClose}>Cancel</button>
+        <button className="btn btn-primary" onClick={submit}>Save</button>
+      </>}>
+      <TimeList title="Can't make" hint="Their teams never play at these times." items={off} setItems={setOff} lg={lg} />
+      <TimeList title="Would rather coach" hint="When there's a choice, their teams play at these times." items={prefers} setItems={setPrefers} lg={lg} />
+    </Modal>
+  );
+}
+
+function TimeList({ title, hint, items, setItems, lg }: {
+  title: string; hint: string; items: TimeOff[]; setItems: (t: TimeOff[]) => void; lg: League;
+}) {
+  const [when, setWhen] = useState("1"); // weekday index, or "date"
+  const [day, setDay] = useState(lg.season_start);
+  const [allDay, setAllDay] = useState(true);
+  const [start, setStart] = useState("17:00");
+  const [end, setEnd] = useState("19:00");
+  const ok = (when !== "date" || day) && (allDay || start < end);
+  const add = () => {
+    const t: TimeOff = {
+      weekday: when === "date" ? null : Number(when), day: when === "date" ? day : null,
+      start: allDay ? null : `${start}:00`, end: allDay ? null : `${end}:00`,
+    };
+    setItems([...items, t]);
+  };
+  return (
+    <div className="stack">
+      <h3>{title}</h3>
+      <p className="muted small">{hint}</p>
+      <div className="row wrap" style={{ gap: 6 }}>
+        {items.length === 0 && <span className="muted small">None.</span>}
+        {items.map((t, i) => (
+          <span key={i} className="chip">{describeTime(t)}
+            <button className="chip-x" aria-label={`Remove ${describeTime(t)}`} onClick={() => setItems(items.filter((_, j) => j !== i))}><Icon name="close" style={{ fontSize: 14 }} /></button>
+          </span>
+        ))}
+      </div>
+      <div className="row wrap" style={{ alignItems: "flex-end" }}>
+        <label className="field">When
+          <select className="input" value={when} onChange={(e) => setWhen(e.target.value)} aria-label={`${title}: when`}>
+            {EVERY.map((d, i) => <option key={d} value={String(i)}>Every {d.slice(0, -1)}</option>)}
+            <option value="date">One date</option>
+          </select>
+        </label>
+        {when === "date" && <label className="field">Date<input className="input" type="date" value={day} onChange={(e) => setDay(e.target.value)} /></label>}
+        <label className="row small" style={{ cursor: "pointer", gap: 6, paddingBottom: 10 }}>
+          <input type="checkbox" checked={allDay} onChange={(e) => setAllDay(e.target.checked)} />All day
+        </label>
+        {!allDay && <>
+          <label className="field">From<input className="input" type="time" value={start} onChange={(e) => setStart(e.target.value)} /></label>
+          <label className="field">To<input className="input" type="time" value={end} onChange={(e) => setEnd(e.target.value)} /></label>
+        </>}
+        <button className="btn btn-soft btn-sm" style={{ marginBottom: 6 }} disabled={!ok} onClick={add}>Add</button>
+      </div>
+    </div>
   );
 }

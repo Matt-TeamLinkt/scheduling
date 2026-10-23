@@ -22,18 +22,20 @@ League ──► capacity_check ──► matchups ──► greedy draft ──
 | Report | `report.py` | Per-team fairness and plain-language outlier flags, measured on the schedule itself. |
 | Explain | `explain.explain` | Why unplaced games didn't fit (capacity or congestion), plus fixes verified by re-solving. |
 | Re-do part | `regen.reschedule` | Locked and out-of-scope games stay put. In-scope games keep their opponents and stay inside the date range. |
+| Place by hand | `place.open_spots` | Every legal spot for one waiting game, ranked (spacing, early/late, home venue) with plain reasons; the best spot on each of the best three days is "suggested". Optionally the spots that break a rule, with the rule. |
+| Setup edits | `edit.fit_to_setup` | After a hand edit to the setup: games of deleted teams are cancelled, games in deleted time go back to "Needs a spot". |
 
 ## The model
 
 - **Spot** = a concrete place a game could go: (slot, start time, length, size in units). A 120-minute slot yields two back-to-back 60-minute spots.
-- **Candidates**: for each game, the spots that pass `validate`'s own per-event checks for both teams (slot fit, season, time window, blackouts). The solver and the checker share that code, so they can't disagree.
+- **Candidates**: for each game, the spots that pass `validate`'s own per-event checks for both teams (slot fit, season, time window, blackouts, coaches' unavailable times). The solver and the checker share that code, so they can't disagree.
 - **Variables**: `x[game, spot]` booleans. About 67k for a 40-team season.
 - **Hard constraints**, all checked "at every moment" by sweeping start times:
   - surface units in use ≤ the surface's units (half ice = 1 of 2)
   - a team is in at most one game, counting its rest time after each game
   - a coach is at most one place at once
   - games per team per day ≤ the limit
-- **Fairness goals** (`goals.py`). The scheduler ranks them; rank *i* weighs 2^(n−1−i) (16, 8, 4, 2, 1). Each goal's unit cost makes one unit about equally annoying:
+- **Fairness goals** (`goals.py`). The scheduler ranks them; rank *i* weighs 2^(n−1−i) (32, 16, 8, 4, 2, 1). Each goal's unit cost makes one unit about equally annoying:
 
 | Goal | Shown to the scheduler as | Measured as |
 |---|---|---|
@@ -42,6 +44,7 @@ League ──► capacity_check ──► matchups ──► greedy draft ──
 | `families` | Avoid clashes for families with kids on two teams | overlapping games (with a 30-min travel buffer) for siblings' teams |
 | `repeat_opponent` | Don't face the same opponent twice in a short time | days short of a 14-day gap between rematches |
 | `travel` | Keep travel short | 10 km units from home venue, or home games away from the home venue |
+| `coach_times` | Give coaches the times they prefer | games of a coach's teams outside that coach's preferred times (only offered when a coach has some) |
 
 What counts as "early" or "late" is a per-division rule (`early_before`, `late_from`), not a constant.
 
@@ -63,4 +66,4 @@ Quality over time lives in `bench/history.csv` (`uv run python -m scheduling_eng
 
 - **nightmare** fairness is weak (many sibling clashes). Its ice is about 8% over demand with 60 sibling families. More cores and time help. A targeted improvement step (re-optimize one week at a time) is the next lever.
 - Results vary a little between runs because CP-SAT is multi-threaded. Tests assert properties (legal, all placed), not exact schedules.
-- Not yet modelled: team/coach preferred days and times, crossover games, practices, tournaments, playoffs, rainout makeups. These are Phase 5 on the roadmap. Matchups always come from round robin.
+- Not yet modelled: team preferred days and times, crossover games, practices, tournaments, playoffs, rainout makeups. These are Phase 5 on the roadmap. Matchups always come from round robin.

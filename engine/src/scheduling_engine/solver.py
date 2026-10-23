@@ -31,7 +31,12 @@ from .greedy import greedy
 from .index import LeagueIndex
 from .matchups import Matchup, make_matchups
 from .model import Event, EventKind, League
-from .validate import _check_blackouts, _check_slot_and_season, _check_time_window
+from .validate import (
+    _check_blackouts,
+    _check_coach_time,
+    _check_slot_and_season,
+    _check_time_window,
+)
 
 KEEP_DRAFT_WEIGHT = 10_000  # placing a game always beats keeping a draft spot
 PLACING_SHARE = 0.6  # at most this share of the time limit goes to fitting games in
@@ -160,6 +165,7 @@ class ModelBuilder:
             any(_check_slot_and_season(self.ix, probe))
             or any(_check_time_window(self.ix, probe))
             or any(_check_blackouts(self.ix, probe))
+            or any(_check_coach_time(self.ix, probe))
         )
 
     def build_candidates(self) -> None:
