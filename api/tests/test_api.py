@@ -201,3 +201,28 @@ def test_matchups_only_then_place_by_hand(client: TestClient) -> None:
     assert len(s["events"]) == 1
 
     assert client.get(f"/api/seasons/{sid}/unplaced/nope/spots").status_code == 404
+
+
+def test_lock_a_day_week_venue_or_division(client: TestClient) -> None:
+    s = generated(client)
+    sid = s["id"]
+    day = s["events"][0]["start"][:10]
+    on_day = [e for e in s["events"] if e["start"].startswith(day)]
+    s = client.post(f"/api/seasons/{sid}/lock-many", json={"locked": True, "day": day}).json()
+    assert sum(e["locked"] for e in s["events"]) == len(on_day)
+    assert s["last_action"].startswith(f"Locked {len(on_day)} games on ")
+    again = client.post(f"/api/seasons/{sid}/lock-many", json={"locked": True, "day": day}).json()
+    assert again["version"] == s["version"] and "already locked" in again["message"]
+
+    venue = s["league"]["venues"][0]["id"]
+    s = client.post(
+        f"/api/seasons/{sid}/lock-many", json={"locked": False, "week_of": day, "venue_id": venue}
+    ).json()
+    assert "Unlocked" in s["last_action"] and "in the week of" in s["last_action"]
+    div = s["league"]["divisions"][0]["id"]
+    s = client.post(
+        f"/api/seasons/{sid}/lock-many", json={"locked": True, "division_id": div}
+    ).json()
+    assert all(e["locked"] for e in s["events"] if e["division_id"] == div)
+    s = client.post(f"/api/seasons/{sid}/undo").json()
+    assert s["message"].startswith("Undid: Locked")

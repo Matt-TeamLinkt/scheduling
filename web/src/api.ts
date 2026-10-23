@@ -126,6 +126,8 @@ export const api = {
   move: (id: string, event_id: string, slot_id: string, start: string) =>
     call<Season>("POST", `/seasons/${id}/move`, { event_id, slot_id, start }),
   lock: (id: string, eid: string, locked: boolean) => call<Season>("POST", `/seasons/${id}/events/${eid}/lock`, { locked }),
+  lockMany: (id: string, body: { locked: boolean; day?: string; week_of?: string; venue_id?: string; division_id?: string }) =>
+    call<Season>("POST", `/seasons/${id}/lock-many`, body),
   spots: (id: string, mid: string, withProblems = false) =>
     call<SpotChoice[]>("GET", `/seasons/${id}/unplaced/${mid}/spots?with_problems=${withProblems}`),
   unschedule: (id: string, eid: string) => call<Season>("POST", `/seasons/${id}/events/${eid}/unschedule`),

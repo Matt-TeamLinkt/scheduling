@@ -271,6 +271,18 @@ function route(method: string, path: string, body: Record<string, unknown> | nul
       else commit(s, { action: `Moved ${describe(v.league, moved)}`, events });
       return { ...out(s), problems };
     }
+    case "lock-many": {
+      const venueOf = (e: GameEvent) => { const sl = v.league.slots.find((x) => x.id === e.slot_id); return v.league.surfaces.find((x) => x.id === sl?.surface_id)?.venue_id; };
+      const monday = (iso: string) => { const d = new Date(iso.slice(0, 10) + "T12:00:00"); d.setDate(d.getDate() - ((d.getDay() + 6) % 7)); return d.toDateString(); };
+      const hit = (e: GameEvent) => (!body?.day || e.start.startsWith(String(body.day))) && (!body?.week_of || monday(e.start) === monday(String(body.week_of)))
+        && (!body?.venue_id || venueOf(e) === body.venue_id) && (!body?.division_id || e.division_id === body.division_id);
+      const lockIt = Boolean(body?.locked);
+      const n = v.events.filter((e) => hit(e) && e.locked !== lockIt).length;
+      if (!n) return out(s, "Those games are already " + (lockIt ? "locked." : "unlocked."));
+      const verb = `${lockIt ? "Locked" : "Unlocked"} ${n} game${n === 1 ? "" : "s"}`;
+      commit(s, { action: verb, events: v.events.map((e) => (hit(e) ? { ...e, locked: lockIt } : e)) });
+      return out(s, `${verb}.`);
+    }
     case "unplaced": {
       const m = v.unplaced.find((x) => x.id === p[3]);
       if (!m) throw new HttpError(404, "That game isn't waiting for a spot.");

@@ -83,6 +83,14 @@ class LockIn(BaseModel):
     locked: bool
 
 
+class LockManyIn(BaseModel):
+    locked: bool
+    day: date | None = None  # one day ...
+    week_of: date | None = None  # ... or the Monday-to-Sunday week holding this date
+    venue_id: str | None = None
+    division_id: str | None = None
+
+
 class ApplySuggestionIn(BaseModel):
     index: int
 
@@ -350,6 +358,28 @@ def create_app(db_url: str | None = None) -> FastAPI:
             )
         return season_out(sid)
 
+    @app.post("/api/seasons/{sid}/lock-many")
+    def lock_many(sid: str, body: LockManyIn) -> dict[str, Any]:
+        snap = snap_or_404(sid)
+        ix = LeagueIndex(snap.league)
+        chosen = {e.id for e in snap.events if _in_group(ix, e, body)}
+        changing = [e for e in snap.events if e.id in chosen and e.locked != body.locked]
+        verb = "Locked" if body.locked else "Unlocked"
+        if not changing:
+            already = "locked" if body.locked else "unlocked"
+            n = len(chosen)
+            msg = f"All {n} of those games are already {already}." if n else "No games match."
+            return season_out(sid, msg)
+        events = [
+            e.model_copy(update={"locked": body.locked}) if e.id in chosen else e
+            for e in snap.events
+        ]
+        n = len(changing)
+        action = f"{verb} {n} {'game' if n == 1 else 'games'} {_group_words(ix, body)}".strip()
+        with store.lock(sid):
+            store.commit(sid, action, events=events)
+        return season_out(sid, f"{action}.")
+
     @app.post("/api/seasons/{sid}/undo")
     def undo(sid: str) -> dict[str, Any]:
         snap_or_404(sid)
@@ -571,6 +601,37 @@ def _moved(snap: Snapshot, body: MoveIn) -> tuple[Event, list[Event]]:
     )
     moved = old.model_copy(update={"slot_id": slot.id, "start": start, "units": units})
     return moved, [moved if e.id == old.id else e for e in snap.events]
+
+
+def _in_group(ix: LeagueIndex, e: Event, g: LockManyIn) -> bool:
+    day = e.start.date()
+    if g.day is not None and day != g.day:
+        return False
+    if g.week_of is not None:
+        monday = g.week_of - timedelta(days=g.week_of.weekday())
+        if not monday <= day <= monday + timedelta(days=6):
+            return False
+    if (
+        g.venue_id is not None
+        and ix.surfaces[ix.slots[e.slot_id].surface_id].venue_id != g.venue_id
+    ):
+        return False
+    return g.division_id is None or e.division_id == g.division_id
+
+
+def _group_words(ix: LeagueIndex, g: LockManyIn) -> str:
+    """'in U11 at North Arena on Sat Jan 9', in plain words."""
+    parts = []
+    if g.division_id is not None and g.division_id in ix.divisions:
+        parts.append(f"in {ix.divisions[g.division_id].name}")
+    if g.venue_id is not None and g.venue_id in ix.venues:
+        parts.append(f"at {ix.venues[g.venue_id].name}")
+    if g.day is not None:
+        parts.append(f"on {g.day:%a %b} {g.day.day}")
+    if g.week_of is not None:
+        monday = g.week_of - timedelta(days=g.week_of.weekday())
+        parts.append(f"in the week of {monday:%b} {monday.day}")
+    return " ".join(parts)
 
 
 def _shift_league(lg: League, new_start: date) -> League:

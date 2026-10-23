@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { Ctx } from "../App";
 import { api, ApiError, waitForJob, type Explanation, type GameEvent, type Matchup, type Season, type Slot, type SpotChoice } from "../api";
-import { divisionColor, fmtDay, fmtTime, Lookup, minutes, plural } from "../format";
+import { divisionColor, fmtDay, fmtTime, isoDate, Lookup, minutes, parseDate, plural } from "../format";
 import { Icon, Modal, Note, Progress } from "../ui";
 import { GenerateDialog } from "./GenerateDialog";
 
@@ -11,6 +11,7 @@ export function Schedule({ season, setSeason, toast }: Ctx) {
   const lg = season.league;
   const look = useMemo(() => new Lookup(lg), [lg]);
   const [generating, setGenerating] = useState(false);
+  const [locking, setLocking] = useState(false);
   const [view, setView] = useState<"date" | "team">("date");
   const [division, setDivision] = useState("");
   // A game from the "Needs a spot" list that's being placed, and where it can go.
@@ -61,6 +62,9 @@ export function Schedule({ season, setSeason, toast }: Ctx) {
               {lg.divisions.map((d) => <option key={d.id} value={d.id}>{d.name}</option>)}
             </select>
           )}
+          {season.events.length > 0 && (
+            <button className="btn btn-ghost" onClick={() => setLocking(true)}><Icon name="lock" style={{ fontSize: 18 }} />Lock games</button>
+          )}
           <div className="spacer" />
           <span className="muted small">{plural(season.events.length, "game")} scheduled
             {season.unplaced.length > 0 && <> · <span style={{ color: "var(--tl-warning)", fontWeight: 600 }}>{season.unplaced.length} need a spot</span></>}
@@ -74,6 +78,7 @@ export function Schedule({ season, setSeason, toast }: Ctx) {
       </div>
       <Side {...{ season, setSeason, toast, look, picked, setPicked, spots, setDragId }}
         showDay={(d) => { setView("date"); setDay(d); }} />
+      {locking && <LockDialog {...{ season, setSeason, toast, day }} onClose={() => setLocking(false)} />}
       {generating && (
         <GenerateDialog season={season} onClose={() => setGenerating(false)}
           onDone={(s, summary) => { setGenerating(false); setSeason(s); toast(summary); }} />
@@ -452,5 +457,76 @@ function SpotList({ m, spots, look, place, showDay }: {
         </>
       )}
     </div>
+  );
+}
+
+// ── lock a whole day, week, venue or division ───────────────────────────────
+
+function mondayOf(iso: string): string {
+  const d = parseDate(iso);
+  d.setDate(d.getDate() - ((d.getDay() + 6) % 7));
+  return isoDate(d);
+}
+
+function LockDialog({ season, setSeason, toast, day, onClose }: Pick<Ctx, "season" | "setSeason" | "toast"> & { day: string; onClose: () => void }) {
+  const lg = season.league;
+  const [when, setWhen] = useState<"day" | "week" | "season">("day");
+  const [venue, setVenue] = useState("");
+  const [division, setDivision] = useState("");
+  const [busy, setBusy] = useState(false);
+  const monday = mondayOf(day);
+  const slotVenue = useMemo(() => new Map(lg.slots.map((sl) => [sl.id, lg.surfaces.find((sf) => sf.id === sl.surface_id)?.venue_id])), [lg]);
+  const games = season.events.filter((e) => {
+    const d = e.start.slice(0, 10);
+    if (when === "day" && d !== day) return false;
+    if (when === "week" && mondayOf(d) !== monday) return false;
+    if (venue && slotVenue.get(e.slot_id) !== venue) return false;
+    return !division || e.division_id === division;
+  });
+  const locked = games.filter((e) => e.locked).length;
+  const go = async (lock: boolean) => {
+    setBusy(true);
+    try {
+      const next = await api.lockMany(season.id, {
+        locked: lock, day: when === "day" ? day : undefined, week_of: when === "week" ? day : undefined,
+        venue_id: venue || undefined, division_id: division || undefined,
+      });
+      setSeason(next);
+      toast(next.message ?? "Done.");
+      onClose();
+    } catch (e) { toast((e as ApiError).message); }
+    finally { setBusy(false); }
+  };
+  return (
+    <Modal title="Lock games" onClose={onClose}
+      subtitle="Locked games stay exactly where they are when you generate again. You can still move them by hand after unlocking."
+      footer={<>
+        <button className="btn btn-ghost" onClick={onClose}>Cancel</button>
+        <button className="btn btn-ghost" disabled={busy || locked === 0} onClick={() => go(false)}>Unlock {locked || ""}</button>
+        <button className="btn btn-primary" disabled={busy || locked === games.length} onClick={() => go(true)}>
+          <Icon name="lock" style={{ fontSize: 18 }} />Lock {games.length - locked || ""}
+        </button>
+      </>}>
+      <div className="stack">
+        <label className="row" style={{ cursor: "pointer" }}><input type="radio" checked={when === "day"} onChange={() => setWhen("day")} />{fmtDay(day)}</label>
+        <label className="row" style={{ cursor: "pointer" }}><input type="radio" checked={when === "week"} onChange={() => setWhen("week")} />The week of {fmtDay(monday)}</label>
+        <label className="row" style={{ cursor: "pointer" }}><input type="radio" checked={when === "season"} onChange={() => setWhen("season")} />The whole season</label>
+      </div>
+      <div className="row wrap">
+        <label className="field">Venue
+          <select className="input" value={venue} onChange={(e) => setVenue(e.target.value)}>
+            <option value="">Every venue</option>
+            {lg.venues.map((v) => <option key={v.id} value={v.id}>{v.name}</option>)}
+          </select>
+        </label>
+        <label className="field">Division
+          <select className="input" value={division} onChange={(e) => setDivision(e.target.value)}>
+            <option value="">Every division</option>
+            {lg.divisions.map((d) => <option key={d.id} value={d.id}>{d.name}</option>)}
+          </select>
+        </label>
+      </div>
+      <Note>{games.length === 0 ? "No games match." : `${plural(games.length, "game")} match, ${locked} already locked.`}</Note>
+    </Modal>
   );
 }
