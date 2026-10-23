@@ -331,6 +331,18 @@ function route(method: string, path: string, body: Record<string, unknown> | nul
       s.current++;
       return out(s, `Redid: ${cur(s).action}`);
     }
+    case "summary": {
+      const pubKeys = new Set((s.published === null ? [] : s.versions[s.published].events).map((e) => `${e.id}|${e.slot_id}|${e.start}`));
+      return v.league.teams.map((t) => {
+        const div = v.league.divisions.find((d) => d.id === t.division_id);
+        const games = v.events.filter((e) => e.home_team_id === t.id || e.away_team_id === t.id);
+        const pub = games.filter((e) => pubKeys.has(`${e.id}|${e.slot_id}|${e.start}`)).length;
+        return { team_id: t.id, name: t.name, division: div?.name ?? "", target: t.rules.games_per_team ?? div?.rules.games_per_team ?? v.league.rules.games_per_team,
+          games: games.length, published_games: pub, unpublished_games: games.length - pub, practices: 0, published_practices: 0, unpublished_practices: 0,
+          home: games.filter((e) => e.home_team_id === t.id).length, away: games.filter((e) => e.away_team_id === t.id).length,
+          waiting: v.unplaced.filter((m) => m.home_team_id === t.id || m.away_team_id === t.id).length, locked: games.filter((e) => e.locked).length };
+      });
+    }
     case "report":
       return v.report ?? { summary: "Generate a schedule first.", teams: [], flags: [], family_clashes: [] };
     case "explain":

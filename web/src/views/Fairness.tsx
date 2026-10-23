@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import type { Ctx } from "../App";
 import { api, type Report } from "../api";
-import { Note } from "../ui";
+import { plural } from "../format";
+import { Icon, Note } from "../ui";
+import { DownloadButton } from "./ScheduleViews";
 
-export function Fairness({ season }: Ctx) {
+export function Fairness({ season, toast }: Ctx) {
   const [rep, setRep] = useState<Report | null>(null);
   const [division, setDivision] = useState("");
   useEffect(() => { api.report(season.id).then(setRep); }, [season.id, season.version]);
@@ -19,15 +21,46 @@ export function Fairness({ season }: Ctx) {
 
   return (
     <div className="page">
-      <div>
-        <h1>Fairness</h1>
-        <p className="muted" style={{ marginTop: 4 }}>How the schedule treats each team. Anything unusual is listed first.</p>
+      <div className="row">
+        <div style={{ flex: 1 }}>
+          <h1>Fairness</h1>
+          <p className="muted" style={{ marginTop: 4 }}>How the schedule treats each team. Anything unusual is listed first.</p>
+        </div>
+        <DownloadButton season={season} toast={toast} />
       </div>
-      <Note tone={rep.flags.length ? "warn" : "ok"}>{rep.summary}</Note>
-      {rep.flags.length > 0 && (
-        <div className="card stack">
-          <h2>Worth a look</h2>
-          {rep.flags.map((f, i) => <div key={i} className="row"><span className="icon" style={{ color: "var(--tl-warning)", fontSize: 18 }}>flag</span>{f.message}</div>)}
+      <div className="card stack">
+        <h2>What stands out</h2>
+        {(rep.highlights ?? [rep.summary]).map((h, i) => (
+          <div key={i} className="row">
+            <Icon name={rep.flags.length ? "flag" : "check_circle"} style={{ color: rep.flags.length ? "var(--tl-warning)" : "var(--tl-success)", fontSize: 18 }} />{h}
+          </div>
+        ))}
+        {rep.flags.length > 0 && (
+          <details>
+            <summary style={{ cursor: "pointer" }} className="muted small">See all {plural(rep.flags.length, "note")}</summary>
+            <div className="stack" style={{ marginTop: 8 }}>
+              {rep.flags.map((f, i) => <div key={i} className="small">{f.message}</div>)}
+            </div>
+          </details>
+        )}
+      </div>
+      {rep.divisions && rep.divisions.length > 0 && (
+        <div className="div-cards">
+          {rep.divisions.map((d) => (
+            <button key={d.name} className={`card div-card${division === d.name ? " on" : ""}`} onClick={() => setDivision(division === d.name ? "" : d.name)}
+              title="Show only this division's teams below">
+              <div className="row">
+                <h3 style={{ flex: 1 }}>{d.name}</h3>
+                {d.flags ? <span className="chip chip-amber">{plural(d.flags, "note")}</span> : <span className="chip chip-green">Even</span>}
+              </div>
+              <p className="small">{d.verdict}</p>
+              <div className="muted small">
+                {plural(d.teams, "team")} · {plural(d.games, "game")} · longest break {d.longest_gap_days} days
+                {d.back_to_back_days ? ` · ${plural(d.back_to_back_days, "back-to-back")}` : ""}
+                {d.quickest_rematch_days !== null ? ` · quickest rematch ${d.quickest_rematch_days} days` : ""}
+              </div>
+            </button>
+          ))}
         </div>
       )}
       <div className="card" style={{ padding: 0 }}>

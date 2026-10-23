@@ -108,7 +108,22 @@ try {
   await page.getByRole("button", { name: "Fairness" }).click();
   await page.getByRole("heading", { name: "Every team" }).waitFor();
   await page.screenshot({ path: `${shots}/3-fairness.png`, fullPage: true });
-  step(`fairness: ${await page.locator(".note").first().innerText()}`);
+  step(`fairness: ${(await page.locator(".card", { hasText: "What stands out" }).innerText()).split("\n").slice(1, 3).join(" ")}`);
+  if (!(await page.locator(".div-card").count())) fail("expected a summary card per division");
+
+  // 7b. Week, month, venue and summary views
+  await page.getByRole("button", { name: "Schedule", exact: true }).click();
+  await page.getByRole("button", { name: "Week", exact: true }).click();
+  await page.locator(".week-day").first().waitFor();
+  await page.getByRole("button", { name: "Month", exact: true }).click();
+  await page.locator(".month-day").first().waitFor();
+  await page.getByRole("button", { name: "By venue" }).click();
+  await page.locator("table.data tbody tr").first().waitFor();
+  await page.getByRole("button", { name: "Summary", exact: true }).click();
+  await page.locator("table.data tfoot").waitFor();
+  step(`summary: ${(await page.locator("table.data tfoot td").first().innerText())}, ${await page.locator("table.data tfoot td").nth(2).innerText()} team-games`);
+  const [dl] = await Promise.all([page.waitForEvent("download"), page.getByRole("link", { name: /Download for Excel/ }).click()]);
+  step(`downloaded ${dl.suggestedFilename()}`);
 
   // 8. Publish
   await page.getByRole("button", { name: "Publish", exact: true }).click();

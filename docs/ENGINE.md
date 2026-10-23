@@ -19,10 +19,12 @@ League ──► capacity_check ──► matchups ──► greedy draft ──
 | Phase 1 | `solver.run` | Only if the draft missed games: CP-SAT fits as many as possible while keeping the draft where it can. It stops the moment it reaches a proven ceiling (each team plays at most *max per day* games on each day it has a legal spot). |
 | Phase 2 | `solver.run` + `goals.py` | Keeps that many games and minimizes the ranked fairness penalty for the rest of the time limit. |
 | Check | `validate.py` | The single source of truth for hard rules. Tests require zero violations on every solver output. |
-| Report | `report.py` | Per-team fairness and plain-language outlier flags, measured on the schedule itself. |
+| Report | `report.py` | Per-team fairness, a one-line verdict per division, "what stands out" sentences, and plain-language outlier flags, measured on the schedule itself. |
 | Explain | `explain.explain` | Why unplaced games didn't fit (capacity or congestion), plus fixes verified by re-solving. |
 | Re-do part | `regen.reschedule` | Locked and out-of-scope games stay put. In-scope games keep their opponents and stay inside the date range. |
 | Place by hand | `place.open_spots` | Every legal spot for one waiting game, ranked (spacing, early/late, home venue) with plain reasons; the best spot on each of the best three days is "suggested". Optionally the spots that break a rule, with the rule. |
+| Summary | `summary.events_summary` | Per team: games and practices, published vs not yet published, home/away, waiting for a spot. |
+| Export | `export.schedule_workbook` | Excel workbook: whole schedule, summary, "Needs a spot", one sheet per team. |
 | Setup edits | `edit.fit_to_setup` | After a hand edit to the setup: games of deleted teams are cancelled, games in deleted time go back to "Needs a spot". |
 
 ## The model

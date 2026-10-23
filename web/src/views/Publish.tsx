@@ -3,6 +3,7 @@ import type { Ctx } from "../App";
 import { api, ApiError, type Change } from "../api";
 import { plural } from "../format";
 import { Icon, Modal, Note } from "../ui";
+import { DownloadButton } from "./ScheduleViews";
 
 const KIND_ICON: Record<string, string> = { added: "add_circle", cancelled: "cancel", moved: "schedule", swapped: "swap_horiz" };
 
@@ -49,6 +50,16 @@ export function Publish({ season, setSeason, toast }: Ctx) {
               </div>
             </>
           )}
+        </div>
+      )}
+      {season.events.length > 0 && (
+        <div className="card">
+          <div className="card-head"><h2 style={{ flex: 1 }}>Spreadsheet</h2></div>
+          <p className="muted small" style={{ marginBottom: 12 }}>The whole schedule, a summary, and a sheet for each team. Opens in Excel, Google Sheets or Numbers.</p>
+          <div className="row wrap">
+            <DownloadButton season={season} toast={toast} label={first || n ? "Download the draft" : "Download the schedule"} />
+            {!first && n > 0 && <DownloadButton season={season} toast={toast} which="published" label="Download what families have" />}
+          </div>
         </div>
       )}
       {season.unplaced.length > 0 && n > 0 && (

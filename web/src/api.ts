@@ -72,8 +72,22 @@ export interface Report {
     early: number; late: number; early_or_late: number; back_to_back_days: number; busiest_week: number;
     longest_gap_days: number; quickest_rematch_days: number | null; travel_km: number; away_from_home_venue: number;
   }[];
-  flags: { message: string; team_ids: string[] }[];
+  flags: { message: string; team_ids: string[]; kind: string }[];
   family_clashes: string[];
+  divisions?: DivisionLine[];
+  highlights?: string[];
+}
+
+export interface SummaryRow {
+  team_id: string; name: string; division: string; target: number; games: number;
+  published_games: number; unpublished_games: number; practices: number; published_practices: number;
+  unpublished_practices: number; home: number; away: number; waiting: number; locked: number;
+}
+
+export interface DivisionLine {
+  name: string; teams: number; games: number; target: number; fewest_games: number; most_games: number;
+  home_away_worst: number; early_late_fewest: number; early_late_most: number; back_to_back_days: number;
+  longest_gap_days: number; quickest_rematch_days: number | null; flags: number; verdict: string;
 }
 
 export interface Explanation {
@@ -138,6 +152,7 @@ export const api = {
   unschedule: (id: string, eid: string) => call<Season>("POST", `/seasons/${id}/events/${eid}/unschedule`),
   undo: (id: string) => call<Season>("POST", `/seasons/${id}/undo`),
   redo: (id: string) => call<Season>("POST", `/seasons/${id}/redo`),
+  summary: (id: string) => call<SummaryRow[]>("GET", `/seasons/${id}/summary`),
   report: (id: string) => call<Report>("GET", `/seasons/${id}/report`),
   explain: (id: string) => call<Explanation>("GET", `/seasons/${id}/explain`),
   applySuggestion: (id: string, index: number) => call<{ job_id: string }>("POST", `/seasons/${id}/explain/apply`, { index }),

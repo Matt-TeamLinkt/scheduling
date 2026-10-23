@@ -306,7 +306,9 @@ def _verdict(d: DivisionLine) -> str:
         if d.home_away_worst == 0
         else (f"home and away within {d.home_away_worst}")
     )
-    if d.early_late_fewest == d.early_late_most:
+    if d.early_late_most == 0:
+        times = "no early or late games"
+    elif d.early_late_fewest == d.early_late_most:
         times = f"{d.early_late_most} early or late each"
     else:
         times = f"{d.early_late_fewest} to {d.early_late_most} early or late games each"

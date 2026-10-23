@@ -87,9 +87,9 @@ Defaults taken while the open questions are pending: a coach's "unavailable" tim
 - [x] 5. Coach restrictions: unavailable days and times (firm), preferred times (soft, shown in the fairness report).
 
 **Step 2 · Views and reporting**
-- [ ] 6. Week and month calendars, by-venue view, and an events summary table per team (games and practices, published and unpublished, home/away, division filter, search).
-- [ ] 7. Fuller fairness summary: per division and per team, outliers highlighted, "what stands out" notes.
-- [ ] 8. Publish to a spreadsheet (Excel download: full schedule plus a sheet per team).
+- [x] 6. Week and month calendars, by-venue view, and an events summary table per team (games and practices, published and unpublished, home/away, division filter, search).
+- [x] 7. Fuller fairness summary: per division and per team, outliers highlighted, "what stands out" notes.
+- [x] 8. Publish to a spreadsheet (Excel download: full schedule plus a sheet per team).
 
 **Step 3 · Real-world seasons**
 - [ ] 9. Import existing games and practices (preview then apply; imported games are locked and scheduled around).

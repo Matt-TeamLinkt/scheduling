@@ -4,6 +4,7 @@ import { api, ApiError, waitForJob, type Explanation, type GameEvent, type Match
 import { divisionColor, fmtDay, fmtTime, isoDate, Lookup, minutes, parseDate, plural } from "../format";
 import { Icon, Modal, Note, Progress } from "../ui";
 import { GenerateDialog } from "./GenerateDialog";
+import { MonthView, SummaryView, VenueView, WeekView } from "./ScheduleViews";
 
 const PX_PER_MIN = 1.1;
 
@@ -12,7 +13,7 @@ export function Schedule({ season, setSeason, toast }: Ctx) {
   const look = useMemo(() => new Lookup(lg), [lg]);
   const [generating, setGenerating] = useState(false);
   const [locking, setLocking] = useState(false);
-  const [view, setView] = useState<"date" | "team">("date");
+  const [view, setView] = useState<"date" | "week" | "month" | "venue" | "team" | "summary">("date");
   const [division, setDivision] = useState("");
   // A game from the "Needs a spot" list that's being placed, and where it can go.
   const [picked, setPicked] = useState<string | null>(null);
@@ -53,10 +54,11 @@ export function Schedule({ season, setSeason, toast }: Ctx) {
             <Icon name="auto_awesome" style={{ fontSize: 18 }} />{season.events.length ? "Generate again" : "Generate schedule"}
           </button>
           <div className="tabs">
-            <button className={`tab${view === "date" ? " active" : ""}`} onClick={() => setView("date")}>By date</button>
-            <button className={`tab${view === "team" ? " active" : ""}`} onClick={() => setView("team")}>By team</button>
+            {([["date", "Day"], ["week", "Week"], ["month", "Month"], ["venue", "By venue"], ["team", "By team"], ["summary", "Summary"]] as const).map(([v, label]) => (
+              <button key={v} className={`tab${view === v ? " active" : ""}`} onClick={() => setView(v)}>{label}</button>
+            ))}
           </div>
-          {view === "date" && (
+          {(view === "date" || view === "week" || view === "month") && (
             <select className="input" value={division} onChange={(e) => setDivision(e.target.value)} aria-label="Highlight a division">
               <option value="">All divisions</option>
               {lg.divisions.map((d) => <option key={d.id} value={d.id}>{d.name}</option>)}
@@ -70,11 +72,13 @@ export function Schedule({ season, setSeason, toast }: Ctx) {
             {season.unplaced.length > 0 && <> · <span style={{ color: "var(--tl-warning)", fontWeight: 600 }}>{season.unplaced.length} need a spot</span></>}
           </span>
         </div>
-        {view === "date" ? (
-          <DateView {...{ season, setSeason, toast, look, day, setDay, dates, division, picked, spots, dragId, setDragId }} />
-        ) : (
-          <TeamView {...{ season, setSeason, toast, look }} />
-        )}
+        {view === "date" && <DateView {...{ season, setSeason, toast, look, day, setDay, dates, division, picked, spots, dragId, setDragId }} />}
+        {view === "team" && <TeamView {...{ season, setSeason, toast, look }} />}
+        {view !== "date" && view !== "team" && (() => {
+          const props = { season, toast, look, day, setDay, division, openDay: (d: string) => { setDay(d); setView("date"); } };
+          return view === "week" ? <WeekView {...props} /> : view === "month" ? <MonthView {...props} />
+            : view === "venue" ? <VenueView {...props} /> : <SummaryView {...props} />;
+        })()}
       </div>
       <Side {...{ season, setSeason, toast, look, picked, setPicked, spots, setDragId }}
         showDay={(d) => { setView("date"); setDay(d); }} />
