@@ -1,6 +1,7 @@
 """Precompute everything the preview page shows, using the real engine.
 
     cd engine && uv run python ../web/scripts/make_preview_data.py ../web/dist-demo/demo-data.json
+"""
 
 
 import json
@@ -21,6 +22,8 @@ def report_json(lg, events):
         "teams": [asdict(t) | {"early_or_late": t.early_or_late} for t in rep.teams],
         "flags": [asdict(f) for f in rep.flags],
         "family_clashes": rep.family_clashes,
+        "divisions": [asdict(d) for d in rep.divisions],
+        "highlights": rep.highlights,
     }
 
 
